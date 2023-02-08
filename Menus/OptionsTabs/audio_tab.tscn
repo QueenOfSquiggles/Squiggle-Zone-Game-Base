@@ -1,0 +1,166 @@
+[gd_scene load_steps=4 format=3 uid="uid://b74414wseyp32"]
+
+[ext_resource type="Script" path="res://Menus/OptionsTabs/AudioTab.cs" id="1_uko75"]
+[ext_resource type="PackedScene" uid="uid://bymbr517f7ic2" path="res://Menus/OptionsTabs/slider_combo.tscn" id="3_fbm1r"]
+[ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="3_ys2l5"]
+
+[node name="CenterContainer" type="MarginContainer"]
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Audio" type="PanelContainer" parent="."]
+layout_mode = 2
+script = ExtResource("1_uko75")
+path_slider_main = NodePath("MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusMain/HSlider")
+path_slider_vo = NodePath("MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusVO/HSlider")
+path_slider_sfx = NodePath("MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusSFX/HSlider")
+path_slider_creature = NodePath("MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusCreature/HSlider")
+path_slider_drones = NodePath("MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusDrone/HSlider")
+
+[node name="MarginContainer" type="MarginContainer" parent="Audio"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Audio/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Audio Volumes"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Note: values are in decibels"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Audio/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Audio/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Audio/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="BusMain" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("3_fbm1r")]
+layout_mode = 2
+text = "Main"
+slider_value = -6.0
+min_value = -30.0
+max_value = 0.0
+
+[node name="Lbl" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusMain" index="0"]
+text = "Main"
+
+[node name="HSlider" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusMain" index="1"]
+min_value = -30.0
+max_value = 0.0
+value = -6.0
+
+[node name="ValueLbl" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusMain" index="2"]
+text = "-6"
+
+[node name="BusVO" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("3_fbm1r")]
+layout_mode = 2
+text = "Voice Over"
+slider_value = 0.0
+min_value = -30.0
+max_value = 0.0
+
+[node name="Lbl" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusVO" index="0"]
+text = "Voice Over"
+
+[node name="HSlider" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusVO" index="1"]
+min_value = -30.0
+max_value = 0.0
+value = 0.0
+
+[node name="ValueLbl" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusVO" index="2"]
+text = "0"
+
+[node name="BusSFX" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("3_fbm1r")]
+layout_mode = 2
+text = "Sound Effects"
+slider_value = 0.0
+min_value = -30.0
+max_value = 0.0
+
+[node name="Lbl" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusSFX" index="0"]
+text = "Sound Effects"
+
+[node name="HSlider" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusSFX" index="1"]
+min_value = -30.0
+max_value = 0.0
+value = 0.0
+
+[node name="ValueLbl" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusSFX" index="2"]
+text = "0"
+
+[node name="BusCreature" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("3_fbm1r")]
+layout_mode = 2
+text = "Creature Sounds"
+slider_value = 0.0
+min_value = -30.0
+max_value = 0.0
+
+[node name="Lbl" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusCreature" index="0"]
+text = "Creature Sounds"
+
+[node name="HSlider" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusCreature" index="1"]
+min_value = -30.0
+max_value = 0.0
+value = 0.0
+
+[node name="ValueLbl" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusCreature" index="2"]
+text = "0"
+
+[node name="BusDrone" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("3_fbm1r")]
+layout_mode = 2
+text = "Drones and Background"
+slider_value = 0.0
+min_value = -30.0
+max_value = 0.0
+
+[node name="Lbl" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusDrone" index="0"]
+text = "Drones and Background"
+
+[node name="HSlider" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusDrone" index="1"]
+min_value = -30.0
+max_value = 0.0
+value = 0.0
+
+[node name="ValueLbl" parent="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusDrone" index="2"]
+text = "0"
+
+[node name="HSeparator3" type="HSeparator" parent="Audio/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="BtnApply" type="Button" parent="Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Apply Changes"
+
+[node name="RequestFocusOnParent" parent="." instance=ExtResource("3_ys2l5")]
+layout_mode = 2
+focus_target = NodePath("../Audio/MarginContainer/VBoxContainer/BtnApply")
+
+[connection signal="pressed" from="Audio/MarginContainer/VBoxContainer/BtnApply" to="Audio" method="ApplyChanges"]
+
+[editable path="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusMain"]
+[editable path="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusVO"]
+[editable path="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusSFX"]
+[editable path="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusCreature"]
+[editable path="Audio/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/BusDrone"]

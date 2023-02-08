@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkli2ej8ipnj5"]
+
+[ext_resource type="Script" path="res://SquiggleZonePrefabs/ControlsHelp/LoadControlsMappings.cs" id="1_vvb50"]
+
+[node name="LoadControlsMappings" type="Node"]
+script = ExtResource("1_vvb50")

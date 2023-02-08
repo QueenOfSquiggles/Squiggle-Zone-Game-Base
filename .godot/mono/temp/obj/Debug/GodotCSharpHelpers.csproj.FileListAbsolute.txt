@@ -1,0 +1,17 @@
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/bin/Debug/GodotCSharpHelpers.deps.json
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/bin/Debug/GodotCSharpHelpers.runtimeconfig.json
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/bin/Debug/GodotCSharpHelpers.dll
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/bin/Debug/ref/GodotCSharpHelpers.dll
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/bin/Debug/GodotCSharpHelpers.pdb
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/bin/Debug/GodotSharp.dll
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/bin/Debug/GodotSharpEditor.dll
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/obj/Debug/GodotCSharpHelpers.csproj.AssemblyReference.cache
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/obj/Debug/GodotCSharpHelpers.GeneratedMSBuildEditorConfig.editorconfig
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/obj/Debug/GodotCSharpHelpers.AssemblyInfoInputs.cache
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/obj/Debug/GodotCSharpHelpers.AssemblyInfo.cs
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/obj/Debug/GodotCSharpHelpers.csproj.CoreCompileInputs.cache
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/obj/Debug/GodotCSharpHelpers.csproj.CopyComplete
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/obj/Debug/GodotCSharpHelpers.dll
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/obj/Debug/ref/GodotCSharpHelpers.dll
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/obj/Debug/GodotCSharpHelpers.pdb
+/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/.godot/mono/temp/obj/Debug/GodotCSharpHelpers.genruntimeconfig.cache

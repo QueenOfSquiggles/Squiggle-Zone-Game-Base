@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxclj8yfkmgaf"]
+
+[ext_resource type="Script" path="res://addons/squiggle_zone/modules/event/EventEmitter.cs" id="1_ka1ts"]
+
+[node name="EventEmitter" type="Node"]
+script = ExtResource("1_ka1ts")

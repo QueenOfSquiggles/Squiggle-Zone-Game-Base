@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://o5guhektbdyw"]
+
+[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://addons/squiggle_zone/resources/theme/default_theme.tres" id="1_6d21t"]
+[ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="2_4gb37"]
+[ext_resource type="Script" path="res://Menus/PauseMenu.cs" id="2_u13u6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rp5ep"]
+font_size = 40
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_6d21t")
+script = ExtResource("2_u13u6")
+main_menu_file = "res://Menus/main_menu.tscn"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pause Menu"
+label_settings = SubResource("LabelSettings_rp5ep")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="BtnContinue" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="RequestFocusOnParent" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BtnContinue" instance=ExtResource("2_4gb37")]
+layout_mode = 1
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="BtnMainMenu" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Warning!: You will lose all progress"
+text = "Return to Main Menu"
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BtnContinue" to="." method="ReturnToPlay"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BtnMainMenu" to="." method="ExitToMainMenu"]

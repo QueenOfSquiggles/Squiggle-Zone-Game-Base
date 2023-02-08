@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm1pykxtqla00"]
+
+[ext_resource type="Script" path="res://SquiggleZonePrefabs/Effects/EffectsDriver.cs" id="1_jxcrj"]
+
+[node name="EffectsDriver" type="Node"]
+script = ExtResource("1_jxcrj")

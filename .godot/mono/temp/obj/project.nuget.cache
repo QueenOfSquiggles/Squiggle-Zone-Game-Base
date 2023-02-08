@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "4HfAWH2516/Cwr+GVZMYparNbieXTjAdiHSHzNdSPtcz8WltwUO2ge6l7POToGYo8Rujx73n2c1CmA6DnUUARQ==",
+  "success": true,
+  "projectFilePath": "/home/nessa/Documents/programming/godot/projects/repos/GodotCSharpHelpers/GodotCSharpHelpers.csproj",
+  "expectedPackageFiles": [
+    "/home/nessa/.nuget/packages/godot.sourcegenerators/4.0.0-beta.17/godot.sourcegenerators.4.0.0-beta.17.nupkg.sha512",
+    "/home/nessa/.nuget/packages/godotsharp/4.0.0-beta.17/godotsharp.4.0.0-beta.17.nupkg.sha512",
+    "/home/nessa/.local/share/godot/mono/GodotNuGetFallbackFolder/godotsharpeditor/4.0.0-beta.17/godotsharpeditor.4.0.0-beta.17.nupkg.sha512"
+  ],
+  "logs": []
+}

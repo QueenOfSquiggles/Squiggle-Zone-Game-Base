@@ -11,4 +11,10 @@ public partial class EffectsDriver : Node
     public void ShakeScreen(float speed, float strength, float duration) 
         => Effects.Shake(GetTree(), speed, strength, duration);
 
+    public void ClearEffects()
+    {
+        RumbleController(0, 0);
+        ShakeScreen(0, 0, 0.1f);
+    }
+
 }

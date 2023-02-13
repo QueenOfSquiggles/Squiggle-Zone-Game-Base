@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bkqulwryhe17f"]
+[gd_scene load_steps=5 format=3 uid="uid://bkqulwryhe17f"]
 
 [ext_resource type="Script" path="res://SquiggleZonePrefabs/HUD/DefaultHUD.cs" id="1_jbwxp"]
 
@@ -27,73 +27,6 @@ shadow_size = 0
 shadow_color = Color(0, 0, 0, 0.67451)
 shadow_offset = Vector2(2, 1)
 
-[sub_resource type="Animation" id="Animation_fj7ok"]
-resource_name = "ShowAlert"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AlertPanel:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ym1d2"]
-resource_name = "ShowSubtitle"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SubtitlePanel:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_sa7gu"]
-resource_name = "RESET"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SubtitlePanel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AlertPanel:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qa0t4"]
-_data = {
-"RESET": SubResource("Animation_sa7gu"),
-"ShowAlert": SubResource("Animation_fj7ok"),
-"ShowSubtitle": SubResource("Animation_ym1d2")
-}
-
 [node name="DefaultHUD" type="CanvasLayer"]
 layer = 126
 
@@ -108,10 +41,10 @@ mouse_filter = 2
 script = ExtResource("1_jbwxp")
 path_label_subtitle = NodePath("SubtitlePanel/PanelContainer/Subtitle")
 path_label_alert = NodePath("AlertPanel/MarginContainer/Label")
-path_anim_player = NodePath("AnimationPlayer")
+path_root_subtitle = NodePath("SubtitlePanel")
+path_root_alert = NodePath("AlertPanel")
 
 [node name="SubtitlePanel" type="HBoxContainer" parent="DefaultHUD"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -169,9 +102,3 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 text = "Lorem Ipsum"
 label_settings = SubResource("LabelSettings_37enn")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DefaultHUD"]
-autoplay = "RESET"
-libraries = {
-"": SubResource("AnimationLibrary_qa0t4")
-}

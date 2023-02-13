@@ -89,10 +89,11 @@ public static class BehaviourTreePluginModule
         {
             Add(ep, new TypeValues(){       // BTAction.cs
                 TypeName=c.GetFile(),
-                ScriptPath=$"leaves/conditon/{c}",
+                ScriptPath=$"leaves/condition/{c}",
                 IconPath="icons/bt-query.svg"
             });
         }
+        // res://addons/squiggle_zone/modules/behaviour_tree/leaves/condition/BTCondition.cs
 
     }
 

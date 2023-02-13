@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cq4vwlo5pyd64"]
+[gd_scene load_steps=9 format=3 uid="uid://cq4vwlo5pyd64"]
 
 [ext_resource type="Script" path="res://addons/dynamic-web-content/elements/dynamic_image_button.gd" id="1_0l81w"]
 [ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://addons/squiggle_zone/resources/theme/default_theme.tres" id="1_ivwcn"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c8fgnkcmhxaeh" path="res://icon.svg" id="5_v2dlt"]
 [ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="5_ylw5q"]
 [ext_resource type="PackedScene" uid="uid://bkli2ej8ipnj5" path="res://SquiggleZonePrefabs/ControlsHelp/load_controls_mappings.tscn" id="6_p4f4c"]
+[ext_resource type="PackedScene" uid="uid://njys4o8ciqkn" path="res://SquiggleZonePrefabs/Environment/load_graphics_settings.tscn" id="8_m0fet"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -131,6 +132,8 @@ underline = 1
 uri = "https://queenofsquiggles.itch.io/"
 
 [node name="LoadControlsMappings" parent="." instance=ExtResource("6_p4f4c")]
+
+[node name="LoadGraphicsSettings" parent="." instance=ExtResource("8_m0fet")]
 
 [connection signal="pressed" from="ControlButtons/VBoxContainer/BtnPlay" to="." method="OnBtnPlay"]
 [connection signal="pressed" from="ControlButtons/VBoxContainer/BtnOptions" to="." method="OnBtnOptions"]

@@ -5,6 +5,8 @@ using System;
 
 public partial class GraphicsTab : PanelContainer
 {
+    [Export] private NodePath path_option_fullscreen;
+
     [Export] private NodePath path_check_bloom;
     [Export] private NodePath path_check_ssr;
     [Export] private NodePath path_check_ssao;
@@ -14,6 +16,7 @@ public partial class GraphicsTab : PanelContainer
     [Export] private NodePath path_slider_brightness;
     [Export] private NodePath path_slider_contrast;
     [Export] private NodePath path_slider_saturation;
+    private OptionButton option_fullscreen;
     private CheckBox check_bloom;
     private CheckBox check_ssr;
     private CheckBox check_ssao;
@@ -26,6 +29,7 @@ public partial class GraphicsTab : PanelContainer
 
     public override void _Ready()
     {
+        this.GetNode(path_option_fullscreen, out option_fullscreen);
         this.GetNode(path_check_bloom, out check_bloom);
         this.GetNode(path_check_ssr, out check_ssr);
         this.GetNode(path_check_ssao, out check_ssao);
@@ -35,6 +39,9 @@ public partial class GraphicsTab : PanelContainer
         this.GetNode(path_slider_brightness, out slider_brightness);
         this.GetNode(path_slider_contrast, out slider_contrast);
         this.GetNode(path_slider_saturation, out slider_saturation);
+
+        int current = option_fullscreen.GetItemIndex(Graphics.Instance.Fullscreen);
+        option_fullscreen.Selected = current;
 
         check_bloom.ButtonPressed = Graphics.Instance.Bloom;
         check_ssr.ButtonPressed = Graphics.Instance.SSR;
@@ -49,6 +56,7 @@ public partial class GraphicsTab : PanelContainer
 
     public void ApplyGraphicsSettings()
     {
+        Graphics.Instance.Fullscreen = option_fullscreen.GetSelectedId();
         Graphics.Instance.Bloom = check_bloom.ButtonPressed;
         Graphics.Instance.SSR = check_ssr.ButtonPressed;
         Graphics.Instance.SSAO = check_ssao.ButtonPressed;

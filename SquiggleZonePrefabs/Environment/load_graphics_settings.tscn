@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://njys4o8ciqkn"]
+
+[ext_resource type="Script" path="res://SquiggleZonePrefabs/Environment/LoadGraphicsSettings.cs" id="1_tmfo3"]
+
+[node name="LoadGraphicsSettings" type="Node"]
+script = ExtResource("1_tmfo3")

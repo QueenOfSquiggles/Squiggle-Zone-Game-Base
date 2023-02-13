@@ -1,4 +1,5 @@
 using System;
+using Godot;
 using queen.error;
 
 namespace queen.data;
@@ -10,6 +11,14 @@ public class Graphics
 //  Meaningful information
 //      Defaults assigned as well
 //
+    public int Fullscreen =
+    #if DEBUG
+        // fullscreen by default in release builds. Feels more AAA than trashy indie
+        (int)DisplayServer.WindowMode.Windowed;
+    #else
+        (int)DisplayServer.WindowMode.Fullscreen;
+    #endif
+
     public bool Bloom = true;
     public bool SSR = true;
     public bool SSAO = true;
@@ -46,6 +55,7 @@ public class Graphics
         var loaded = Data.Load<Graphics>(FILE_PATH);
         if (loaded != null) _instance = loaded;
         else SaveSettings();
+        DisplayServer.WindowSetMode((DisplayServer.WindowMode)_instance.Fullscreen);
     }
 
     public static void SaveSettings()
@@ -57,6 +67,8 @@ public class Graphics
     public static void MarkGraphicsChanged()
     {
         Instance.OnGraphicsSettingsChanged?.Invoke();
+        int win_mode = (int)DisplayServer.WindowGetMode();
+        if (win_mode != Instance.Fullscreen) DisplayServer.WindowSetMode((DisplayServer.WindowMode)Instance.Fullscreen);
         SaveSettings();
     }
 }

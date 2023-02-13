@@ -32,7 +32,7 @@ public partial class ScreenShakeDriver : Node
         shake_strength = Mathf.Lerp(shake_strength, 0, decay * (float)delta);
         var off = GetCurrentNoise((float)delta);
  
-        if (camera is CameraBrain brain) brain.Offset = off;
+        if (camera is CameraBrain brain) brain.Offset = new Vector2(off.X, off.Y);
         else camera.Position = off;
     }
 

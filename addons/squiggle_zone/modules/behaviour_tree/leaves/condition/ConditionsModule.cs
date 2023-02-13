@@ -10,7 +10,7 @@ public static class ConditionsModule
     {
         return new string[]
         {
-            "BTConditon.cs"
+            "BTCondition.cs"
         };
     }
 }

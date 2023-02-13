@@ -21,11 +21,8 @@ public class EventsAudio
 {
     public event Action<Vector3> OnAudioSpatial;
     public event Action OnAudio;
-    public event Action<string> OnAudioSubtitled;
-
     public void TriggerOnAudioSpatial(Vector3 position) => OnAudioSpatial?.Invoke(position);
     public void TriggerOnAudio() => OnAudio?.Invoke();
-    public void TriggerOnAudioSubtitled(string text) => OnAudioSubtitled?.Invoke(text);
 }
 
 public class EventsGameplay
@@ -48,9 +45,13 @@ public class EventsUI
 {
     public event Action<Control> RequestGUI;
     public event Action RequestCloseGUI;
-
+    public event Action<string> RequestSubtitle;
+    public event Action<string> RequestAlert;
 
     public void TriggerRequestGUI(Control gui_node) => RequestGUI?.Invoke(gui_node);
     public void TriggerRequestCloseGUI() => RequestCloseGUI?.Invoke();
+
+    public void TriggerRequestSubtitle(string text) => RequestSubtitle?.Invoke(text);
+    public void TriggerRequestAlert(string text) => RequestAlert?.Invoke(text);
 
 }

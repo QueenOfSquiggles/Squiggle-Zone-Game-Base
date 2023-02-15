@@ -88,5 +88,8 @@ public class Access
         var font = GD.Load<FontFile>(path);
         if (font == null) Print.Error($"Failed to load font option from file: {path}");
         else ThemeDB.GetProjectTheme().DefaultFont = font;
+
+        // Time scale
+        Engine.TimeScale = Instance.EngineTimeScale;
     }
 }

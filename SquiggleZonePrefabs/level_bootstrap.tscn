@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dcyifwrlopp61" path="res://SquiggleZonePrefabs/HUD/hud_requests.tscn" id="3_63f0d"]
 [ext_resource type="PackedScene" uid="uid://bkqulwryhe17f" path="res://SquiggleZonePrefabs/HUD/default_hud.tscn" id="4_46eni"]
 [ext_resource type="PackedScene" uid="uid://bjc5164lfglwe" path="res://Menus/pause_menu_controller.tscn" id="5_w8dr2"]
-[ext_resource type="Script" path="res://SquiggleZonePrefabs/CutsceneSkipper.cs" id="6_sygns"]
+[ext_resource type="PackedScene" uid="uid://crwvvncyw2unh" path="res://SquiggleZonePrefabs/Effects/cutscene_skipper.tscn" id="6_dlr1c"]
 
 [node name="LevelBootstrap" type="Node"]
 
@@ -19,5 +19,4 @@
 
 [node name="DefaultHUD" parent="." instance=ExtResource("4_46eni")]
 
-[node name="CutsceneSkipper" type="Node" parent="."]
-script = ExtResource("6_sygns")
+[node name="CutsceneSkipper" parent="." instance=ExtResource("6_dlr1c")]

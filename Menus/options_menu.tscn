@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpnyuxbbl11b4"]
+[gd_scene load_steps=12 format=3]
 
-[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://addons/squiggle_zone/resources/theme/default_theme.tres" id="1_3g7ei"]
+[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://Assets/Theme/default_theme.tres" id="1_3g7ei"]
 [ext_resource type="PackedScene" uid="uid://clvmlkkyl7r1v" path="res://Menus/OptionsTabs/gameplay_tab.tscn" id="1_agasg"]
 [ext_resource type="Script" path="res://Menus/OptionsMenu.cs" id="1_hipj7"]
 [ext_resource type="Material" uid="uid://b1ehu0o3ymh3v" path="res://Menus/menu_panorama_material.tres" id="2_hfgjw"]

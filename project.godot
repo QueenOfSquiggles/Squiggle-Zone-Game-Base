@@ -18,7 +18,7 @@ cache/content_auto_refresh=false
 [application]
 
 config/name="SquiggleZone Game Base"
-run/main_scene="res://Menus/main_menu.tscn"
+run/main_scene="res://LaunchAnimation/launch_sequence.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -37,7 +37,7 @@ enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg", "res://
 
 [gui]
 
-theme/custom="res://addons/squiggle_zone/resources/theme/default_theme.tres"
+theme/custom="res://Assets/Theme/default_theme.tres"
 
 [input]
 

@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkpkes5d42sfb"]
+[gd_scene load_steps=6 format=3]
 
-[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://addons/squiggle_zone/resources/theme/default_theme.tres" id="1_eihpe"]
+[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://Assets/Theme/default_theme.tres" id="1_eihpe"]
 [ext_resource type="Script" path="res://Menus/OptionsTabs/accessibility_tab.cs" id="1_qvlnx"]
 [ext_resource type="Script" path="res://Menus/OptionsTabs/CheckToggleDescriptions.gd" id="2_kk8x0"]
 [ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="2_ukvq2"]

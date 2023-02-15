@@ -2,13 +2,13 @@ import subprocess
 import configparser
 import os
 import sys
-import time
 
 # note: this is edited from the GIST to allow it to be in a different directory.
 
 
 DEBUG = False
 RELEASE_CONFIG_FILE = r'release_config.cfg'
+BUTLER_CMD = '$HOME/.config/itch/apps/butler/butler'
 
 def RunCommand(cmd : str):
     result = subprocess.run(cmd, shell=True)
@@ -24,13 +24,15 @@ def StripChannelName(path : str) -> str:
         return path.removesuffix(".dmg")
     return path
 
-def ProcessChannel(path : str):
+def ProcessChannel(path : str, name: str):
     print(f"\n\n\tProcessing channel for: {path}")
-    channel = StripChannelName(path)
+    channel = StripChannelName(name)
 
-    cmd = f'butler push {path} {author}/{game}:{channel}'
+    cmd = f'{BUTLER_CMD} push {path} {author}/{game}:{channel}'
     if version != 'auto':
         cmd += f' --userversion {version}'
+    if DEBUG:
+        cmd += " -v"
     print(cmd)
     RunCommand(cmd)
 
@@ -42,14 +44,7 @@ def IsValidArchive(path : str) -> bool:
     if (path.lower().endswith(".dmg")):
         return True
     return False
-
-def RunProgram():
-    dir_obj = os.scandir(root_path) # reload to start again
-    for entry in dir_obj:
-        if entry.is_dir():
-            ProcessChannel(entry.path)
-        if entry.is_file() and IsValidArchive(entry.name):
-            ProcessChannel(entry.path)
+ 
 
 # read args
 root_path = r"./export"
@@ -74,18 +69,14 @@ for entry in dir_obj:
         print(f"Archive: {entry.name}")
 
 conf = input("Planned channels have been listed above. Enter 'Y' to confirm...")
-if conf.lower() != 'y':
-    print("Message received. Project will not be pushed to Itch.io")
-else:
-    RunProgram()
 
-print("Execution completed. Closing terminal in...")
+if conf.lower() == 'y':
+    dir_obj = os.scandir(root_path) # reload to start again
+    for entry in dir_obj:
+        if entry.is_dir():
+            ProcessChannel(entry.path, entry.name)
+        if entry.is_file() and IsValidArchive(entry.name):
+            ProcessChannel(entry.path, entry.name)
 
-print("3...")
-time.sleep(1.0)
-print("2...")
-time.sleep(1.0)
-print("1...")
-time.sleep(1.0)
 
-quit()
+input("\n\nPress enter to close terminal...")

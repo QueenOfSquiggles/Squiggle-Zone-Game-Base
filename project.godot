@@ -10,7 +10,7 @@ config_version=5
 
 [DynamicContentLoading]
 
-links/webpage_root="https://queenofsquiggles.github.io/data/s"
+links/webpage_root="https://queenofsquiggles.github.io/data/"
 links/game_id="default-game-id"
 cache/use_cache=true
 cache/content_auto_refresh=false

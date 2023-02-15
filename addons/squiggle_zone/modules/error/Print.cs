@@ -6,18 +6,18 @@ public static class Print
 {
     public static void Error(string msg)
     {
-        GD.PrintRich($"[b][color=red]{msg}[/color][/b]");
+        Colour(msg, "red");
         GD.PushError(msg);
     }
 
     public static void Warn(string msg)
     {
-        GD.PrintRich($"[b][color=yellow]{msg}[/color][/b]");
+        Colour(msg, "yellow");
         GD.PushWarning(msg);
     }
     public static void Info(string msg)
     {
-        Colour(msg, "blue");
+        Colour(msg, "cyan");
     }
 
     public static void Colour(string msg, string colour)

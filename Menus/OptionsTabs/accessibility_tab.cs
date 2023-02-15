@@ -24,6 +24,8 @@ public partial class accessibility_tab : PanelContainer
     private HSlider slider_time_scale;
     private OptionButton option_font;
 
+    private bool FontHasChanged = false;
+
     public override void _Ready()
     {
         this.GetNode(path_checkbox_no_flashing_lights, out checkbox_no_flashing_lights);
@@ -74,11 +76,18 @@ public partial class accessibility_tab : PanelContainer
         => Access.Instance.EngineTimeScale = (float)value;
 
     private void OnFontSelected(long index)
-        => Access.Instance.FontOption = option_font.GetItemId(index);
+    {
+        var target = option_font.GetItemId((int)index);
+        if (target == Access.Instance.FontOption) return;
+
+        Access.Instance.FontOption = target;
+        FontHasChanged = true;
+    }
     
     public void ApplyChanges()
     {
         Access.SaveSettings();
         Effects.SaveSettings();
+        if (FontHasChanged) GetTree().ReloadCurrentScene();
     }
 }

@@ -6,6 +6,7 @@ using System;
 
 public partial class LaunchSequence : Control
 {
+    [Export] private bool testing = false;
     [Export(PropertyHint.File, "*.tscn")] private string main_menu_scene;
     [Export(PropertyHint.Range, "0,1,0.01")] private float chance_do_anyway = 0.25f;
     [Export] private NodePath path_anim;
@@ -28,10 +29,25 @@ public partial class LaunchSequence : Control
 
         this.GetNode(path_anim, out anim);
         var ran = new Random();
-        if (!Stats.Instance.FirstTimeLaunch && ran.NextSingle() > chance_do_anyway) 
+        if (!Stats.Instance.FirstTimeLaunch && ran.NextSingle() > chance_do_anyway)
         {
+            #if DEBUG
+
+            if(!testing)
+            {
+                EndLaunchSequence();
+                return;
+            } else {
+                // technically doesn't have to be fixed. But for professionalism I want it to be
+                Print.Warn("Launch Sequence is currently set to testing!!! Clear this before release!!!");
+            }
+
+            #else
+
             EndLaunchSequence();
             return;
+
+            #endif
         }
 
         Stats.Instance.FirstTimeLaunch = false;

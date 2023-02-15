@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cviculf0f5j6n"]
+[gd_scene load_steps=6 format=3 uid="uid://cviculf0f5j6n"]
 
 [ext_resource type="Script" path="res://Menus/OptionsTabs/accessibility_tab.cs" id="1_qvlnx"]
 [ext_resource type="Script" path="res://Menus/OptionsTabs/CheckToggleDescriptions.gd" id="2_kk8x0"]
 [ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="2_ukvq2"]
 [ext_resource type="PackedScene" uid="uid://bymbr517f7ic2" path="res://Menus/OptionsTabs/slider_combo.tscn" id="2_wr3cm"]
+[ext_resource type="Script" path="res://Menus/OptionsTabs/clear_scroll.gd" id="3_m8o3s"]
 
 [node name="CenterContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -27,6 +28,8 @@ path_slider_screen_shake_strength = NodePath("VBoxContainer/ScrollContainer/Marg
 path_slider_rumble_duration = NodePath("VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/ControllerRumble/MaxDuration")
 path_slider_screen_shake_duration = NodePath("VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/ScreenShake/MaxDuration")
 path_slider_max_volume = NodePath("VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/AudioLimit/SliderCombo")
+path_slider_engine_time_scale = NodePath("VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/EngineTimeScale/Stength")
+path_option_font = NodePath("VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FontStyle2/FontStyle")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Accessibility"]
 layout_mode = 2
@@ -66,8 +69,8 @@ custom_minimum_size = Vector2(0, 0.08)
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
-scroll_vertical = 1077
 horizontal_scroll_mode = 0
+script = ExtResource("3_m8o3s")
 
 [node name="MarginContainer" type="MarginContainer" parent="Accessibility/VBoxContainer/ScrollContainer"]
 layout_mode = 2
@@ -84,6 +87,11 @@ size_flags_vertical = 0
 
 [node name="FontStyle2" type="VBoxContainer" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="Label5" type="Label" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FontStyle2"]
+layout_mode = 2
+text = "UI Font"
+horizontal_alignment = 1
 
 [node name="FontStyle" type="OptionButton" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FontStyle2"]
 layout_mode = 2
@@ -108,6 +116,11 @@ layout_mode = 2
 [node name="FlashingLights" type="VBoxContainer" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="Label4" type="Label" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FlashingLights"]
+layout_mode = 2
+text = "Flashing Lights"
+horizontal_alignment = 1
+
 [node name="CheckBox_NoFlashingLights" type="CheckBox" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FlashingLights"]
 layout_mode = 2
 text = "Less Flashing Lights"
@@ -126,6 +139,11 @@ layout_mode = 2
 
 [node name="AudioLimit" type="VBoxContainer" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="Label3" type="Label" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/AudioLimit"]
+layout_mode = 2
+text = "Volume Limiting"
+horizontal_alignment = 1
 
 [node name="SliderCombo" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/AudioLimit" instance=ExtResource("2_wr3cm")]
 layout_mode = 2
@@ -247,7 +265,7 @@ uri = "https://tech.lgbt/@queenofsquiggles"
 
 [node name="RequestFocusOnParent" parent="." instance=ExtResource("2_ukvq2")]
 layout_mode = 2
-focus_target = NodePath("../Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FlashingLights/CheckBox_NoFlashingLights")
+focus_target = NodePath("../Accessibility/VBoxContainer/HBoxContainer/BtnApplyChanges")
 
 [connection signal="pressed" from="Accessibility/VBoxContainer/HBoxContainer/BtnApplyChanges" to="Accessibility" method="ApplyChanges"]
 [connection signal="toggled" from="Accessibility/VBoxContainer/HBoxContainer/CheckToggleDescriptions" to="Accessibility/VBoxContainer/HBoxContainer/CheckToggleDescriptions" method="_on_toggled"]

@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cth237pyhij61"]
+[gd_scene load_steps=11 format=3 uid="uid://cth237pyhij61"]
 
+[ext_resource type="PackedScene" uid="uid://bhl34j2ewdlqc" path="res://SquiggleZonePrefabs/AccessHelp/force_access_load.tscn" id="2_kdbm6"]
 [ext_resource type="Script" path="res://LaunchAnimation/LaunchSequence.cs" id="2_q1rby"]
 [ext_resource type="PackedScene" uid="uid://crwvvncyw2unh" path="res://SquiggleZonePrefabs/Effects/cutscene_skipper.tscn" id="3_ngdg6"]
 [ext_resource type="Texture2D" uid="uid://b8oldtahjeklr" path="res://LaunchAnimation/godot_logo_large_color_dark.svg" id="4_xynbv"]
@@ -158,8 +159,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_q1rby")
+testing = true
 main_menu_scene = "res://Menus/main_menu.tscn"
 path_anim = NodePath("AnimationPlayer")
+
+[node name="ForceAccessLoad" parent="." instance=ExtResource("2_kdbm6")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

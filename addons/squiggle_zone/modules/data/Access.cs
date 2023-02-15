@@ -50,7 +50,11 @@ public class Access
     {   
         _instance = new Access();
         var loaded = Data.Load<Access>(FILE_PATH);
-        if (loaded != null) _instance = loaded;
+        if (loaded != null)
+        {
+            _instance = loaded;
+            ApplyChanges();
+        }
     }
 
     public static void SaveSettings()

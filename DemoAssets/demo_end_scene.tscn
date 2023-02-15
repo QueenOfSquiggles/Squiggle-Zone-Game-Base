@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://crbvlqtboqmtk"]
+[gd_scene load_steps=6 format=3 uid="uid://crbvlqtboqmtk"]
 
-[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://Assets/Theme/default_theme.tres" id="1_w1spq"]
 [ext_resource type="Script" path="res://DemoAssets/DemoEndScene.cs" id="2_5jid3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_j3ix6"]
@@ -99,7 +98,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_w1spq")
 script = ExtResource("2_5jid3")
 main_menu_scene = "res://Menus/main_menu.tscn"
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://8j1geqm1auaf"]
+[gd_scene load_steps=7 format=3 uid="uid://8j1geqm1auaf"]
 
 [ext_resource type="Script" path="res://addons/dynamic-web-content/elements/dynamic_image_button.gd" id="1_0l81w"]
-[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://Assets/Theme/default_theme.tres" id="1_fbt7l"]
 [ext_resource type="Script" path="res://Menus/MainMenu.cs" id="2_pr43d"]
 [ext_resource type="Material" uid="uid://b1ehu0o3ymh3v" path="res://Menus/menu_panorama_material.tres" id="5_82qgo"]
 [ext_resource type="Texture2D" uid="uid://c8fgnkcmhxaeh" path="res://icon.svg" id="5_v2dlt"]
@@ -15,12 +14,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_fbt7l")
 script = ExtResource("2_pr43d")
 play_scene = "res://Game/Fully3DWorld/testing_3d_world.tscn"
 options_scene = "res://Menus/options_menu.tscn"
 credits_scene = "res://Menus/credits_scene.tscn"
-path_pirate_popup = NodePath("PirateDialog")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_repeat = 2
@@ -48,6 +45,7 @@ grow_vertical = 0
 
 [node name="DynamicSocialContent" type="HBoxContainer" parent="CenterContainer"]
 layout_mode = 2
+theme_override_constants/separation = 18
 
 [node name="SocialButton_Video" type="PanelContainer" parent="CenterContainer/DynamicSocialContent"]
 custom_minimum_size = Vector2(256, 256)
@@ -109,12 +107,6 @@ offset_right = 550.0
 offset_bottom = 146.0
 texture = ExtResource("5_v2dlt")
 expand_mode = 2
-
-[node name="PirateDialog" type="ConfirmationDialog" parent="."]
-initial_position = 1
-title = "Pirate Edition"
-dialog_text = "Hello! It appears you are using the \"Pirate Edition\" of this game. I completely understand if you are unable to pay right now, but if you are enjoying the game and/or would like to support me so I can keep making more games, I would really appreciate a donation or whatever you can give!"
-dialog_autowrap = true
 
 [node name="LinkButton" type="LinkButton" parent="."]
 layout_mode = 1

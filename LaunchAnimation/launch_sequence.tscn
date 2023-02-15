@@ -1,6 +1,5 @@
-[gd_scene load_steps=11 format=3 uid="uid://cth237pyhij61"]
+[gd_scene load_steps=10 format=3 uid="uid://cth237pyhij61"]
 
-[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://Assets/Theme/default_theme.tres" id="1_ems8w"]
 [ext_resource type="Script" path="res://LaunchAnimation/LaunchSequence.cs" id="2_q1rby"]
 [ext_resource type="PackedScene" uid="uid://crwvvncyw2unh" path="res://SquiggleZonePrefabs/Effects/cutscene_skipper.tscn" id="3_ngdg6"]
 [ext_resource type="Texture2D" uid="uid://b8oldtahjeklr" path="res://LaunchAnimation/godot_logo_large_color_dark.svg" id="4_xynbv"]
@@ -158,7 +157,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_ems8w")
 script = ExtResource("2_q1rby")
 main_menu_scene = "res://Menus/main_menu.tscn"
 path_anim = NodePath("AnimationPlayer")

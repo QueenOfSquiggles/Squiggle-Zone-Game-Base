@@ -1,12 +1,11 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=11 format=3 uid="uid://c7fyixeftq6wi"]
 
-[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://Assets/Theme/default_theme.tres" id="1_3g7ei"]
 [ext_resource type="PackedScene" uid="uid://clvmlkkyl7r1v" path="res://Menus/OptionsTabs/gameplay_tab.tscn" id="1_agasg"]
 [ext_resource type="Script" path="res://Menus/OptionsMenu.cs" id="1_hipj7"]
 [ext_resource type="Material" uid="uid://b1ehu0o3ymh3v" path="res://Menus/menu_panorama_material.tres" id="2_hfgjw"]
 [ext_resource type="PackedScene" uid="uid://b74414wseyp32" path="res://Menus/OptionsTabs/audio_tab.tscn" id="2_x8b24"]
 [ext_resource type="Texture2D" uid="uid://c8fgnkcmhxaeh" path="res://icon.svg" id="3_fwm44"]
-[ext_resource type="PackedScene" uid="uid://dkpkes5d42sfb" path="res://Menus/OptionsTabs/accessibility_tab.tscn" id="3_si5nr"]
+[ext_resource type="PackedScene" uid="uid://cviculf0f5j6n" path="res://Menus/OptionsTabs/accessibility_tab.tscn" id="3_si5nr"]
 [ext_resource type="Script" path="res://Menus/TabContainerGamepadSupport.cs" id="4_uas64"]
 [ext_resource type="PackedScene" uid="uid://mqlco2j1lvqy" path="res://Menus/OptionsTabs/graphics_tab.tscn" id="5_uxrhy"]
 [ext_resource type="PackedScene" uid="uid://d03cwwvo648ge" path="res://Menus/OptionsTabs/controls_tab.tscn" id="8_8g037"]
@@ -19,7 +18,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_3g7ei")
 script = ExtResource("1_hipj7")
 main_menu_path = "res://Menus/main_menu.tscn"
 
@@ -35,56 +33,52 @@ grow_vertical = 2
 texture = ExtResource("3_fwm44")
 expand_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 tab_alignment = 1
 script = ExtResource("4_uas64")
 
-[node name="Gameplay" parent="MarginContainer/TabContainer" instance=ExtResource("1_agasg")]
+[node name="Gameplay" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("1_agasg")]
 layout_mode = 2
 
-[node name="Graphics" parent="MarginContainer/TabContainer" instance=ExtResource("5_uxrhy")]
+[node name="Graphics" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("5_uxrhy")]
 visible = false
 layout_mode = 2
 
-[node name="Audio" parent="MarginContainer/TabContainer" instance=ExtResource("2_x8b24")]
+[node name="Audio" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("2_x8b24")]
 visible = false
 layout_mode = 2
 
-[node name="Accessibility" parent="MarginContainer/TabContainer" instance=ExtResource("3_si5nr")]
+[node name="Accessibility" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("3_si5nr")]
 visible = false
 layout_mode = 2
 
-[node name="Controls" parent="MarginContainer/TabContainer" instance=ExtResource("8_8g037")]
+[node name="Controls" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("8_8g037")]
 visible = false
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -69.0
-offset_right = 196.0
-grow_vertical = 0
-
-[node name="Button" type="Button" parent="PanelContainer"]
+[node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Return to Main Menu"
 
-[node name="RequestFocusOnParent" parent="PanelContainer/Button" instance=ExtResource("10_ttr8u")]
+[node name="RequestFocusOnParent" parent="VBoxContainer/Button" instance=ExtResource("10_ttr8u")]
 layout_mode = 1
 
-[connection signal="pressed" from="PanelContainer/Button" to="." method="OnMenuButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="OnMenuButtonPressed"]

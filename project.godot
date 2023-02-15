@@ -13,7 +13,7 @@ config_version=5
 links/webpage_root="https://queenofsquiggles.github.io/data/"
 links/game_id="default-game-id"
 cache/use_cache=true
-cache/content_auto_refresh=false
+cache/content_auto_refresh=true
 
 [application]
 
@@ -38,6 +38,7 @@ enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg", "res://
 [gui]
 
 theme/custom="res://Assets/Theme/default_theme.tres"
+theme/custom_font="res://Assets/Fonts/DelaGothicOne-Regular.ttf"
 
 [input]
 

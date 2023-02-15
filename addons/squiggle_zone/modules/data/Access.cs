@@ -6,6 +6,14 @@ namespace queen.data;
 public class Access
 {
 
+
+    private const int FONT_GOTHIC = 0;
+    private const int FONT_NOTO_SANS = 1;
+    private const int FONT_OPEN_DYSLEXIE = 2;
+    private const string FONT_PATH_GOTHIC = "res://Assets/Fonts/DelaGothicOne-Regular.ttf";
+    private const string FONT_PATH_NOTO_SANS = "res://Assets/Fonts/NotoSans-Regular.ttf";
+    private const string FONT_PATH_OPEN_DYSLEXIE = "res://Assets/Fonts/OpenDyslexic-Regular.otf";
+
 //
 //  Meaningful information
 //      Defaults assigned as well
@@ -13,6 +21,8 @@ public class Access
     public bool UseSubtitles = true;
     public bool PreventFlashingLights = false;
     public float AudioDecibelLimit = 0.0f;
+    public int FontOption = FONT_OPEN_DYSLEXIE;
+    public float EngineTimeScale = 1.0f; 
 
 
 
@@ -52,10 +62,27 @@ public class Access
 
     private static void ApplyChanges()
     {
-        // TODO affect limiter
+        // audio limiter
         var effect = AudioServer.GetBusEffect(0, 0) as AudioEffectLimiter;
         Debugging.Assert(effect != null, "Access failed to get the Limiter effect on the Master audio bus.  Make sure the indices are correct!");
         effect.CeilingDb = Instance.AudioDecibelLimit;
 
+        // font management
+        string path = "";
+        switch(Instance.FontOption)
+        {
+            case FONT_GOTHIC:
+                path = FONT_PATH_GOTHIC;
+                break;
+            case FONT_NOTO_SANS:
+                path = FONT_PATH_NOTO_SANS;
+                break;
+            case FONT_OPEN_DYSLEXIE:
+                path = FONT_PATH_OPEN_DYSLEXIE;
+                break;
+        }
+        var font = GD.Load<FontFile>(path);
+        if (font == null) Print.Error($"Failed to load font option from file: {path}");
+        else ThemeDB.GetProjectTheme().DefaultFont = font;
     }
 }

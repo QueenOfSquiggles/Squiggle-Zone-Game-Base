@@ -14,7 +14,7 @@ public class Graphics
     public int Fullscreen =
     #if DEBUG
         // fullscreen by default in release builds. Feels more AAA than trashy indie
-        (int)DisplayServer.WindowMode.Windowed;
+        (int)DisplayServer.WindowMode.Maximized;
     #else
         (int)DisplayServer.WindowMode.Fullscreen;
     #endif

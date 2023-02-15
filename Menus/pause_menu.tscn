@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://tgq0gx8sgs0"]
 
-[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://Assets/Theme/default_theme.tres" id="1_6d21t"]
 [ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="2_4gb37"]
 [ext_resource type="Script" path="res://Menus/PauseMenu.cs" id="2_u13u6"]
 
@@ -17,7 +16,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_6d21t")
 script = ExtResource("2_u13u6")
 main_menu_file = "res://Menus/main_menu.tscn"
 

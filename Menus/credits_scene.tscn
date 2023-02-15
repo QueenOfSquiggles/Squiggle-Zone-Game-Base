@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://b50ruxi2wcq23"]
 
-[ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://Assets/Theme/default_theme.tres" id="1_lhxvu"]
 [ext_resource type="Script" path="res://Menus/CreditsScene.cs" id="2_0eafv"]
 [ext_resource type="Material" uid="uid://b1ehu0o3ymh3v" path="res://Menus/menu_panorama_material.tres" id="2_k7ri6"]
 [ext_resource type="Texture2D" uid="uid://c8fgnkcmhxaeh" path="res://icon.svg" id="3_ciufw"]
@@ -13,7 +12,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_lhxvu")
 script = ExtResource("2_0eafv")
 main_menu_path = "res://Menus/main_menu.tscn"
 

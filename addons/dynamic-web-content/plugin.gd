@@ -8,9 +8,7 @@ const STG_AUTO_REFRESH = "DynamicContentLoading/cache/content_auto_refresh"
 
 func _enter_tree() -> void:
 	# ensure project settings exist
-	var webpage_root := _get_setting_safe(STG_WEB_ROOT_NAME, "default-web-path") as String
-	if webpage_root == "default-web-path":
-		push_error("Be sure to assign your 'webpage_root' in the Project Settings!")
+	var webpage_root := _get_setting_safe(STG_WEB_ROOT_NAME, "https://queenofsquiggles.github.io/data/") as String
 	_get_setting_safe(STG_GAME_ID_NAME, "default-game-id")
 	_get_setting_safe(STG_USE_CACHE_NAME, true) as bool
 	_get_setting_safe(STG_AUTO_REFRESH, false) as bool

@@ -1,8 +1,8 @@
 namespace menus;
 
+using System;
 using Godot;
 using queen.extension;
-using System;
 
 public partial class MainMenu : Control
 {
@@ -14,7 +14,10 @@ public partial class MainMenu : Control
     {
         Input.MouseMode = Input.MouseModeEnum.Visible;
     }
-    private void OnBtnPlay() => Scenes.LoadSceneAsync(play_scene);
+    private void OnBtnPlay() 
+    {
+        Scenes.LoadSceneAsync(play_scene);
+    }
 
     private void OnBtnOptions() => Scenes.LoadSceneAsync(options_scene);
 

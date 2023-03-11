@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://crbvlqtboqmtk"]
+[gd_scene load_steps=8 format=3 uid="uid://crbvlqtboqmtk"]
 
 [ext_resource type="Script" path="res://DemoAssets/DemoEndScene.cs" id="2_5jid3"]
+[ext_resource type="PackedScene" uid="uid://c8kevka1e7pns" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="2_vajuf"]
+[ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="3_qieus"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_j3ix6"]
 font_size = 32
@@ -154,6 +156,8 @@ text = "Check out my games on Itch.io"
 underline = 1
 uri = "https://queenofsquiggles.itch.io/"
 
+[node name="UISounds" parent="CenterContainer/VBoxContainer/LinkButton" instance=ExtResource("2_vajuf")]
+
 [node name="buffer" type="Control" parent="CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
@@ -162,6 +166,10 @@ layout_mode = 2
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "Return to Main Menu"
+
+[node name="RequestFocusOnParent" parent="CenterContainer/VBoxContainer/Button2" instance=ExtResource("3_qieus")]
+
+[node name="UISounds" parent="CenterContainer/VBoxContainer/Button2" instance=ExtResource("2_vajuf")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Intro"

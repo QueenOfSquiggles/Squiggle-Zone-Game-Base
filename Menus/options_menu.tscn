@@ -1,14 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7fyixeftq6wi"]
+[gd_scene load_steps=10 format=3 uid="uid://c7fyixeftq6wi"]
 
-[ext_resource type="PackedScene" uid="uid://clvmlkkyl7r1v" path="res://Menus/OptionsTabs/gameplay_tab.tscn" id="1_agasg"]
 [ext_resource type="Script" path="res://Menus/OptionsMenu.cs" id="1_hipj7"]
-[ext_resource type="Material" uid="uid://b1ehu0o3ymh3v" path="res://Menus/menu_panorama_material.tres" id="2_hfgjw"]
+[ext_resource type="Texture2D" uid="uid://ddfhd1vfnfbr8" path="res://Game/Assets/Screenshots/screenshot_6.png" id="2_ida8h"]
 [ext_resource type="PackedScene" uid="uid://b74414wseyp32" path="res://Menus/OptionsTabs/audio_tab.tscn" id="2_x8b24"]
-[ext_resource type="Texture2D" uid="uid://c8fgnkcmhxaeh" path="res://icon.svg" id="3_fwm44"]
 [ext_resource type="PackedScene" uid="uid://cviculf0f5j6n" path="res://Menus/OptionsTabs/accessibility_tab.tscn" id="3_si5nr"]
 [ext_resource type="Script" path="res://Menus/TabContainerGamepadSupport.cs" id="4_uas64"]
 [ext_resource type="PackedScene" uid="uid://mqlco2j1lvqy" path="res://Menus/OptionsTabs/graphics_tab.tscn" id="5_uxrhy"]
 [ext_resource type="PackedScene" uid="uid://d03cwwvo648ge" path="res://Menus/OptionsTabs/controls_tab.tscn" id="8_8g037"]
+[ext_resource type="PackedScene" uid="uid://c8kevka1e7pns" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="10_jwtw5"]
 [ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="10_ttr8u"]
 
 [node name="OptionsMenu" type="Control"]
@@ -23,14 +22,13 @@ main_menu_path = "res://Menus/main_menu.tscn"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_repeat = 2
-material = ExtResource("2_hfgjw")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_fwm44")
+texture = ExtResource("2_ida8h")
 expand_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -55,7 +53,7 @@ layout_mode = 2
 tab_alignment = 1
 script = ExtResource("4_uas64")
 
-[node name="Gameplay" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("1_agasg")]
+[node name="Accessibility" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("3_si5nr")]
 layout_mode = 2
 
 [node name="Graphics" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("5_uxrhy")]
@@ -66,13 +64,11 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="Accessibility" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("3_si5nr")]
-visible = false
-layout_mode = 2
-
 [node name="Controls" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("8_8g037")]
 visible = false
 layout_mode = 2
+
+[node name="UISounds" parent="VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("10_jwtw5")]
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -80,5 +76,7 @@ text = "Return to Main Menu"
 
 [node name="RequestFocusOnParent" parent="VBoxContainer/Button" instance=ExtResource("10_ttr8u")]
 layout_mode = 1
+
+[node name="UISounds" parent="VBoxContainer/Button" instance=ExtResource("10_jwtw5")]
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="OnMenuButtonPressed"]

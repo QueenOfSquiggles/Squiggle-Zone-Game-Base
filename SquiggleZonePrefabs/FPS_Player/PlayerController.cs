@@ -1,6 +1,7 @@
 using Godot;
 using interaction;
 using queen.data;
+using queen.error;
 using queen.events;
 using queen.extension;
 using System;
@@ -25,9 +26,6 @@ public partial class PlayerController : CharacterBody3D
 
 	[Export] private NodePath raycast_path;
 	private RayCast3D raycast;
-
-	[Signal] public delegate void OnInteractionFoundEventHandler();
-	[Signal] public delegate void OnInteractionLostEventHandler();
 
 	private Vector2 camera_look_vector = new();
 
@@ -70,8 +68,13 @@ public partial class PlayerController : CharacterBody3D
 
 		bool actively_moving = intent_vec.LengthSquared() > 0.1f;
 	
-		if (!actively_moving) intent_vec = Vector3.Zero;
-		else intent_vec = intent_vec.Normalized();
+		if (!actively_moving) 
+		{
+			intent_vec = Vector3.Zero;
+		} else {
+			intent_vec.Y = 0f;
+			intent_vec = intent_vec.Normalized();
+		}
 		anim_tree.Set("parameters/MovementCycle/blend_position", intent_vec.Length());
 
 		var accel = Mathf.Lerp(deacceleration, acceleration, intent_vec.Dot(Velocity.Normalized()) * 0.5f + 0.5f);
@@ -122,8 +125,13 @@ public partial class PlayerController : CharacterBody3D
 		bool flag = collider is not null and IInteractable && (collider as IInteractable).IsActive();
 		if (flag != was_colliding_interactable)
 		{
-			if (flag) EmitSignal(nameof(OnInteractionFound));
-			else EmitSignal(nameof(OnInteractionLost));
+			if (flag)
+			{
+				var item_name = (collider as IInteractable).GetActiveName();
+				Events.GUI.TriggerAbleToInteract(item_name);
+			} else {
+				Events.GUI.TriggerUnableToInteract();
+			}
 		}
 		was_colliding_interactable = flag;
 	}
@@ -138,12 +146,6 @@ public partial class PlayerController : CharacterBody3D
             // TODO add in other controls here!
 			
 		}
-		// --- handled by the pause menu now
-	    // if (e.IsActionPressed("ui_cancel"))
-        // {
-        //     Input.MouseMode = (Input.MouseMode == Input.MouseModeEnum.Captured)? 
-        //         Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
-        // }
 		if (handled) GetViewport().SetInputAsHandled();
     }
 

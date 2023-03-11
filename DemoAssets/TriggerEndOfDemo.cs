@@ -8,11 +8,12 @@ public partial class TriggerEndOfDemo : Node
 
     public void EndTheDemo()
     {
-        #if GODOT_DEMO
+        if (OS.HasFeature("demo"))
+        {
             Print.Info("Demo has completed. Ending of demo");
             Scenes.LoadSceneAsync(demo_end_scene);
-        #else
+        } else {
             Print.Info("This would be the end of the demo. But this version is not a demo version");
-        #endif
+        }
     }
 }

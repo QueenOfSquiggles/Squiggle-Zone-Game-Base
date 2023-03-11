@@ -14,22 +14,25 @@ public partial class LaunchSequence : Control
 
     public override void _Ready()
     {
-        #if GODOT_DEMO
-            // For the demo run animation every time
-            Print.Info("Detected Demo Build");
-            chance_do_animation_on_repeated_launch = 2.0f;
-        #elif DEBUG
+        #if DEBUG
             // For debug builds. Never run it, excepting first time launches.
             // Demo overrides
-            Print.Info("Detected Debug Build");
+            Print.Debug("Detected Debug Build");
             chance_do_anyway = -2.0f;
         #else
-            Print.Info("Detected Release Build");
+            if (OS.HasFeature("demo"))
+            {
+                // For the demo run animation every time
+                Print.Debug("Detected Demo Build");
+                chance_do_anyway = 2.0f;
+            } else {
+                Print.Debug("Detected Release Build");
+            }
         #endif
 
         this.GetNode(path_anim, out anim);
         var ran = new Random();
-        if (!Stats.Instance.FirstTimeLaunch && ran.NextSingle() > chance_do_anyway)
+        if (!Stats.Instance.FirstTimeLaunch && (ran.NextSingle() > chance_do_anyway))
         {
             #if DEBUG
 

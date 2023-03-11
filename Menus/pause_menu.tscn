@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://tgq0gx8sgs0"]
+[gd_scene load_steps=5 format=3 uid="uid://tgq0gx8sgs0"]
 
 [ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="2_4gb37"]
 [ext_resource type="Script" path="res://Menus/PauseMenu.cs" id="2_u13u6"]
+[ext_resource type="PackedScene" uid="uid://c8kevka1e7pns" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="3_b8rfi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rp5ep"]
 font_size = 40
@@ -57,6 +58,8 @@ text = "Continue"
 [node name="RequestFocusOnParent" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BtnContinue" instance=ExtResource("2_4gb37")]
 layout_mode = 1
 
+[node name="UISounds" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BtnContinue" instance=ExtResource("3_b8rfi")]
+
 [node name="Control" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
@@ -65,6 +68,8 @@ layout_mode = 2
 layout_mode = 2
 tooltip_text = "Warning!: You will lose all progress"
 text = "Return to Main Menu"
+
+[node name="UISounds" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BtnMainMenu" instance=ExtResource("3_b8rfi")]
 
 [connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BtnContinue" to="." method="ReturnToPlay"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BtnMainMenu" to="." method="ExitToMainMenu"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d03cwwvo648ge"]
+[gd_scene load_steps=6 format=3 uid="uid://d03cwwvo648ge"]
 
 [ext_resource type="Script" path="res://Menus/OptionsTabs/ControlsTab.cs" id="1_y6pcj"]
 [ext_resource type="PackedScene" uid="uid://bymbr517f7ic2" path="res://Menus/OptionsTabs/slider_combo.tscn" id="2_midyy"]
 [ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="2_t32jc"]
 [ext_resource type="PackedScene" uid="uid://pd4ldwecxkrs" path="res://Menus/OptionsTabs/action_mapping_slot.tscn" id="3_hxwhr"]
+[ext_resource type="PackedScene" uid="uid://c8kevka1e7pns" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="3_k08te"]
 
 [node name="ControlsTab" type="MarginContainer"]
 offset_right = 1152.0
@@ -120,9 +121,13 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Apply Changes"
 
+[node name="UISounds" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/BtnApplyChanges" instance=ExtResource("3_k08te")]
+
 [node name="BtnResetAll" type="Button" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings"]
 layout_mode = 2
 text = "Reset All Mappings"
+
+[node name="UISounds" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/BtnResetAll" instance=ExtResource("3_k08te")]
 
 [node name="HSeparator" type="HSeparator" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings"]
 layout_mode = 2

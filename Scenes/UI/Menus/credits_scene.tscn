@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://c2wm73rnqv8pq"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/CreditsScene.cs" id="2_0eafv"]
-[ext_resource type="Texture2D" path="res://Game/Assets/Screenshots/screenshot_4.png" id="2_jhnda"]
-[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="4_5aol3"]
-[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="4_7sq8l"]
+[ext_resource type="PackedScene" path="res://Scenes/Utility/UI_Tools/request_focus_on_parent.tscn" id="4_5aol3"]
+[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_sounds.tscn" id="4_7sq8l"]
 
 [node name="CreditsScene" type="Control"]
 layout_mode = 3
@@ -13,7 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_0eafv")
-main_menu_path = "res://Menus/main_menu.tscn"
+main_menu_path = "res://Scenes/UI/Menus/main_menu.tscn"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_repeat = 2
@@ -23,7 +22,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_jhnda")
 expand_mode = 2
 
 [node name="CreditsPanel" type="CenterContainer" parent="."]

@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=11 format=3 uid="uid://ci8028xlquyq1"]
 
-[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/AccessHelp/force_access_load.tscn" id="2_kdbm6"]
+[ext_resource type="PackedScene" path="res://Scenes/Utility/AccessHelp/force_access_load.tscn" id="2_kdbm6"]
 [ext_resource type="Script" path="res://Scenes/UI/LaunchSequence/LaunchSequence.cs" id="2_q1rby"]
-[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/Effects/cutscene_skipper.tscn" id="3_ngdg6"]
+[ext_resource type="PackedScene" path="res://Scenes/Utility/Effects/cutscene_skipper.tscn" id="3_ngdg6"]
 [ext_resource type="Texture2D" uid="uid://b8oldtahjeklr" path="res://Scenes/UI/LaunchSequence/godot_logo_large_color_dark.svg" id="4_xynbv"]
 [ext_resource type="Texture2D" uid="uid://d0b6uaea3iq27" path="res://Assets/Krita/game_title_icon.png" id="5_l4rqn"]
-[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/Environment/load_graphics_settings.tscn" id="6_mmmhm"]
+[ext_resource type="PackedScene" path="res://Scenes/Utility/Environment/load_graphics_settings.tscn" id="6_mmmhm"]
 
 [sub_resource type="Animation" id="Animation_sphh6"]
 resource_name = "OpeningAnimation"
@@ -158,7 +158,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_q1rby")
-main_menu_scene = "res://Menus/main_menu.tscn"
+main_menu_scene = "res://Scenes/UI/Menus/main_menu.tscn"
 path_anim = NodePath("AnimationPlayer")
 
 [node name="ForceAccessLoad" parent="." instance=ExtResource("2_kdbm6")]

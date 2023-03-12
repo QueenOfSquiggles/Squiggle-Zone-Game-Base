@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=7 format=3 uid="uid://c1y264llxb32g"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/accessibility_tab.cs" id="1_qvlnx"]
-[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="2_dfu5a"]
+[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_sounds.tscn" id="2_dfu5a"]
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/CheckToggleDescriptions.gd" id="2_kk8x0"]
-[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="2_ukvq2"]
-[ext_resource type="PackedScene" path="res://Menus/OptionsTabs/slider_combo.tscn" id="2_wr3cm"]
+[ext_resource type="PackedScene" path="res://Scenes/Utility/UI_Tools/request_focus_on_parent.tscn" id="2_ukvq2"]
+[ext_resource type="PackedScene" uid="uid://k232n2d5u1u4" path="res://Scenes/UI/Menus/OptionsTabs/slider_combo.tscn" id="2_wr3cm"]
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/clear_scroll.gd" id="3_m8o3s"]
 
 [node name="CenterContainer" type="MarginContainer"]

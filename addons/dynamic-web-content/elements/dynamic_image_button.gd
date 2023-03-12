@@ -18,7 +18,7 @@ var subtitle : Label
 
 func _ready() -> void:
 	await(RenderingServer.frame_post_draw)
-
+	
 	# setup structure
 	var vbox := VBoxContainer.new()
 	add_child(vbox)
@@ -38,10 +38,10 @@ func _ready() -> void:
 		var default_icon := load("res://icon.svg")
 		if default_icon:
 			_set_button_texture(default_icon)
-	
 	var lambda_btn := func():
 		OS.shell_open(link)
 	button.pressed.connect(lambda_btn)
+	visible = false
 	
 	# Link with manager
 	DynamicContentManager.request_content_refresh.connect(_refresh_content)
@@ -218,8 +218,7 @@ func _load_from_cached_data(data : Dictionary) -> void:
 
 	var txt := _get_safe(data, "text", "")
 	if txt != "":
-		subtitle.text = txt
-	
+		subtitle.text = txt	
 
 func _set_button_texture(tex : Texture) -> void:
 	# assign as a static button. No feedback
@@ -230,3 +229,4 @@ func _set_button_texture(tex : Texture) -> void:
 	button.texture_hover = tex
 	button.texture_normal = tex
 	button.texture_pressed = tex
+	visible = true # button becomes visible because we have something to show

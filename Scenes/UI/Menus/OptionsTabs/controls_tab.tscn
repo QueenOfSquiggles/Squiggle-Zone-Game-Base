@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://dygyf3xkshvcm"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/ControlsTab.cs" id="1_y6pcj"]
-[ext_resource type="PackedScene" path="res://Menus/OptionsTabs/slider_combo.tscn" id="2_midyy"]
-[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="2_t32jc"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/Menus/OptionsTabs/action_mapping_slot.tscn" id="3_hxwhr"]
-[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="3_k08te"]
+[ext_resource type="PackedScene" uid="uid://k232n2d5u1u4" path="res://Scenes/UI/Menus/OptionsTabs/slider_combo.tscn" id="2_midyy"]
+[ext_resource type="PackedScene" path="res://Scenes/Utility/UI_Tools/request_focus_on_parent.tscn" id="2_t32jc"]
+[ext_resource type="PackedScene" uid="uid://b8ikh528xlx2a" path="res://Scenes/UI/Menus/OptionsTabs/action_mapping_slot.tscn" id="3_hxwhr"]
+[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_sounds.tscn" id="3_k08te"]
 
 [node name="ControlsTab" type="MarginContainer"]
 offset_right = 1152.0

@@ -31,7 +31,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 DynamicContentManager="*res://addons/dynamic-web-content/autoload/dynamic_content_manager.gd"
-BGM="*res://addons/squiggle_zone/autoload/bgm.tscn"
+BGM="*res://Scenes/Utility/Autoload/bgm.tscn"
+Scenes="*res://Scenes/Utility/Autoload/scenes.tscn"
 
 [dotnet]
 
@@ -40,7 +41,7 @@ project/solution_directory="Solution"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg", "res://addons/MonoCustomResourceRegistry/plugin.cfg", "res://addons/ClasslibManager/plugin.cfg")
+enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg", "res://addons/MonoCustomResourceRegistry/plugin.cfg")
 
 [gui]
 

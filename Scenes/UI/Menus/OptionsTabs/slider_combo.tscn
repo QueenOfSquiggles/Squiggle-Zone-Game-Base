@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://k232n2d5u1u4"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/SliderCombo.gd" id="1_lok1f"]
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/SliderValue.gd" id="1_p7yam"]
-[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="3_yxesj"]
+[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_sounds.tscn" id="3_yxesj"]
 
 [node name="SliderCombo" type="HBoxContainer"]
 anchors_preset = 15

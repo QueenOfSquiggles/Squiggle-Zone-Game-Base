@@ -1,5 +1,0 @@
-/home/nessa/Documents/programming/godot/projects/repos/Squiggle-Zone-Game-Base/addons/obj/Debug/net6.0/addons.csproj.AssemblyReference.cache
-/home/nessa/Documents/programming/godot/projects/repos/Squiggle-Zone-Game-Base/addons/obj/Debug/net6.0/addons.GeneratedMSBuildEditorConfig.editorconfig
-/home/nessa/Documents/programming/godot/projects/repos/Squiggle-Zone-Game-Base/addons/obj/Debug/net6.0/addons.AssemblyInfoInputs.cache
-/home/nessa/Documents/programming/godot/projects/repos/Squiggle-Zone-Game-Base/addons/obj/Debug/net6.0/addons.AssemblyInfo.cs
-/home/nessa/Documents/programming/godot/projects/repos/Squiggle-Zone-Game-Base/addons/obj/Debug/net6.0/addons.csproj.CoreCompileInputs.cache

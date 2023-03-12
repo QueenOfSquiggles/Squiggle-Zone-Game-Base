@@ -33,7 +33,7 @@ project/assembly_name="GodotCSharpHelpers"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg", "res://addons/squiggle_zone/plugin.cfg")
+enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg")
 
 [gui]
 

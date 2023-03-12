@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://pd4ldwecxkrs"]
+[gd_scene load_steps=3 format=3 uid="uid://pd4ldwecxkrs"]
 
 [ext_resource type="Script" path="res://Menus/OptionsTabs/ActionMappingSlot.cs" id="1_rla21"]
+[ext_resource type="PackedScene" uid="uid://c8kevka1e7pns" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="2_lcsly"]
 
 [node name="ActionMappingSlot" type="HBoxContainer"]
 alignment = 1
@@ -17,6 +18,8 @@ layout_mode = 2
 text = "ACTION_TEXT"
 text_overrun_behavior = 3
 
+[node name="UISounds" parent="BtnListen" instance=ExtResource("2_lcsly")]
+
 [node name="Spacing" type="Control" parent="."]
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
@@ -24,6 +27,8 @@ layout_mode = 2
 [node name="BtnReset" type="Button" parent="."]
 layout_mode = 2
 text = "Reset"
+
+[node name="UISounds" parent="BtnReset" instance=ExtResource("2_lcsly")]
 
 [connection signal="pressed" from="BtnListen" to="." method="AssignButtonPressed"]
 [connection signal="pressed" from="BtnReset" to="." method="ResetAction"]

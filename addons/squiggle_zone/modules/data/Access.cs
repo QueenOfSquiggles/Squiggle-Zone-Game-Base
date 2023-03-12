@@ -21,7 +21,7 @@ public class Access
     public bool UseSubtitles = true;
     public bool PreventFlashingLights = false;
     public float AudioDecibelLimit = 0.0f;
-    public int FontOption = FONT_OPEN_DYSLEXIE;
+    public int FontOption = FONT_GOTHIC;
     public float EngineTimeScale = 1.0f; 
 
 

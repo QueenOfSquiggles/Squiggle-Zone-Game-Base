@@ -6,11 +6,13 @@ using System;
 public partial class InteractiveTrigger : Area3D, IInteractable
 {
 
+    [Export] public bool is_active = true;
+    [Export] private string custom_name = "";
     [Signal] public delegate void OnInteractedEventHandler();
 
     public virtual string GetActiveName()
     {
-        return Name;
+        return custom_name.Length > 0? custom_name : Name;
     }
 
     public virtual bool Interact()
@@ -21,6 +23,6 @@ public partial class InteractiveTrigger : Area3D, IInteractable
 
     public virtual bool IsActive()
     {
-        return true;
+        return is_active;
     }
 }

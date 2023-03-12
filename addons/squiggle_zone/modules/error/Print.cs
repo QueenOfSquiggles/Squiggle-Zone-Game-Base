@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace queen.error;
@@ -6,13 +7,13 @@ public static class Print
 {
     public static void Error(string msg)
     {
-        Colour(msg, "red");
+        GD.PrintErr(msg);
         GD.PushError(msg);
     }
 
     public static void Warn(string msg)
     {
-        Colour(msg, "yellow");
+        GD.PrintErr(msg);
         GD.PushWarning(msg);
     }
     public static void Info(string msg)
@@ -29,4 +30,11 @@ public static class Print
         GD.PrintRich(message.GetAsText());
     }
 
+    public static void Debug(string msg)
+    {
+        #if DEBUG
+        // Nice little QOL so I don't forget my random print statements
+        MsgOut(new Msg($"<DEBUG>: {msg}").Color("light_gray").Italics());
+        #endif
+    }
 }

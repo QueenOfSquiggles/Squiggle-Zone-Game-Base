@@ -89,6 +89,9 @@ func _http_request_data(result: int, response_code: int, headers: PackedStringAr
 			push_warning("Dynamic Content Element '%s' failed to load http data, \
 			error code %s" % [name, str(response_code)])
 		return
+	if response_code == 404:
+		push_warning("Expected data file not found for dynamic content. Err 404")
+		return
 	var json_text := body.get_string_from_utf8()
 	var json_data : Dictionary = JSON.parse_string(json_text)
 	if json_data.has(element_id):

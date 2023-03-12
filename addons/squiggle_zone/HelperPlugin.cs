@@ -19,8 +19,16 @@ public partial class HelperPlugin : EditorPlugin
 	{
 		// Initialization of the plugin goes here.
 		AddAutoloadSingleton("Scenes", "res://addons/squiggle_zone/autoload/scenes.tscn");
+		AddAutoloadSingleton("BGM", "res://addons/squiggle_zone/autoload/bgm.tscn");
+
 		Script script = GD.Load<Script>("res://addons/squiggle_zone/modules/event/EventEmitter.cs");
 		AddCustomType("EventEmitter", "Node", script, null);
+		Script bgm_script = GD.Load<Script>("res://addons/squiggle_zone/modules/SceneBGMLoader.cs");
+		AddCustomType("SceneBGMLoader", "Node", bgm_script, null);
+
+
+
+
 		BehaviourTreePluginModule.RegisterTypes(this);
 		AddToolMenuItem(TOOL_MENU_OPEN_CONFIG, new Callable(this, nameof(ToolEditConfiguration)));
 		AddToolMenuItem(TOOL_MENU_RELEASE, new Callable(this, nameof(ToolReleaseBuilds)));
@@ -31,7 +39,10 @@ public partial class HelperPlugin : EditorPlugin
 	{
 		// Clean-up of the plugin goes here.
 		RemoveAutoloadSingleton("Scenes");
-		BehaviourTreePluginModule.UnregisterTypes(this);
+		RemoveAutoloadSingleton("BGM");
+        RemoveCustomType("EventEmitter");
+        RemoveCustomType("SceneBGMLoader");
+        BehaviourTreePluginModule.UnregisterTypes(this);
 		RemoveToolMenuItem(TOOL_MENU_OPEN_CONFIG);
 		RemoveToolMenuItem(TOOL_MENU_RELEASE);
 		RemoveToolMenuItem(TOOL_MENU_CLEAN);

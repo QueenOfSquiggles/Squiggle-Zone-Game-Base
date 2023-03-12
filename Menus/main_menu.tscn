@@ -1,11 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://8j1geqm1auaf"]
+[gd_scene load_steps=10 format=3 uid="uid://8j1geqm1auaf"]
 
 [ext_resource type="Script" path="res://addons/dynamic-web-content/elements/dynamic_image_button.gd" id="1_0l81w"]
 [ext_resource type="Script" path="res://Menus/MainMenu.cs" id="2_pr43d"]
-[ext_resource type="Material" uid="uid://b1ehu0o3ymh3v" path="res://Menus/menu_panorama_material.tres" id="5_82qgo"]
-[ext_resource type="Texture2D" uid="uid://c8fgnkcmhxaeh" path="res://icon.svg" id="5_v2dlt"]
 [ext_resource type="PackedScene" uid="uid://b2e5mu8luvf1l" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="5_ylw5q"]
+[ext_resource type="PackedScene" uid="uid://c8kevka1e7pns" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="6_fkr0a"]
 [ext_resource type="PackedScene" uid="uid://bkli2ej8ipnj5" path="res://SquiggleZonePrefabs/ControlsHelp/load_controls_mappings.tscn" id="6_p4f4c"]
+[ext_resource type="Texture2D" uid="uid://d0b6uaea3iq27" path="res://krita-docs/game_title_icon.png" id="7_pq1md"]
+[ext_resource type="Script" path="res://Menus/VersioningLabel.cs" id="8_fs15f"]
+[ext_resource type="Script" path="res://addons/squiggle_zone/modules/SceneBGMLoader.cs" id="9_y7h8u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0pa6q"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -15,20 +21,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_pr43d")
-play_scene = "res://Game/Fully3DWorld/testing_3d_world.tscn"
+play_scene = "res://Game/Scenes/Levels/main_level.tscn"
 options_scene = "res://Menus/options_menu.tscn"
 credits_scene = "res://Menus/credits_scene.tscn"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_repeat = 2
-material = ExtResource("5_82qgo")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_v2dlt")
 expand_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -83,10 +87,14 @@ text = "Play"
 [node name="RequestFocusOnParent" parent="ControlButtons/VBoxContainer/BtnPlay" instance=ExtResource("5_ylw5q")]
 layout_mode = 1
 
+[node name="UISounds" parent="ControlButtons/VBoxContainer/BtnPlay" instance=ExtResource("6_fkr0a")]
+
 [node name="BtnOptions" type="Button" parent="ControlButtons/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Options"
+
+[node name="UISounds" parent="ControlButtons/VBoxContainer/BtnOptions" instance=ExtResource("6_fkr0a")]
 
 [node name="BtnCredits" type="Button" parent="ControlButtons/VBoxContainer"]
 layout_mode = 2
@@ -94,19 +102,24 @@ size_flags_vertical = 3
 text = "Credits
 "
 
+[node name="UISounds" parent="ControlButtons/VBoxContainer/BtnCredits" instance=ExtResource("6_fkr0a")]
+
 [node name="BtnQuit" type="Button" parent="ControlButtons/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Quit"
 
+[node name="UISounds" parent="ControlButtons/VBoxContainer/BtnQuit" instance=ExtResource("6_fkr0a")]
+
 [node name="TitleTexture" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 47.0
-offset_top = 61.0
-offset_right = 550.0
-offset_bottom = 146.0
-texture = ExtResource("5_v2dlt")
+offset_top = 9.0
+offset_right = 631.0
+offset_bottom = 275.0
+texture = ExtResource("7_pq1md")
 expand_mode = 2
+stretch_mode = 5
 
 [node name="LinkButton" type="LinkButton" parent="."]
 layout_mode = 1
@@ -122,7 +135,25 @@ text = "Made By QueenOfSquiggles"
 underline = 1
 uri = "https://queenofsquiggles.itch.io/"
 
+[node name="UISounds" parent="LinkButton" instance=ExtResource("6_fkr0a")]
+
 [node name="LoadControlsMappings" parent="." instance=ExtResource("6_p4f4c")]
+
+[node name="VersioningLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 33.0
+grow_horizontal = 0
+text = "Lorem Ipsum"
+label_settings = SubResource("LabelSettings_0pa6q")
+script = ExtResource("8_fs15f")
+
+[node name="SceneBGMLoader" type="Node" parent="."]
+script = ExtResource("9_y7h8u")
+crossfade_duration = 2.0
 
 [connection signal="pressed" from="ControlButtons/VBoxContainer/BtnPlay" to="." method="OnBtnPlay"]
 [connection signal="pressed" from="ControlButtons/VBoxContainer/BtnOptions" to="." method="OnBtnOptions"]

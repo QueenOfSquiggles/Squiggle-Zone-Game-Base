@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bymbr517f7ic2"]
+[gd_scene load_steps=4 format=3 uid="uid://bymbr517f7ic2"]
 
 [ext_resource type="Script" path="res://Menus/OptionsTabs/SliderCombo.gd" id="1_lok1f"]
 [ext_resource type="Script" path="res://Menus/OptionsTabs/SliderValue.gd" id="1_p7yam"]
+[ext_resource type="PackedScene" uid="uid://c8kevka1e7pns" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="3_yxesj"]
 
 [node name="SliderCombo" type="HBoxContainer"]
 anchors_preset = 15
@@ -30,6 +31,8 @@ value = 1.0
 tick_count = 10
 ticks_on_borders = true
 
+[node name="UISounds" parent="HSlider" instance=ExtResource("3_yxesj")]
+
 [node name="ValueLbl" type="Label" parent="."]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
@@ -42,6 +45,8 @@ script = ExtResource("1_p7yam")
 [node name="BtnReset" type="Button" parent="."]
 layout_mode = 2
 text = "Reset"
+
+[node name="UISounds" parent="BtnReset" instance=ExtResource("3_yxesj")]
 
 [connection signal="drag_ended" from="HSlider" to="." method="_on_h_slider_drag_ended"]
 [connection signal="value_changed" from="HSlider" to="ValueLbl" method="_on_h_slider_value_changed"]

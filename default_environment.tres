@@ -1,11 +1,17 @@
 [gd_resource type="Environment" format=3 uid="uid://cjbbkikq4uqcq"]
 
 [resource]
-background_mode = 1
+ambient_light_source = 1
+ambient_light_energy = 0.0
+reflected_light_source = 1
 tonemap_mode = 3
+tonemap_white = 0.8
 ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
+sdfgi_y_scale = 2
 glow_enabled = true
 adjustment_enabled = true

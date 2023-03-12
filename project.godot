@@ -35,7 +35,8 @@ BGM="*res://addons/squiggle_zone/autoload/bgm.tscn"
 
 [dotnet]
 
-project/assembly_name="GodotCSharpHelpers"
+project/assembly_name="SquiggleZone"
+project/solution_directory="Solution"
 
 [editor_plugins]
 

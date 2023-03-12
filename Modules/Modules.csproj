@@ -7,7 +7,6 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-    <IntermediateOutputPath>../.godot/mono/temp/modules</IntermediateOutputPath>
     </PropertyGroup>
 
 </Project>

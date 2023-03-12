@@ -12,6 +12,8 @@ using System.Text;
 namespace MonoCustomResourceRegistry
 {
 #if TOOLS
+
+#nullable enable
     [Tool]
     public partial class Plugin : EditorPlugin
     {
@@ -204,5 +206,6 @@ namespace MonoCustomResourceRegistry
             RefreshCustomClasses();
         }
     }
+#nullable disable
 #endif
 }

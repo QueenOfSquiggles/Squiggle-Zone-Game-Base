@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using queen.error;
 
@@ -20,22 +21,13 @@ public class Effects
 //  Functions for applying effects
 //
 
+    public event Action<float, float, float> RequestScreenShake;
 
     public static void Shake(SceneTree tree_access, float speed, float strength, float duration)
     {
-        var drivers = tree_access.GetNodesInGroup("screen_shake_driver");
-        if (drivers.Count <= 0)
-        {
-            Print.Warn("Attempting to play screen shake, but there are no screen shake drivers found. Add them to the node group 'screen_shake_driver'");
-            return;
-        }
         var str = strength * Instance.ScreenShakeStrength;
         var dur = Mathf.Clamp(duration, 0.0f, Instance.MaxScreenShakeDuration);
-        foreach( var d in drivers)
-        {
-            if (d is ScreenShakeDriver ssd) ssd.ApplyShake(speed, str, 1.0f / dur);
-        }
-        
+        Instance.RequestScreenShake?.Invoke(speed, str, 1.0f / dur);        
     }
 
     public static void Rumble(float strong, float weak, float duration = 0.1f, int controller_id = -1)

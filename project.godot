@@ -36,8 +36,7 @@ Scenes="*res://Scenes/Utility/Autoload/scenes.tscn"
 
 [dotnet]
 
-project/assembly_name="SquiggleZone"
-project/solution_directory="Solution"
+project/assembly_name="SquiggleZone Game Base"
 
 [editor_plugins]
 

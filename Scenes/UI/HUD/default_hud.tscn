@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=7 format=3 uid="uid://clvfklayqmfnw"]
 
 [ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://Assets/Theme/default_theme.tres" id="1_ftm8j"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/DefaultHUD.cs" id="1_jbwxp"]
-[ext_resource type="Texture2D" path="res://Game/Assets/Textures/Crosshair/crosshair043.png" id="2_stjxx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jqhrl"]
 font_size = 32
@@ -35,7 +34,7 @@ outline_size = 12
 outline_color = Color(0, 0, 0, 1)
 
 [node name="DefaultHUD" type="CanvasLayer"]
-layer = 126
+layer = 4
 
 [node name="DefaultHUD" type="Control" parent="."]
 layout_mode = 3
@@ -129,7 +128,6 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(32, 32)
 mouse_filter = 2
-texture = ExtResource("2_stjxx")
 stretch_mode = 3
 
 [node name="InteractionPrompt" type="Label" parent="DefaultHUD"]

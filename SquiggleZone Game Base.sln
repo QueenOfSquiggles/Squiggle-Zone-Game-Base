@@ -1,0 +1,43 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "addons", "addons\addons.csproj", "{C41A2BBC-E5A8-4780-B008-4A0AA4418BD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules", "Modules\Modules.csproj", "{D20DC836-D0FB-42C6-B074-5F1D0E9907BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scenes", "Scenes\Scenes.csproj", "{40E6CFFC-B919-402D-AADC-EE1C95DE3F6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{8F0A9672-5769-42E2-97A2-A4FCAD65DEC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C41A2BBC-E5A8-4780-B008-4A0AA4418BD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C41A2BBC-E5A8-4780-B008-4A0AA4418BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C41A2BBC-E5A8-4780-B008-4A0AA4418BD9}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{C41A2BBC-E5A8-4780-B008-4A0AA4418BD9}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{C41A2BBC-E5A8-4780-B008-4A0AA4418BD9}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{C41A2BBC-E5A8-4780-B008-4A0AA4418BD9}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{D20DC836-D0FB-42C6-B074-5F1D0E9907BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D20DC836-D0FB-42C6-B074-5F1D0E9907BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D20DC836-D0FB-42C6-B074-5F1D0E9907BF}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{D20DC836-D0FB-42C6-B074-5F1D0E9907BF}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{D20DC836-D0FB-42C6-B074-5F1D0E9907BF}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{D20DC836-D0FB-42C6-B074-5F1D0E9907BF}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{40E6CFFC-B919-402D-AADC-EE1C95DE3F6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40E6CFFC-B919-402D-AADC-EE1C95DE3F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40E6CFFC-B919-402D-AADC-EE1C95DE3F6E}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{40E6CFFC-B919-402D-AADC-EE1C95DE3F6E}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{40E6CFFC-B919-402D-AADC-EE1C95DE3F6E}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{40E6CFFC-B919-402D-AADC-EE1C95DE3F6E}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{8F0A9672-5769-42E2-97A2-A4FCAD65DEC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F0A9672-5769-42E2-97A2-A4FCAD65DEC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F0A9672-5769-42E2-97A2-A4FCAD65DEC8}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{8F0A9672-5769-42E2-97A2-A4FCAD65DEC8}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{8F0A9672-5769-42E2-97A2-A4FCAD65DEC8}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{8F0A9672-5769-42E2-97A2-A4FCAD65DEC8}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

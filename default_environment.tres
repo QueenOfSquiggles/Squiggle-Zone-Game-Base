@@ -1,9 +1,13 @@
-[gd_resource type="Environment" format=3 uid="uid://cjbbkikq4uqcq"]
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://cjbbkikq4uqcq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bpyc0"]
+
+[sub_resource type="Sky" id="Sky_ybjmc"]
+sky_material = SubResource("ProceduralSkyMaterial_bpyc0")
 
 [resource]
-ambient_light_source = 1
-ambient_light_energy = 0.0
-reflected_light_source = 1
+background_mode = 2
+sky = SubResource("Sky_ybjmc")
 tonemap_mode = 3
 tonemap_white = 0.8
 ssr_enabled = true

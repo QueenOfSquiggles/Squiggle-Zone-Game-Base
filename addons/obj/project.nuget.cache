@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "660VgTxlnw9RCLLY1MGq+24ogZn2MRuIN1AVw8RcRrpMiQhGvf8RD3UenDwpYr5eRabl6QWSO72xwVv03VfqHg==",
+  "success": true,
+  "projectFilePath": "/home/nessa/Documents/programming/godot/projects/repos/Squiggle-Zone-Game-Base/addons/addons.csproj",
+  "expectedPackageFiles": [
+    "/home/nessa/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.13/microsoft.aspnetcore.app.ref.6.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}

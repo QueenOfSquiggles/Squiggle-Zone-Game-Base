@@ -15,17 +15,23 @@ links/game_id="default-game-id"
 cache/use_cache=true
 cache/content_auto_refresh=true
 
+[MonoCustomResourceRegistry]
+
+ClassPrefix=""
+SearchType=0
+ResourceScriptDirectories=["res://"]
+
 [application]
 
 config/name="SquiggleZone Game Base"
-run/main_scene="res://LaunchAnimation/launch_sequence.tscn"
+run/main_scene="res://Scenes/UI/LaunchSequence/launch_sequence.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 DynamicContentManager="*res://addons/dynamic-web-content/autoload/dynamic_content_manager.gd"
-Scenes="*res://addons/squiggle_zone/autoload/scenes.tscn"
+BGM="*res://addons/squiggle_zone/autoload/bgm.tscn"
 
 [dotnet]
 
@@ -33,7 +39,7 @@ project/assembly_name="GodotCSharpHelpers"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg")
+enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg", "res://addons/MonoCustomResourceRegistry/plugin.cfg", "res://addons/ClasslibManager/plugin.cfg")
 
 [gui]
 

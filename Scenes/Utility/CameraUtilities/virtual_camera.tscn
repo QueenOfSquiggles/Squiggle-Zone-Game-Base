@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scenes/Utility/CameraUtilities/VirtualCamera.cs" id="1_7f0q0"]
+
+[node name="VirtualCamera" type="Marker3D"]
+gizmo_extents = 1.0
+script = ExtResource("1_7f0q0")

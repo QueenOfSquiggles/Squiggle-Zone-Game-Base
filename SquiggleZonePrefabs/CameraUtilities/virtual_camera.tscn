@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bilaqqj3v26t7"]
-
-[ext_resource type="Script" path="res://SquiggleZonePrefabs/CameraUtilities/VirtualCamera.cs" id="1_7f0q0"]
-
-[node name="VirtualCamera" type="Marker3D"]
-gizmo_extents = 1.0
-script = ExtResource("1_7f0q0")

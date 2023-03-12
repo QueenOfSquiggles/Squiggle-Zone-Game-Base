@@ -1,0 +1,143 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/GameplayTab.cs" id="1_5c7lq"]
+[ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/SliderValue.gd" id="2_ewanp"]
+[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/UI_Tools/request_focus_on_parent.tscn" id="2_shh1r"]
+[ext_resource type="PackedScene" path="res://SquiggleZonePrefabs/UI_Tools/ui_sounds.tscn" id="3_mpu6p"]
+
+[node name="CenterContainer" type="MarginContainer"]
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Gameplay" type="PanelContainer" parent="."]
+layout_mode = 2
+script = ExtResource("1_5c7lq")
+path_difficulty_preset = NodePath("VBoxContainer/MarginContainer/VBoxContainer/OptionBtnPresets")
+path_required_generators = NodePath("VBoxContainer/MarginContainer/VBoxContainer/GridContainer/HSlider")
+path_required_keys = NodePath("VBoxContainer/MarginContainer/VBoxContainer/GridContainer/HSlider2")
+path_aggression = NodePath("VBoxContainer/MarginContainer/VBoxContainer/GridContainer/HSlider3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gameplay"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Gameplay/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gameplay/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ForceMinSizing" type="Control" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 2
+
+[node name="Label Difficulty" type="Label" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Difficulty Settings"
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="OptionBtnPresets" type="OptionButton" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Label" type="Label" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "Required Generators"
+
+[node name="HSlider" type="HSlider" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="SliderValue" type="Label" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "1"
+script = ExtResource("2_ewanp")
+
+[node name="Label2" type="Label" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "Required Keys
+"
+
+[node name="HSlider2" type="HSlider" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="SliderValue2" type="Label" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "1"
+script = ExtResource("2_ewanp")
+
+[node name="Label3" type="Label" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "Aggression Level"
+
+[node name="HSlider3" type="HSlider" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="SliderValue3" type="Label" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "1"
+script = ExtResource("2_ewanp")
+
+[node name="HSeparator2" type="HSeparator" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="BtnApplyChanges" type="Button" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Apply Changes"
+
+[node name="UISounds" parent="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/BtnApplyChanges" instance=ExtResource("3_mpu6p")]
+
+[node name="RequestFocusOnParent" parent="." instance=ExtResource("2_shh1r")]
+layout_mode = 2
+focus_target = NodePath("../Gameplay/VBoxContainer/MarginContainer/VBoxContainer/BtnApplyChanges")
+
+[connection signal="item_selected" from="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/OptionBtnPresets" to="Gameplay" method="OnDifficultySelected"]
+[connection signal="value_changed" from="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer/HSlider" to="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer/SliderValue" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer/HSlider2" to="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer/SliderValue2" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer/HSlider3" to="Gameplay/VBoxContainer/MarginContainer/VBoxContainer/GridContainer/SliderValue3" method="_on_h_slider_value_changed"]

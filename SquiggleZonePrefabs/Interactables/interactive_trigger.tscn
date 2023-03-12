@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bia227v60iicj"]
-
-[ext_resource type="Script" path="res://SquiggleZonePrefabs/Interactables/InteractiveTrigger.cs" id="1_wgjsl"]
-
-[node name="InteractiveTrigger" type="Area3D"]
-script = ExtResource("1_wgjsl")

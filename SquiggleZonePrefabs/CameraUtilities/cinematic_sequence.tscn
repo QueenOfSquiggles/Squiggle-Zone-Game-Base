@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://chbbl0b3hyljc"]
-
-[ext_resource type="Script" path="res://SquiggleZonePrefabs/CameraUtilities/CinematicSequence.cs" id="1_15iyj"]
-
-[node name="CinematicSequence" type="Node"]
-script = ExtResource("1_15iyj")

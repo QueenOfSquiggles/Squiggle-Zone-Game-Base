@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7wsrfo7q8m2k"]
-
-[ext_resource type="Environment" uid="uid://cjbbkikq4uqcq" path="res://default_environment.tres" id="1_g7075"]
-[ext_resource type="Script" path="res://SquiggleZonePrefabs/Environment/WorldEnvSettingsCompliant.cs" id="2_pxro2"]
-
-[node name="WorldEnv_SettingsCompliant" type="WorldEnvironment"]
-environment = ExtResource("1_g7075")
-script = ExtResource("2_pxro2")

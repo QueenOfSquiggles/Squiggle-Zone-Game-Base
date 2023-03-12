@@ -1,4 +1,10 @@
 <Project Sdk="Godot.NET.Sdk/4.0.0">
+  <ItemGroup>
+    <ProjectReference Include="addons\addons.csproj" />
+    <ProjectReference Include="Modules\Modules.csproj" />
+    <ProjectReference Include="Scenes\Scenes.csproj" />
+    <ProjectReference Include="Game\Game.csproj" />
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>

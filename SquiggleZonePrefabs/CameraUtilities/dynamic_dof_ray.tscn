@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cf2yseefabncu"]
-
-[ext_resource type="Script" path="res://SquiggleZonePrefabs/CameraUtilities/DynamicDOFRay.cs" id="1_siq51"]
-
-[node name="Dynamic DOF Ray" type="RayCast3D"]
-target_position = Vector3(0, 0, -50)
-script = ExtResource("1_siq51")

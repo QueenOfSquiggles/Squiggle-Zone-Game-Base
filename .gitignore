@@ -9,3 +9,7 @@ export/**
 # Imported translations (automatically generated from CSV files)
 *.translation
 
+# C Sharp Ignores
+**/obj/
+
+*.cache

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b4uq30tf8y76c"]
+
+[ext_resource type="Resource" uid="uid://lqy5m3w8fauo" path="res://Resources/MainItemDB.tres" id="1_7aasg"]
+[ext_resource type="Script" path="res://Modules/Items/ItemContainer.cs" id="1_q773b"]
+
+[resource]
+script = ExtResource("1_q773b")
+ItemContainerName = "PlayerInventory"
+ContainerSize = Vector2i(5, 5)
+DB = ExtResource("1_7aasg")

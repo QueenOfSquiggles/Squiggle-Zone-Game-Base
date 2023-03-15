@@ -1,8 +1,8 @@
+using System;
+using System.Threading.Tasks;
 using Godot;
 using queen.error;
 using queen.extension;
-using System;
-using System.Threading.Tasks;
 
 public partial class UISounds : Node
 {
@@ -18,7 +18,7 @@ public partial class UISounds : Node
         this.GetNode(path_select_sfx, out sfx_select);
         this.GetNode(path_click_sfx, out sfx_click);
         var parent = GetParent<Control>();
-        
+
         if (Debugging.Assert(parent != null, "UISounds node must be child of a Control node!"))
         {
             ConnectSignalsDelayed(parent, 50);
@@ -28,6 +28,7 @@ public partial class UISounds : Node
     private async void ConnectSignalsDelayed(Control parent, int delay)
     {
         await Task.Delay(delay);
+        if (!IsInstanceValid(parent)) return;
         if (parent is TabContainer tabs)
         {
             tabs.TabButtonPressed += (index) => OnClick();
@@ -44,7 +45,7 @@ public partial class UISounds : Node
             link.Pressed += OnClick;
         else
             Print.Warn($"Unsupported parent type: {parent.GetType()}");
-        
+
     }
 
     private void OnSelect() => sfx_select.Play();

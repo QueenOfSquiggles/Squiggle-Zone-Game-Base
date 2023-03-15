@@ -15,10 +15,6 @@
 editor_description = "Intended to be used as a base scene for any 3D scenes in the game. The default necessary nodes are in place for convenience"
 script = ExtResource("1_cbnh3")
 
-[node name="PauseMenuController" parent="." instance=ExtResource("2_2cy7m")]
-
-[node name="DefaultHUD" parent="." instance=ExtResource("2_b2wle")]
-
 [node name="ScreenEffects" type="CanvasLayer" parent="."]
 layer = 2
 
@@ -29,7 +25,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("4_s4ab0")
+
+[node name="DefaultHUD" parent="." instance=ExtResource("2_b2wle")]
+
+[node name="PauseMenuController" parent="." instance=ExtResource("2_2cy7m")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.556296, -0.503567, 0.661026, 0, 0.795473, 0.605989, -0.830984, -0.337109, 0.442518, 0, 0, 0)

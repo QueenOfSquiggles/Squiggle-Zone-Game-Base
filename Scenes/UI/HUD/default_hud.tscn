@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://clvfklayqmfnw"]
+[gd_scene load_steps=6 format=3 uid="uid://clvfklayqmfnw"]
 
 [ext_resource type="Theme" uid="uid://b6m4xd68fa5um" path="res://Assets/Theme/default_theme.tres" id="1_ftm8j"]
-[ext_resource type="Script" path="res://Scenes/UI/HUD/DefaultHUD.cs" id="1_jbwxp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jqhrl"]
 font_size = 32
@@ -45,13 +44,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_ftm8j")
-script = ExtResource("1_jbwxp")
-path_label_subtitle = NodePath("SubtitlePanel/PanelContainer/Subtitle")
-path_label_alert = NodePath("AlertPanel/MarginContainer/Label")
-path_root_subtitle = NodePath("SubtitlePanel")
-path_root_alert = NodePath("AlertPanel")
-path_reticle = NodePath("Reticle")
-path_interaction_prompt = NodePath("InteractionPrompt")
 
 [node name="SubtitlePanel" type="HBoxContainer" parent="DefaultHUD"]
 layout_mode = 1

@@ -6,29 +6,30 @@ namespace queen.data;
 public class Stats
 {
 
-//
-//  Meaningful information
-//      Defaults assigned as well
-//
+    //
+    //  Meaningful information
+    //      Defaults assigned as well
+    //
     public bool FirstTimeLaunch = true;
     public float TotalPlayTime = 0.0f;
-    
 
 
 
-//
-//  Singleton Setup
-//
+
+    //
+    //  Singleton Setup
+    //
     public static Stats Instance
     {
-        get {
+        get
+        {
             if (_instance == null) CreateInstance();
             return _instance;
 
         }
     }
     private static Stats _instance = null;
-    private const string FILE_PATH = "user://stats.json";
+    private const string FILE_PATH = "stats.json";
 
     public static void ForceLoadInstance()
     {
@@ -37,7 +38,7 @@ public class Stats
     }
 
     private static void CreateInstance()
-    {   
+    {
         _instance = new Stats();
         var loaded = Data.Load<Stats>(FILE_PATH);
         if (loaded != null) _instance = loaded;

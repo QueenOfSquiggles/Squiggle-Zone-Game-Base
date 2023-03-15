@@ -9,10 +9,10 @@ namespace queen.data;
 public class Controls
 {
 
-//
-//  Meaningful information
-//      Defaults assigned as well
-//
+    //
+    //  Meaningful information
+    //      Defaults assigned as well
+    //
 
     public float MouseLookSensivity = 100.0f;
     public float ControllerLookSensitivity = 500.0f;
@@ -21,15 +21,15 @@ public class Controls
     private Dictionary<string, List<InputEvent>> original_mappings_cache = new();
 
 
-//
-//  Events
-//
+    //
+    //  Events
+    //
 
     public event Action<string> OnControlMappingChanged;
 
-//
-//
-//
+    //
+    //
+    //
     private const int INPUT_KEY = 1;
     private const int INPUT_GAMEPAD_BUTTON = 2;
     private const int INPUT_MOUSE_BUTTON = 3;
@@ -38,13 +38,13 @@ public class Controls
     public void ResetMappings()
     {
         var affected = new List<string>();
-        foreach(var key in mappings_overloads.Keys)
+        foreach (var key in mappings_overloads.Keys)
         {
             affected.Add(key);
         }
         InputMap.LoadFromProjectSettings();
         mappings_overloads.Clear();
-        foreach(var action in affected)
+        foreach (var action in affected)
         {
             OnControlMappingChanged?.Invoke(action);
         }
@@ -57,7 +57,7 @@ public class Controls
             return;
         }
 
-        if(!original_mappings_cache.ContainsKey(action))
+        if (!original_mappings_cache.ContainsKey(action))
         {
             // caches the originally loaded mapping
             var event_list = InputMap.ActionGetEvents(action);
@@ -75,10 +75,10 @@ public class Controls
 
     public void ResetMapping(string action)
     {
-        if(!original_mappings_cache.ContainsKey(action)) return;
+        if (!original_mappings_cache.ContainsKey(action)) return;
         InputMap.ActionEraseEvents(action);
         var list = original_mappings_cache[action];
-        foreach(var e in list)
+        foreach (var e in list)
         {
             InputMap.ActionAddEvent(action, e);
         }
@@ -90,7 +90,7 @@ public class Controls
     private void LoadMappingsFromData(string action, int[] codes)
     {
         InputEvent input = null;
-        switch(codes[0])
+        switch (codes[0])
         {
             case INPUT_KEY:
                 input = new InputEventKey()
@@ -120,7 +120,7 @@ public class Controls
                 };
                 break;
         }
-        if(input == null)
+        if (input == null)
         {
             Print.Warn($"Failed to load custom mapping from data:\n\t'{action}' = {codes[0]}:{codes[1]}");
             return;
@@ -130,23 +130,23 @@ public class Controls
 
     private int[] GetInputCode(InputEvent e)
     {
-        if (e is InputEventKey key) return new int[]{INPUT_KEY, (int)key.Keycode};
-        if (e is InputEventJoypadButton btn) return new int[]{INPUT_GAMEPAD_BUTTON, (int)btn.ButtonIndex};
-        if (e is InputEventMouseButton mouse) return new int[]{INPUT_MOUSE_BUTTON, (int)mouse.ButtonIndex};
-        if (e is InputEventJoypadMotion axis) return new int[]{INPUT_GAMEPAD_AXIS, (int)axis.Axis, (int) axis.AxisValue};
-        return new int[]{0, 0};
+        if (e is InputEventKey key) return new int[] { INPUT_KEY, (int)key.Keycode };
+        if (e is InputEventJoypadButton btn) return new int[] { INPUT_GAMEPAD_BUTTON, (int)btn.ButtonIndex };
+        if (e is InputEventMouseButton mouse) return new int[] { INPUT_MOUSE_BUTTON, (int)mouse.ButtonIndex };
+        if (e is InputEventJoypadMotion axis) return new int[] { INPUT_GAMEPAD_AXIS, (int)axis.Axis, (int)axis.AxisValue };
+        return new int[] { 0, 0 };
     }
 
     public string GetCurrentMappingFor(string action)
     {
         if (!InputMap.HasAction(action))
-        { 
+        {
             Print.Warn($"No action found by name {action}");
             return "";
         };
         var events = InputMap.ActionGetEvents(action);
         string result = "";
-        foreach(var e in events)
+        foreach (var e in events)
         {
             // TODO retrive a simplified mapping string representation. Joypad Axes are especially horrendous
             result += e.AsText() + "\n";
@@ -154,21 +154,22 @@ public class Controls
         return result;
     }
 
-//
-//  Singleton Setup
-//
+    //
+    //  Singleton Setup
+    //
     public static Controls Instance
     {
-        get {
+        get
+        {
             if (_instance == null) CreateInstance();
             return _instance;
         }
     }
     private static Controls _instance = null;
-    private const string FILE_PATH = "user://controls.json";
+    private const string FILE_PATH = "controls.json";
 
     private static void CreateInstance()
-    {   
+    {
         _instance = new Controls();
         var loaded = Data.Load<Controls>(FILE_PATH);
         if (loaded != null) _instance = loaded;

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://lqy5m3w8fauo"]
+
+[ext_resource type="Resource" uid="uid://b6yjrjskua7jq" path="res://Game/Items/SampleItem.tres" id="1_b2vfc"]
+[ext_resource type="Script" path="res://Modules/Items/ItemDB.cs" id="1_ytgcf"]
+
+[resource]
+script = ExtResource("1_ytgcf")
+ItemRegistry = Array[Resource]([ExtResource("1_b2vfc")])

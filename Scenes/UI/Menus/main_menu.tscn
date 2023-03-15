@@ -20,7 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ef7d4")
-play_scene = "res://Scenes/World/world_base.tscn"
+play_scene = "res://Game/testing_world_scene.tscn"
 options_scene = "res://Scenes/UI/Menus/options_menu.tscn"
 credits_scene = "res://Scenes/UI/Menus/credits_scene.tscn"
 

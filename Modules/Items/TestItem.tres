@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bawpxbmw8d4k7"]
+
+[ext_resource type="Texture2D" uid="uid://c8fgnkcmhxaeh" path="res://icon.svg" id="1_4fyr2"]
+[ext_resource type="Script" path="res://Modules/Items/Item.cs" id="1_65ris"]
+
+[resource]
+script = ExtResource("1_65ris")
+ItemName = "Test Item"
+ItemDescription = "This is an item for testing purposes"
+ItemInventoryIcon = ExtResource("1_4fyr2")
+ItemInventorySize = Vector2i(1, 1)
+IsEquippable = false

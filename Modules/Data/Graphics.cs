@@ -7,17 +7,17 @@ namespace queen.data;
 public class Graphics
 {
 
-//
-//  Meaningful information
-//      Defaults assigned as well
-//
+    //
+    //  Meaningful information
+    //      Defaults assigned as well
+    //
     public int Fullscreen =
-    #if DEBUG
+#if DEBUG
         // fullscreen by default in release builds. Feels more AAA than trashy indie
         (int)DisplayServer.WindowMode.Maximized;
-    #else
+#else
         (int)DisplayServer.WindowMode.Fullscreen;
-    #endif
+#endif
 
     public bool Bloom = true;
     public bool SSR = true;
@@ -29,28 +29,29 @@ public class Graphics
     public float Contrast = 1.0f;
     public float Saturation = 1.0f;
 
-//
-//  Callback
-//
+    //
+    //  Callback
+    //
 
     public event Action OnGraphicsSettingsChanged;
 
-//
-//  Singleton Setup
-//
+    //
+    //  Singleton Setup
+    //
     public static Graphics Instance
     {
-        get {
+        get
+        {
             if (_instance == null) CreateInstance();
             return _instance;
 
         }
     }
     private static Graphics _instance = null;
-    private const string FILE_PATH = "user://graphics.json";
+    private const string FILE_PATH = "graphics.json";
 
     private static void CreateInstance()
-    {   
+    {
         _instance = new Graphics();
         var loaded = Data.Load<Graphics>(FILE_PATH);
         if (loaded != null) _instance = loaded;

@@ -5,10 +5,10 @@ namespace queen.data;
 public class AudioBuses
 {
 
-//
-//  Meaningful information
-//      Defaults assigned as well
-//
+    //
+    //  Meaningful information
+    //      Defaults assigned as well
+    //
 
     public float VolumeMain = 0.0f;
     public float VolumeVO = 0.0f;
@@ -17,22 +17,23 @@ public class AudioBuses
     public float VolumeDrones = 0.0f;
 
 
-//
-//  Singleton Setup
-//
+    //
+    //  Singleton Setup
+    //
     public static AudioBuses Instance
     {
-        get {
+        get
+        {
             if (_instance == null) CreateInstance();
             return _instance;
 
         }
     }
     private static AudioBuses _instance = null;
-    private const string FILE_PATH = "user://audio.json";
+    private const string FILE_PATH = "audio.json";
 
     private static void CreateInstance()
-    {   
+    {
         _instance = new AudioBuses();
         var loaded = Data.Load<AudioBuses>(FILE_PATH);
         if (loaded != null) _instance = loaded;

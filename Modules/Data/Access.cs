@@ -14,31 +14,32 @@ public class Access
     private const string FONT_PATH_NOTO_SANS = "res://Assets/Fonts/NotoSans-Regular.ttf";
     private const string FONT_PATH_OPEN_DYSLEXIE = "res://Assets/Fonts/OpenDyslexic-Regular.otf";
 
-//
-//  Meaningful information
-//      Defaults assigned as well
-//
+    //
+    //  Meaningful information
+    //      Defaults assigned as well
+    //
     public bool UseSubtitles = true;
     public bool PreventFlashingLights = false;
     public float AudioDecibelLimit = 0.0f;
     public int FontOption = FONT_GOTHIC;
-    public float EngineTimeScale = 1.0f; 
+    public float EngineTimeScale = 1.0f;
 
 
 
-//
-//  Singleton Setup
-//
+    //
+    //  Singleton Setup
+    //
     public static Access Instance
     {
-        get {
+        get
+        {
             if (_instance == null) CreateInstance();
             return _instance;
 
         }
     }
     private static Access _instance = null;
-    private const string FILE_PATH = "user://access.json";
+    private const string FILE_PATH = "access.json";
 
     public static void ForceLoadInstance()
     {
@@ -47,7 +48,7 @@ public class Access
     }
 
     private static void CreateInstance()
-    {   
+    {
         _instance = new Access();
         var loaded = Data.Load<Access>(FILE_PATH);
         if (loaded != null)
@@ -73,7 +74,7 @@ public class Access
 
         // font management
         string path = "";
-        switch(Instance.FontOption)
+        switch (Instance.FontOption)
         {
             case FONT_GOTHIC:
                 path = FONT_PATH_GOTHIC;

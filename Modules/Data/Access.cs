@@ -23,6 +23,7 @@ public class Access
     public float AudioDecibelLimit = 0.0f;
     public int FontOption = FONT_GOTHIC;
     public float EngineTimeScale = 1.0f;
+    public bool ReadVisibleTextAloud = true;
 
 
 

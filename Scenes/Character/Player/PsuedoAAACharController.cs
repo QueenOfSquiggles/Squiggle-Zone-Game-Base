@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using queen.data;
+using queen.error;
 using queen.events;
 using queen.extension;
 
@@ -16,24 +17,35 @@ public partial class PsuedoAAACharController : CharacterBody3D
     [Export] private float JumpVelocity = 4.5f;
     [Export] private float mouse_sensitivity;
     [Export] private float CrouchSpeedScale = 0.45f;
+    [Export] private float StepHeight = 0.4f;
+    [Export] private float StepStrength = 3.0f;
 
     [ExportGroup("Node Paths")]
     [Export] private NodePath PathVCam;
     [Export] private NodePath PathGroundMaterialPoll;
     [Export] private NodePath PathAnimationPlayer;
     [Export] private NodePath PathCanStandCheck;
+    [Export] private NodePath PathStepCheckTop;
+    [Export] private NodePath PathStepCheckBottom;
 
     // References
     private VirtualCamera vcam;
     private GroundMaterialPoller groundMaterialPoller;
     private AnimationPlayer anim;
     private RayCast3D CanStandCheck;
+    private RayCast3D CanStepCheckTop;
+    private RayCast3D CanStepCheckBottom;
 
     // Values
     private Vector2 camera_look_vector = new();
     private float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     private float CurrentSpeed = 0.0f;
     private bool IsCrouching = false;
+    private bool IsOnStairs = false;
+
+    private float CanStepCheckTop_CastLength = 1.0f;
+    private float CanStepCheckBottom_CastLength = 1.0f;
+    private Vector2 InputVector = new();
 
     public override void _Ready()
     {
@@ -41,6 +53,12 @@ public partial class PsuedoAAACharController : CharacterBody3D
         this.GetSafe(PathGroundMaterialPoll, out groundMaterialPoller);
         this.GetSafe(PathAnimationPlayer, out anim);
         this.GetSafe(PathCanStandCheck, out CanStandCheck);
+        this.GetSafe(PathStepCheckTop, out CanStepCheckTop);
+        this.GetSafe(PathStepCheckBottom, out CanStepCheckBottom);
+
+        CanStepCheckTop.Position += new Vector3(0, StepHeight, 0);
+        CanStepCheckBottom_CastLength = CanStepCheckBottom.TargetPosition.Length();
+        CanStepCheckTop_CastLength = CanStepCheckTop.TargetPosition.Length();
 
         Events.Gameplay.RequestPlayerAbleToMove += HandleEventPlayerCanMove;
         Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -53,8 +71,11 @@ public partial class PsuedoAAACharController : CharacterBody3D
         CamLookLogic(delta);
 
         Vector3 velocity = Velocity;
+
         CamMoveLogic(ref velocity, delta);
         if (!IsCrouching) JumpLogic(ref velocity, delta);
+        StepLogic(ref velocity, delta);
+        if (!IsOnFloor()) velocity.Y -= gravity * (float)delta;
 
         Velocity = velocity;
         MoveAndSlide();
@@ -63,8 +84,6 @@ public partial class PsuedoAAACharController : CharacterBody3D
     private void JumpLogic(ref Vector3 velocity, double delta)
     {
         // Add the gravity.
-        if (!IsOnFloor())
-            velocity.Y -= gravity * (float)delta;
 
         // Handle Jump.
         if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
@@ -74,15 +93,20 @@ public partial class PsuedoAAACharController : CharacterBody3D
     private void CamMoveLogic(ref Vector3 velocity, double delta)
     {
 
-        var input_dir = Input.GetVector("move_left", "move_right", "move_forward", "move_back");
-        if (input_dir.LengthSquared() < 0.1f)
-            input_dir = Input.GetVector("gamepad_move_left", "gamepad_move_right", "gamepad_move_forward", "gamepad_move_back");
+        InputVector = Input.GetVector("move_left", "move_right", "move_forward", "move_back");
+        if (InputVector.LengthSquared() < 0.1f)
+            InputVector = Input.GetVector("gamepad_move_left", "gamepad_move_right", "gamepad_move_forward", "gamepad_move_back");
 
-        Vector3 direction = (Transform.Basis * new Vector3(input_dir.X, 0, input_dir.Y)).Normalized();
+        Vector3 direction = (Transform.Basis * new Vector3(InputVector.X, 0, InputVector.Y)).Normalized();
         if (direction != Vector3.Zero)
         {
 
-            var target_speed = IsCrouching ? Speed * CrouchSpeedScale : ((IsOnFloor() && Input.IsActionPressed("sprint")) ? SprintSpeed : Speed);
+
+            // TODO Holy fuck this is some messy logic. This should really get cleaned up somehow. Maybe by having a series of contributing factors? IDK
+            // Sprint or No Sprint
+            var target_speed = (IsOnFloor() && Input.IsActionPressed("sprint")) ? SprintSpeed : Speed;
+            // Crouching so speed is slowed unless on stairs
+            if (IsCrouching) target_speed = IsOnStairs ? Speed : (Speed * CrouchSpeedScale);
             CurrentSpeed = Mathf.Lerp(CurrentSpeed, target_speed, Acceleration);
             velocity.X = direction.X * CurrentSpeed;
             velocity.Z = direction.Z * CurrentSpeed;
@@ -92,6 +116,28 @@ public partial class PsuedoAAACharController : CharacterBody3D
             CurrentSpeed = Mathf.Lerp(CurrentSpeed, 0, Acceleration);
             velocity.X = Mathf.MoveToward(Velocity.X, 0, CurrentSpeed);
             velocity.Z = Mathf.MoveToward(Velocity.Z, 0, CurrentSpeed);
+        }
+    }
+
+    private void StepLogic(ref Vector3 velocity, double _delta)
+    {
+        if (InputVector.LengthSquared() < 0.8f) return;
+
+        var dir = new Vector3(InputVector.X, 0, InputVector.Y);
+        CanStepCheckBottom.TargetPosition = dir * CanStepCheckBottom_CastLength;
+        CanStepCheckTop.TargetPosition = dir * CanStepCheckTop_CastLength;
+
+        if (!IsOnWall())
+        {
+            IsOnStairs = false;
+            return;
+        }
+
+        IsOnStairs = CanStepCheckBottom.IsColliding() && !CanStepCheckTop.IsColliding();
+
+        if (IsOnStairs)
+        {
+            velocity.Y = StepHeight * StepStrength;
         }
     }
 

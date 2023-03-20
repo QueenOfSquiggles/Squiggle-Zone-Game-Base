@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://jxv636fg1elf"]
+[gd_scene load_steps=8 format=3 uid="uid://jxv636fg1elf"]
 
 [ext_resource type="PackedScene" uid="uid://cpi11vcqc7gk3" path="res://Scenes/Utility/Environment/world_env_settings_compliant.tscn" id="1_303i3"]
-[ext_resource type="Script" path="res://Scenes/World/world_base.gd" id="1_cbnh3"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/Menus/pause_menu_controller.tscn" id="2_2cy7m"]
 [ext_resource type="PackedScene" uid="uid://clvfklayqmfnw" path="res://Scenes/UI/HUD/default_hud.tscn" id="2_b2wle"]
 [ext_resource type="PackedScene" uid="uid://ctgxlwrddpdbx" path="res://Scenes/Utility/CameraUtilities/camera_brain.tscn" id="3_kk5cy"]
@@ -9,11 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://c8fgnkcmhxaeh" path="res://icon.svg" id="4_s4ab0"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/HUD/hud_requests.tscn" id="8_gp156"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_1owe5"]
-
 [node name="WorldBase" type="Node3D"]
 editor_description = "Intended to be used as a base scene for any 3D scenes in the game. The default necessary nodes are in place for convenience"
-script = ExtResource("1_cbnh3")
 
 [node name="ScreenEffects" type="CanvasLayer" parent="."]
 layer = 2
@@ -41,9 +37,5 @@ shadow_enabled = true
 [node name="CameraBrain" parent="." instance=ExtResource("3_kk5cy")]
 
 [node name="LevelGeometry" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelGeometry"]
-transform = Transform3D(0.907584, 0.298586, -0.295192, -0.415465, 0.740228, -0.528631, 0.0606675, 0.602419, 0.795871, 0, 0, -3.85872)
-mesh = SubResource("BoxMesh_1owe5")
 
 [node name="HUD Requests" parent="." instance=ExtResource("8_gp156")]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bbwbopoilquti"]
+
+[ext_resource type="Texture2D" uid="uid://bfbgt8fasv2oo" path="res://Game/Resource/Items/Base/gold_nugget.png" id="1_1wawe"]
+[ext_resource type="Script" path="res://Modules/Items/Item.cs" id="2_te1y5"]
+
+[resource]
+script = ExtResource("2_te1y5")
+ItemKey = "base.item.gold_nugget"
+ItemTexture = ExtResource("1_1wawe")
+ItemSize = Vector2i(1, 1)
+MaxStackSize = 16

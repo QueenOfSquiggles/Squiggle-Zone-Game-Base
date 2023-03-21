@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c5og260gfro6"]
+
+[ext_resource type="Texture2D" uid="uid://0wqjjwj6bn66" path="res://Game/Resource/Items/Base/diamond_axe.png" id="1_g08vj"]
+[ext_resource type="Script" path="res://Modules/Items/Item.cs" id="2_xd5md"]
+
+[resource]
+script = ExtResource("2_xd5md")
+ItemKey = "base.item.test"
+ItemTexture = ExtResource("1_g08vj")
+ItemSize = Vector2i(2, 2)
+MaxStackSize = 1

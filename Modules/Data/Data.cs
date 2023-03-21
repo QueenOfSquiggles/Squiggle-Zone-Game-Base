@@ -105,7 +105,7 @@ public class DataPath
     /// <typeparam name="T">data type to load. Must be specified when it cannot be inferred.</typeparam>
     /// <param name="path">The path of a json file relative to the assigned path (likely a save slot)</param>
     /// <returns>The data of type T that was loaded from file. </returns>
-    public T Load<T>(string path) where T : class
+    public T? Load<T>(string path) where T : class
     {
         if (JsonSettings == null) LoadDefaultJsonSettings();
         try
@@ -129,13 +129,19 @@ public class DataPath
         try
         {
             path = CurrentPath + path;
+            // Print.Debug($"Saving Text:\nDir: {path.GetBaseDir()}\nFile: {path.GetFile()}");
             EnsureDirectoryPaths(path);
             { // deletes the original file to ensure no degenerate files are generated
                 using var dir = DirAccess.Open(path.GetBaseDir());
-                if (dir.FileExists(path.GetFile())) dir.Remove(path.GetFile());
+                if (dir is not null && dir.FileExists(path.GetFile())) dir.Remove(path.GetFile());
             }
             using var file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
-            if (file == null) Print.Warn($"Failed to open file at path\n\t{path}\n\tError Code #{FileAccess.GetOpenError()}");
+            if (file is null)
+            {
+                Print.Warn($"Failed to open file at path\n\t{path}\n\tError Code #{FileAccess.GetOpenError()}");
+                return;
+            }
+
             file.StoreString(text);
             if (do_flush) file.Flush(); // forces a disk write. But also slows down performance
         }
@@ -147,7 +153,7 @@ public class DataPath
         }
     }
 
-    public string LoadText(string path)
+    public string? LoadText(string path)
     {
 
         try
@@ -168,10 +174,14 @@ public class DataPath
 
     private void EnsureDirectoryPaths(string file_path)
     {
-        var global_path = ProjectSettings.GlobalizePath(file_path).GetBaseDir();
-        if (DirAccess.DirExistsAbsolute(global_path)) return;
-        var err = DirAccess.MakeDirAbsolute(global_path);
-        if (err != Error.Ok) Print.Error($"Failed to create folder structure for {file_path}.\n\tError={err}");
+
+        var globalPath = ProjectSettings.GlobalizePath(file_path.GetBaseDir());
+        if (DirAccess.DirExistsAbsolute(globalPath)) return;
+
+        // Print.Debug($"Creating directory path: {globalPath}");
+        var err = DirAccess.MakeDirRecursiveAbsolute(globalPath);
+        if (err != Error.Ok)
+            Print.Error($"Failed to create folder structure for {globalPath}.\n\tError={err}");
     }
 
     private void LoadDefaultJsonSettings()

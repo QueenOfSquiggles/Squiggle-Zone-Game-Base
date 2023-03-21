@@ -1,174 +1,324 @@
+namespace queen.items;
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
-using Godot.NativeInterop;
-using MonoCustomResourceRegistry;
-using queen.data;
+using queen.error;
 
-[RegisteredType(nameof(ItemContainer))]
 public partial class ItemContainer : Resource
 {
-    [Export] public string ItemContainerName = "";
-    [Export] public Vector2I ContainerSize = new(1, 1);
-    [Export] private ItemDB DB;
 
-    private Dictionary<Vector2I, ItemStack> ItemGrid = new();
-    private const string CONTAINERS_SUBDIR = "container";
+    public SortedDictionary<Vector2I, ItemStack> items = new(new ItemContainerComparer(Vector2I.Zero));
+    public event Action? MarkDirty;
 
-    public bool AddItem(Item item, int count = 1)
+    private Vector2I _containerSize = new Vector2I(1, 1);
+    public Vector2I ContainerSize
     {
-        int remaining = count;
-        foreach (var stack in ItemGrid.Values)
+        get { return _containerSize; }
+        set
         {
-            if (stack.item == item && stack.count < item.MaxStackSize)
-            {
-                int allowance = item.MaxStackSize - stack.count;
-                if (allowance >= remaining)
-                {
-                    stack.count += remaining;
-                    return true;
-                }
-                stack.count += allowance;
-                remaining -= allowance;
-                // TODO double check my math is good on this.
-                if (remaining <= 0) return true;
-            }
+            _containerSize = value;
+            if (items.Comparer is ItemContainerComparer icc)
+                icc.Size = _containerSize;
         }
-
-        var position = FindValidPosition(item.ItemInventorySize);
-        if (position is null) return false;
-        var new_stack = new ItemStack()
-        {
-            item = item,
-            count = count
-        };
-        ItemGrid[position.Value] = new_stack;
-        return true;
     }
 
-    public bool ConsumeItem(Item item, int count = 1)
-    {
-        int remaining = count;
-        foreach (var stack in ItemGrid.Values)
-        {
-            if (stack.item == item)
-            {
-                if (stack.count > remaining)
-                {
-                    stack.count -= remaining;
-                    return true;
-                }
-                remaining -= stack.count;
 
-                // TODO double check my math is good on this.
-                if (remaining <= 0) return true;
-            }
+
+    public bool HasQuantity(ItemStack stack)
+    {
+        int remaining = stack.StackCount;
+        foreach (var item in items.Values)
+        {
+            if (!stack.SameItem(item)) continue;
+            remaining -= item.StackCount;
+            if (remaining <= 0) return true;
         }
         return false;
     }
 
-    public ItemStack FindItem(Item item)
+    public bool Consume(ItemStack stack) => RemoveStack(stack); // alternative name for clearer interpretation
+
+    public bool RemoveStack(ItemStack stack)
     {
-        foreach (var stack in ItemGrid.Values)
+        if (!HasQuantity(stack)) return false;
+        var matchingStacks = GetAllOfType(stack.StackItem.ItemKey);
+        foreach (var itemStack in matchingStacks)
         {
-            if (stack.item == item && stack.count > 0) return stack;
+            var toRemove = Math.Min(stack.StackCount, itemStack.StackCount);
+            // Print.Debug($"Removed From Stack: {stack} Qty {toRemove}");
+            itemStack.StackCount -= toRemove;
+            stack.StackCount -= toRemove;
+            if (stack.IsEmpty) break;
         }
-        return null;
+        CombineStacks();
+        RemoveAllEmpty();
+        DoMarkDirty();
+        return stack.IsEmpty;
     }
 
-
-    private Vector2I? FindValidPosition(Vector2I size)
+    public void RemoveAllEmpty()
     {
-        // TODO this function does not currently consider rotation as an option. If all objects are square that works, but maybe I'll want organizational options in the future? TBD for now
-
-        var to_add = new Rect2I(new Vector2I(0, 0), size);
-        int indices = ContainerSize.X * ContainerSize.Y;
-        for (int i = 0; i < indices; i++)
+        // Checks against the IsValidStack function to see if the stack is valid. Anything invalid gets cleared  
+        var targets = items.Where(x => !x.Value.IsValidStack()).ToList();
+        foreach (var t in targets)
         {
+            items.Remove(t.Key);
+        }
+        DoMarkDirty();
+    }
 
-            to_add.Position = new(i % ContainerSize.X, i / ContainerSize.X);
+    public void CombineStacks()
+    {
+        List<Item> item_types = new();
+        foreach (var entry in items.Values)
+        {
+            if (item_types.Contains(entry.StackItem)) continue;
+            item_types.Add(entry.StackItem);
+        }
 
-            bool is_blocked = false;
-            foreach (var pos in ItemGrid.Keys)
+        foreach (var item in item_types)
+        {
+            var list = GetAllOfType(item.ItemKey);
+            int endIndex = list.Count - 1;
+            for (int startIndex = 0; startIndex < endIndex; startIndex++)
             {
-                is_blocked |= GetFor(pos) is Rect2I rect && rect.Intersects(to_add);
-                if (is_blocked) break;
+                var stack = list[startIndex];
+                if (stack.IsFull) continue;
+                var pullStack = list[endIndex];
+                if (pullStack.IsEmpty)
+                {
+                    endIndex--; // go to next pull target, will break loop if hitting startIndex
+                }
+                else
+                {
+                    int moveQty = Math.Min(stack.MaxStackSize - stack.StackCount, pullStack.StackCount);
+                    stack.StackCount += moveQty;
+                    pullStack.StackCount -= moveQty;
+                }
+
             }
-            if (!is_blocked) return to_add.Position;
-
         }
-        return null;
     }
 
-    private Rect2I? GetFor(Vector2I position)
+    public List<ItemStack> GetAllOfType(string ItemKey)
     {
-        if (!ItemGrid.ContainsKey(position)) return null;
-        if (ItemGrid[position] is not ItemStack stack || stack.item is null) return null;
-
-        var size = stack.item.ItemInventorySize;
-        return new Rect2I(position, size);
+        return items.Values.Where(x => x.StackItem.ItemKey == ItemKey).ToList();
     }
 
-    public void Serialize()
+    public bool RemoveAt(Vector2I position)
     {
-        var data = new Godot.Collections.Dictionary();
-        foreach (var entry in ItemGrid)
+        if (items.ContainsKey(position))
         {
-            var key = $"{entry.Key.X},{entry.Key.Y}";
-            var dict = new Godot.Collections.Dictionary();
-            dict.Add("name", entry.Value.item.ItemName);
-            dict.Add("count", entry.Value.count);
-            if (entry.Value.item.HasCustomData && entry.Value.item.GetCustomData() is Godot.Collections.Dictionary custom_data)
+            // // Print.Debug($"Removed Stack: {items[position]} @ {position}");
+            items.Remove(position);
+            return false;
+        }
+        var list = new List<Vector2I>();
+        list.AddRange(items.Keys); // protected from modification -> prevents accidental deletion of
+        foreach (var entry in list)
+        {
+            var rect = GetRectFor(entry);
+            if (SlotPosInRect(position, rect))
             {
-                dict.Add("custom_data", custom_data);
+                // // Print.Debug($"Removed Stack: {items[entry]} @ {entry}");
+                items.Remove(entry);
             }
-            data.Add(key, dict); // nested objects
         }
-        var text_data = Json.Stringify(data, "\t");
-        Data.CurrentSaveSlot.SaveText(text_data, GetSavePath());
+        DoMarkDirty();
+        return true;
     }
 
-    public void Deserialize()
+    public bool CanPlaceAt(ItemStack stack, Vector2I target)
     {
-        var text_data = Data.CurrentSaveSlot.LoadText(GetSavePath());
-        if (text_data is null) return;
-        var dict = Json.ParseString(text_data).AsGodotDictionary();
-        if (dict is null) return;
-        foreach (var entry in dict)
+        if (items.ContainsKey(target)) return false;
+        // if there are no collisions, we can place at position
+        if (stack is null || stack.StackItem is null)
         {
-            var pos = ParsePositionString(entry.Key.AsString());
-            if (pos is null) continue;
-            var data = entry.Value.AsGodotDictionary();
-            if (data is null) continue;
+            Print.Warn($"Attempted to place a null stack at position in container: {target}");
+            return false;
+        }
+        return !CheckForCollision(target, stack.StackItem.ItemSize, out _);
+    }
 
+    public bool PlaceAt(ItemStack stack, Vector2I target)
+    {
+        if (!CanPlaceAt(stack, target)) return false;
+        items.Add(target, stack);
+        // Print.Debug($"Placed Stack: {stack} @ {target}");
+        DoMarkDirty();
+        return true;
+    }
+
+    public bool AddStack(ref ItemStack stack)
+    {
+        if (stack.IsStackable)
+            AddToExistingStacks(ref stack);
+        if (stack.StackCount > 0)
+            AddNewStack(ref stack);
+        DoMarkDirty();
+        return stack.IsEmpty;
+    }
+
+    private void AddNewStack(ref ItemStack stack)
+    {
+        var checkPos = new Vector2I();
+        for (int y = 0; y < ContainerSize.Y; y++)
+        {
+            checkPos.Y = y;
+            for (int x = 0; x < ContainerSize.X; x++)
+            {
+                checkPos.X = x;
+                var n_stack = stack.Copy();
+                if (n_stack.StackCount > n_stack.MaxStackSize)
+                    n_stack.StackCount = n_stack.MaxStackSize;
+
+                if (CanPlaceAt(n_stack, checkPos))
+                {
+                    PlaceAt(n_stack, checkPos);
+                    stack.StackCount -= n_stack.StackCount;
+                    if (stack.StackCount <= 0) return;
+                }
+            }
+        }
+    }
+
+    private void AddToExistingStacks(ref ItemStack stack)
+    {
+        foreach (var entry in items)
+        {
+            var itemStack = entry.Value;
+            if (!itemStack.SameItem(stack)) continue;
+            if (itemStack.IsFull) continue;
+
+            int adding = Math.Min(itemStack.MaxStackSize - itemStack.StackCount, stack.StackCount);
+            // // Print.Debug($"Calculating available stacks.\nStack Count={itemStack.StackCount}\nMax Stack Size={itemStack.MaxStackSize}\nQty Adding Total={stack.StackCount}\nQty Adding Here={adding}");
+            itemStack.StackCount += adding;
+            stack.StackCount -= adding;
+            // Print.Debug($"Modified Stack: {itemStack} @ {entry.Key}");
+
+            // // Print.Debug($"Added to existing stack: {stack.StackItem.ItemKey} X {adding}");
+
+            if (stack.IsEmpty) return;
+        }
+    }
+
+    private bool CheckForCollision(Vector2I position, Vector2I size, out Vector2I collisionPoint)
+    {
+        var rect = new Rect2I(position, size);
+        collisionPoint = Vector2I.One * -1;
+        // doesn't fit in slot because of container size
+        if (!ContainerContains(rect))
+        {
+            // // Print.Debug($"Container Collision: Container Rect does not enclose item rect.\nContainer: {containerRect}\nItem: {rect}");
+            return true;
+        }
+
+        foreach (var entry in items)
+        {
+            var target = GetRectFor(entry.Key);
+            collisionPoint = entry.Key;
+            // Found a collision against existing item
+            if (RectCollision(target, rect))
+            {
+                // // Print.Debug($"Container Collision: Found Item Collision.\nItem A: {rect}\nItem B: {target}");
+                return true;
+            }
+        }
+        // // Print.Debug("Container Collision: No collisions found");
+        collisionPoint = Vector2I.One * 420; // probably never going to have a 420x420 item container.
+        return false;
+    }
+
+    private bool ContainerContains(Rect2I itemRect)
+    {
+        var rect = GetContainerRect();
+        return RectCollision(itemRect, rect);
+    }
+
+    private bool RectCollision(Rect2I a, Rect2I b)
+    {
+        return a.Intersects(b);
+        // return a.Position >= b.Position && (a.Position + a.Size) <= (b.Position + b.Size);
+    }
+
+    private bool SlotPosInRect(Vector2I slotPos, Rect2I itemRect)
+    {
+        return RectCollision(new Rect2I(slotPos, Vector2I.One), itemRect);
+    }
+
+    private Rect2I GetRectFor(Vector2I position)
+    {
+        var stack = GetAt(position);
+        if (stack is null) return new Rect2I(position, Vector2I.Zero); // zero size rect, no collision should trigger
+        return new Rect2I(position, stack.StackItem.ItemSize);
+    }
+
+    private Rect2I GetContainerRect()
+    {
+        return new Rect2I(Vector2I.Zero, ContainerSize);
+    }
+
+    public Godot.Collections.Dictionary GetSaveData()
+    {
+        var data = new Godot.Collections.Dictionary()
+        {
+            {"size_x", ContainerSize.X},
+            {"size_y", ContainerSize.Y}
+        };
+
+        foreach (var entry in items)
+        {
+            var key = GetIndexFrom(entry.Key);
+            var stackData = entry.Value.SaveStack();
+            data.Add(key, stackData);
+        }
+        return data;
+    }
+
+    public void LoadFromSaveData(Godot.Collections.Dictionary data)
+    {
+        items.Clear();
+        var size = new Vector2I();
+        size.X = data["size_x"].AsInt32();
+        size.Y = data["size_y"].AsInt32();
+        ContainerSize = size;
+        data.Remove("size_x");
+        data.Remove("size_y");
+        foreach (var entry in data)
+        {
+            var position = GetFromIndex(entry.Key.AsInt32());
+            var stackData = entry.Value.AsGodotDictionary();
             var stack = new ItemStack();
-            var item = DB.GetItemBy(data["name"].AsString());
-            if (item is null) continue;
-            stack.item = item;
-            stack.count = data["count"].AsInt32();
-
-            if (data.ContainsKey("custom_data"))
-            {
-                var custom_data = data["custom_data"].AsGodotDictionary();
-                if (custom_data is not null) stack.item.LoadCustomData(custom_data);
-            }
-
+            stack.LoadStack(stackData);
+            if (!stack.IsValidStack()) continue; // Discard data, not a useful value
+            items.Add(position, stack);
         }
+        DoMarkDirty();
     }
 
-    private Vector2I? ParsePositionString(string data)
+    private Vector2I GetFromIndex(int index)
     {
-        // "(000,000)"
-        var parts = data.Split(",");
-        if (parts.Length < 2) return null;
-        int x, y;
-        if (!int.TryParse(parts[0], out x) || !int.TryParse(parts[1], out y)) return null;
-        return new Vector2I(x, y);
+        return new Vector2I(index % ContainerSize.X, index / ContainerSize.X);
     }
 
-    private string GetSavePath()
+    private int GetIndexFrom(Vector2I vector)
     {
-        return $"{CONTAINERS_SUBDIR}/{ItemContainerName.ToCamelCase()}.json";
+        return vector.X + (vector.Y * ContainerSize.X);
     }
 
+    private void DoMarkDirty() => MarkDirty?.Invoke();
+
+    public ItemStack GetAt(Vector2I position)
+    {
+        if (items.ContainsKey(position)) return items[position];
+        foreach (var entry in items.Keys)
+        {
+            var rect = GetRectFor(entry);
+            if (SlotPosInRect(position, rect))
+                return items[entry];
+        }
+        return null;
+    }
 }

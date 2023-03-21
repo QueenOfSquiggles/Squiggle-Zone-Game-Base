@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://c403a8lk7nhaj"]
+
+[ext_resource type="Script" path="res://Scenes/Items/ItemsDisplayGeneric.cs" id="1_u70bv"]
+[ext_resource type="PackedScene" uid="uid://b8inkvaslofc2" path="res://Scenes/Items/item_slot.tscn" id="2_3i04k"]
+[ext_resource type="PackedScene" uid="uid://clyat4vk16okf" path="res://Scenes/Items/item_icon.tscn" id="3_ac1ap"]
+
+[node name="ItemsDisplayGeneric" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u70bv")
+PathSlotsContainer = NodePath("ItemSlotsContainer")
+PathItemIconsContainer = NodePath("ItemIcons")
+ItemSlotScene = ExtResource("2_3i04k")
+ItemIconScene = ExtResource("3_ac1ap")
+
+[node name="ItemSlotsContainer" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+
+[node name="ItemIcons" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Control_2" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Control" type="HBoxContainer" parent="Control_2"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -53.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BtnSave" type="Button" parent="Control_2/Control"]
+layout_mode = 2
+text = "Save"
+
+[node name="BtnLoad" type="Button" parent="Control_2/Control"]
+layout_mode = 2
+text = "Load
+"
+
+[connection signal="pressed" from="Control_2/Control/BtnSave" to="." method="SaveInventory"]
+[connection signal="pressed" from="Control_2/Control/BtnLoad" to="." method="LoadInventory"]

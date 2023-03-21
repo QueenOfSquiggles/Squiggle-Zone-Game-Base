@@ -1,26 +1,49 @@
+namespace queen.items;
+
 using System;
 using Godot;
 using Godot.Collections;
 using MonoCustomResourceRegistry;
 
+/// <summary>
+/// The definitive data values for a given Item. No instance data is stored here. For instance data storage See <seealso cref="ItemStack"/>
+/// </summary>
 [RegisteredType(nameof(Item))]
 public partial class Item : Resource
 {
+    [Export] public string ItemKey { get; set; } = "item.null";
+    [Export] private Texture2D ItemTexture = null;
+    [Export] public Vector2I ItemSize { get; set; } = new Vector2I(1, 1);
+    [Export] public int MaxStackSize { get; set; } = 1;
+    public bool IsStackable => MaxStackSize > 1;
 
-    [Export] public string ItemName = "unnamed";
-    [Export] public string ItemDescription = "no description";
-    [Export] public PackedScene ItemWorldMesh;
-    [Export] public Texture ItemInventoryIcon;
-    [Export] public Vector2I ItemInventorySize = new(1, 1);
-    [Export] public bool IsEquippable = false;
-    [Export] public int MaxStackSize = 99;
-    [Export] public bool HasCustomData = false;
+    public virtual bool HasCustomData => false;
 
-    public virtual Dictionary GetCustomData()
+    /// <summary>
+    /// Build the instance data to be saved when serializing an item stack of this item
+    /// </summary>
+    /// <param name="stack">the instance of the stack that contains one or more of this item</param>
+    /// <returns>A Godot Dictionary that stores the information for loading custom instance data next time.</returns>
+    public virtual Dictionary SaveInstanceData(ItemStack stack) => new Dictionary();
+
+    /// <summary>
+    /// Gets the texture of the item. This is a virtual method so that special items can have a custom texture based on data.
+    /// </summary>
+    /// <returns>The Texture2D that is currently the texture</returns>
+    public virtual Texture2D GetItemTexture() => ItemTexture;
+
+    public override bool Equals(object? obj)
     {
-        return null;
+        if (obj is Item other)
+        {
+            return other.ItemKey == ItemKey;
+        }
+        return false;
     }
 
-    public virtual void LoadCustomData(Dictionary data) { }
+    public override string ToString()
+    {
+        return $"Item<{ItemKey}>";
+    }
 
 }

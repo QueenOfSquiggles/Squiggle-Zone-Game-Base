@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://clyat4vk16okf"]
+
+[ext_resource type="Texture2D" uid="uid://cu7mcio56culp" path="res://Game/Resource/Items/Base/base.item.error.png" id="1_8s3eq"]
+[ext_resource type="Script" path="res://Scenes/Items/ItemIcon.cs" id="2_adso7"]
+[ext_resource type="Texture2D" uid="uid://co6l7rthrj8p6" path="res://Assets/Textures/ItemSystem/item_icon_select_overlay.png" id="3_1a4ed"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c5ax4"]
+font_size = 32
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ItemIcon" type="TextureRect"]
+offset_right = 128.0
+offset_bottom = 128.0
+texture = ExtResource("1_8s3eq")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_adso7")
+pathCountLabel = NodePath("Label")
+pathSelectOverlay = NodePath("NinePatchRect")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+show_behind_parent = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_1a4ed")
+draw_center = false
+region_rect = Rect2(2, 2, 124, 124)
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -33.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "999"
+label_settings = SubResource("LabelSettings_c5ax4")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExit"]

@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://f3qu1lke5rtx"]
+
+[ext_resource type="PackedScene" uid="uid://c403a8lk7nhaj" path="res://Scenes/Items/items_display_generic.tscn" id="1_rp810"]
+
+[node name="InventoryDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SecondaryStorage" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 4.0
+grow_vertical = 2
+
+[node name="SecondaryStorage" parent="SecondaryStorage" instance=ExtResource("1_rp810")]
+layout_mode = 2
+
+[node name="PlayerStorage" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="PlayerInventory" parent="PlayerStorage" instance=ExtResource("1_rp810")]
+layout_mode = 2

@@ -67,15 +67,17 @@ public partial class PsuedoAAACharController : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Input.MouseMode != Input.MouseModeEnum.Captured) return;
-        CamLookLogic(delta);
 
         Vector3 velocity = Velocity;
-
-        CamMoveLogic(ref velocity, delta);
-        if (!IsCrouching) JumpLogic(ref velocity, delta);
-        StepLogic(ref velocity, delta);
         if (!IsOnFloor()) velocity.Y -= gravity * (float)delta;
+
+        if (Input.MouseMode == Input.MouseModeEnum.Captured)
+        {
+            CamLookLogic(delta);
+            CamMoveLogic(ref velocity, delta);
+            if (!IsCrouching) JumpLogic(ref velocity, delta);
+            StepLogic(ref velocity, delta);
+        }
 
         Velocity = velocity;
         MoveAndSlide();
@@ -178,9 +180,10 @@ public partial class PsuedoAAACharController : CharacterBody3D
         bool handled = false;
         if (Input.MouseMode == Input.MouseModeEnum.Captured)
         {
-            handled = handled || InputMouseLook(e);
-            handled = handled || InputInteract(e);
-            handled = handled || InputCrouch(e);
+            handled |= InputMouseLook(e);
+            handled |= InputInteract(e);
+            handled |= InputCrouch(e);
+            handled |= InputOpenInventory(e);
             // TODO add in other controls here!
 
         }
@@ -215,6 +218,16 @@ public partial class PsuedoAAACharController : CharacterBody3D
         if (IsCrouching) anim.Play("Crouch");
         else anim.PlayBackwards("Crouch");
 
+        return true;
+    }
+
+    private bool InventoryToggle = false;
+    private bool InputOpenInventory(InputEvent e)
+    {
+        if (!e.IsActionPressed("open_inventory")) return false;
+        InventoryToggle = !InventoryToggle;
+        Events.GUI.TriggerRequestInventory(InventoryToggle);
+        Velocity = Vector3.Zero;
         return true;
     }
 

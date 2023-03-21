@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dhrxv8mc7t4ky"]
+
+[ext_resource type="Script" path="res://Modules/Items/Item.cs" id="1_1imtg"]
+[ext_resource type="Texture2D" uid="uid://cu7mcio56culp" path="res://Game/Resource/Items/Base/base.item.error.png" id="1_u24uo"]
+
+[resource]
+script = ExtResource("1_1imtg")
+ItemKey = "item.error"
+ItemTexture = ExtResource("1_u24uo")
+ItemSize = Vector2i(1, 1)

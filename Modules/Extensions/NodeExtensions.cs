@@ -89,4 +89,14 @@ public static class NodeExtensions
         return null;
     }
 
+    public static void RemoveAllChildren(this Node node)
+    {
+        while (node.GetChildCount() > 0)
+        {
+            var child = node.GetChild(0);
+            child.QueueFree();
+            node.RemoveChild(child);
+        }
+    }
+
 }

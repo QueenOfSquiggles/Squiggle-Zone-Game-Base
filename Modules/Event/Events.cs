@@ -6,9 +6,9 @@ namespace queen.events;
 public static class Events
 {
 
-    public static EventsAudio Audio {get; private set;} = new();
-    public static EventsGameplay Gameplay {get; private set;} = new();
-    public static EventsUI GUI {get; private set;} = new();
+    public static EventsAudio Audio { get; private set; } = new();
+    public static EventsGameplay Gameplay { get; private set; } = new();
+    public static EventsUI GUI { get; private set; } = new();
 
 }
 
@@ -44,6 +44,7 @@ public class EventsUI
     public event Action<string> RequestAlert;
     public event Action<string> MarkAbleToInteract;
     public event Action MarkUnableToInteract;
+    public event Action<bool> RequestInventory;
 
     public void TriggerRequestGUI(Control gui_node) => RequestGUI?.Invoke(gui_node);
     public void TriggerRequestCloseGUI() => RequestCloseGUI?.Invoke();
@@ -52,5 +53,6 @@ public class EventsUI
     public void TriggerRequestAlert(string text) => RequestAlert?.Invoke(text);
     public void TriggerAbleToInteract(string text) => MarkAbleToInteract?.Invoke(text);
     public void TriggerUnableToInteract() => MarkUnableToInteract?.Invoke();
+    public void TriggerRequestInventory(bool IsVisible) => RequestInventory?.Invoke(IsVisible);
 
 }

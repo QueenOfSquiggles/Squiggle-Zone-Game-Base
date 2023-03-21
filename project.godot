@@ -26,6 +26,7 @@ ResourceScriptDirectories=["res://"]
 config/name="SquiggleZone Game Base"
 run/main_scene="res://Scenes/UI/LaunchSequence/launch_sequence.tscn"
 config/features=PackedStringArray("4.0", "C#", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
@@ -33,10 +34,19 @@ config/icon="res://icon.svg"
 DynamicContentManager="*res://addons/dynamic-web-content/autoload/dynamic_content_manager.gd"
 BGM="*res://Scenes/Utility/Autoload/bgm.tscn"
 Scenes="*res://Scenes/Utility/Autoload/scenes.tscn"
+ModLoadingStep="*res://Scenes/Modification/mod_loading_step.tscn"
+ItemRegistry="*res://Modules/Items/ItemRegistry.cs"
+ConstanceMousePosShaderUpdate="*res://Scenes/ShaderSystems/constance_mouse_pos_shader_update.tscn"
 
 [dotnet]
 
 project/assembly_name="SquiggleZone Game Base"
+
+[editor]
+
+naming/node_name_num_separator=2
+run/main_run_args="prime-run %command%"
+naming/default_signal_callback_name="_on_{signal_name}"
 
 [editor_plugins]
 
@@ -162,10 +172,27 @@ open_inventory={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":73,"key_label":0,"unicode":105,"echo":false,"script":null)
 ]
 }
+pickup_item={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"double_click":false,"script":null)
+]
+}
+
+[physics]
+
+3d/physics_engine="GodotPhysics3D"
+
+[rendering]
+
+global_illumination/gi/use_half_resolution=true
 
 [shader_globals]
 
 player_position={
 "type": "vec3",
 "value": Vector3(0, 0, 0)
+}
+mouse_position={
+"type": "vec2",
+"value": Vector2(128, 128)
 }

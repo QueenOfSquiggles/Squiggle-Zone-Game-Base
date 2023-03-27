@@ -1,32 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://jxv636fg1elf"]
+[gd_scene load_steps=7 format=3 uid="uid://jxv636fg1elf"]
 
 [ext_resource type="PackedScene" uid="uid://cpi11vcqc7gk3" path="res://Scenes/Utility/Environment/world_env_settings_compliant.tscn" id="1_303i3"]
+[ext_resource type="PackedScene" uid="uid://bbe1vlg08q5m4" path="res://Scenes/ScreenEffects/custom_post_processing_stack.tscn" id="1_ahthm"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/Menus/pause_menu_controller.tscn" id="2_2cy7m"]
 [ext_resource type="PackedScene" uid="uid://clvfklayqmfnw" path="res://Scenes/UI/HUD/default_hud.tscn" id="2_b2wle"]
 [ext_resource type="PackedScene" uid="uid://ctgxlwrddpdbx" path="res://Scenes/Utility/CameraUtilities/camera_brain.tscn" id="3_kk5cy"]
-[ext_resource type="Material" uid="uid://innbh1hkq5qp" path="res://Assets/Materials/ScreenFX/VHS_CRT_Material.tres" id="4_8oeia"]
-[ext_resource type="Texture2D" uid="uid://c8fgnkcmhxaeh" path="res://icon.svg" id="4_s4ab0"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/HUD/hud_requests.tscn" id="8_gp156"]
 
 [node name="WorldBase" type="Node3D"]
 editor_description = "Intended to be used as a base scene for any 3D scenes in the game. The default necessary nodes are in place for convenience"
 
-[node name="ScreenEffects" type="CanvasLayer" parent="."]
-layer = 2
-
-[node name="VHS_Filter" type="TextureRect" parent="ScreenEffects"]
-material = ExtResource("4_8oeia")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("4_s4ab0")
+[node name="CustomPostProcessingStack" parent="." instance=ExtResource("1_ahthm")]
 
 [node name="DefaultHUD" parent="." instance=ExtResource("2_b2wle")]
+layer = 6
 
-[node name="PauseMenuController" parent="." instance=ExtResource("2_2cy7m")]
+[node name="PauseMenuController" parent="DefaultHUD" instance=ExtResource("2_2cy7m")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.556296, -0.503567, 0.661026, 0, 0.795473, 0.605989, -0.830984, -0.337109, 0.442518, 0, 0, 0)

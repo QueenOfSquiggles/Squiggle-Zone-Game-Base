@@ -2,6 +2,7 @@ namespace menus;
 
 using System;
 using Godot;
+using queen.error;
 using queen.extension;
 
 public partial class MainMenu : Control
@@ -14,7 +15,7 @@ public partial class MainMenu : Control
     {
         Input.MouseMode = Input.MouseModeEnum.Visible;
     }
-    private void OnBtnPlay() 
+    private void OnBtnPlay()
     {
         Scenes.LoadSceneAsync(play_scene);
     }
@@ -23,7 +24,11 @@ public partial class MainMenu : Control
 
     private void OnBtnCredits() => Scenes.LoadSceneAsync(credits_scene);
 
-    private void OnBtnQuit() => GetTree().Quit();
+    private void OnBtnQuit()
+    {
+        Print.Debug("Quitting game");
+        GetTree().Quit();
+    }
 
 
 }

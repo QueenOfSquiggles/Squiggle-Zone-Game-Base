@@ -5,10 +5,10 @@ using queen.data;
 using queen.error;
 using queen.extension;
 using queen.items;
+using queen.math;
 
 public partial class ItemsDisplayGeneric : Control
 {
-
 
     [Export] private NodePath PathSlotsContainer;
     [Export] private NodePath PathItemIconsContainer;
@@ -16,7 +16,7 @@ public partial class ItemsDisplayGeneric : Control
     [Export] private PackedScene ItemIconScene;
     [Export] private float ItemDragLerpWeight = 0.003f;
 
-    private ItemContainer container = null;
+    private ItemContainer container;
     private GridContainer SlotsContainer;
     private Control ItemIconsContainer;
 
@@ -25,12 +25,13 @@ public partial class ItemsDisplayGeneric : Control
     private struct DraggingInfoData
     {
         public Vector2 OriginalPosition;
-        public Control? DragObject;
+        public Vector2 MouseDownPosition;
+        public TextureRect? DragObject;
         public ItemStack MovingStack;
         public bool IsDragging;
 
         public ItemContainer OriginalContainer;
-        public Vector2I PositionInOriginalContainer;
+        public InventoryPosition PositionInOriginalContainer;
 
     }
     private static DraggingInfoData DragInfo; // All displays share a single drag object
@@ -52,20 +53,13 @@ public partial class ItemsDisplayGeneric : Control
     {
         Print.Warn("Warning. Testing item display should only ever happen when testing. Remove when done!!!");
 
-        ItemContainer ic = new()
-        {
-            ContainerSize = new(5, 6)
-        };
+        ItemContainer ic = new();
+        ic.ResizeContainer(new(4, 5), out _);
         AddItem(ref ic, "base.item.test", 1);
         AddItem(ref ic, "base.item.diamond", 3);
         AddItem(ref ic, "base.item.gold_nugget", 3);
         SetContainer(ic);
 
-        Print.Debug($"Items Dict:");
-        foreach (var entry in ic.items)
-        {
-            Print.Debug($"\t{entry.Key} = {entry.Value}");
-        }
     }
 
     private void AddItem(ref ItemContainer container, string ItemKey, int count)
@@ -77,7 +71,7 @@ public partial class ItemsDisplayGeneric : Control
 
     public void SetContainer(ItemContainer n_container)
     {
-        if (container is not null) container.MarkDirty -= ReloadDisplay;
+        // if (container is not null) container.MarkDirty -= ReloadDisplay;
         container = n_container;
         if (container is not null) container.MarkDirty += ReloadDisplay;
         ReloadDisplay();
@@ -85,27 +79,54 @@ public partial class ItemsDisplayGeneric : Control
 
     public void ReloadDisplay()
     {
+        // if (DragInfo.IsDragging) return; // ignore changes while dragging.
+        Print.Info("Reloading item display");
+
+
         SlotsContainer.RemoveAllChildren();
         ItemIconsContainer.RemoveAllChildren();
 
         if (container is null) return;
         // Create slots
         var size = container.ContainerSize;
-        SlotsContainer.Columns = size.X;
-
-        for (int i = 0; i < size.X * size.Y; i++)
+        if (size.X <= 0)
         {
-            var slot = (ItemSlot)ItemSlotScene.Instantiate();
-            SlotsContainer.AddChild(slot);
-            slot.SetItemContainerOwner(container, new Vector2I(i % size.X, i / size.X));
+            Print.Warn("Container Size was less than or equal to zero. This doesn't work for grid containers!");
+            return;
+        }
+        SlotsContainer.Columns = size.X;
+        for (int y = 0; y < size.Y; y++)
+        {
+            for (int x = 0; x < size.X; x++)
+            {
+                var slot = (ItemSlot)ItemSlotScene.Instantiate();
+                SlotsContainer.AddChild(slot);
+                var pos = new InventoryPosition(x, y);
+                slot.SetItemContainerOwner(container, pos);
+                if (container.CheckForCollision(pos, InventoryPosition.One, out _))
+                {
+                    slot.Modulate = Colors.RebeccaPurple;
+                }
+                var stack = container.GetAt(pos, InventoryPosition.One);
+                if (stack is not null && !stack.IsValidStack())
+                {
+                    slot.Modulate = Colors.Orange;
+
+                    if (stack.StackCount < 0)
+                    {
+                        Print.Warn("Found an item with a negative count!");
+                        slot.Modulate = Colors.SlateGray;
+                    }
+                }
+
+            }
         }
 
         // Create Item Icons
         foreach (var entry in container.items)
         {
             var position = entry.Key;
-            int childIndex = position.X + (position.Y * container.ContainerSize.X);
-            var slot = SlotsContainer.GetChildOrNull<TextureRect>(childIndex);
+            var slot = SlotsContainer.GetChildOrNull<TextureRect>(position);
             if (slot is null)
             {
                 Print.Error("Probably should never happen. Check in on this immediately.");
@@ -119,18 +140,16 @@ public partial class ItemsDisplayGeneric : Control
             ItemIconsContainer.AddChild(icon);
             icon.UpdateIcon(entry.Value);
             icon.Size = slot.GetMinimumSize() * item.ItemSize;
-            icon.Position = slot.GetMinimumSize() * position;
+            icon.Position = slot.GetMinimumSize() * InventoryPosition.FromIndex(position, container.ContainerSize.X).ToVector2I();
         }
     }
 
     public override void _Process(double delta)
     {
-        // Print.Debug("Process Function");
         if (!DragInfo.IsDragging) return;
 
-        // Print.Debug("Dragging Item Icon!");
-        if (DragInfo.DragObject is null) return;
-        DragInfo.DragObject.GlobalPosition = GetGlobalMousePosition() + DragInfo.DragObject.Size * -0.5f;
+        if (DragInfo.DragObject is null || !IsInstanceValid(DragInfo.DragObject)) return;
+        DragInfo.DragObject.GlobalPosition = GetGlobalMousePosition() + new Vector2(-32, -32);
         DragInfo.DragObject.Modulate = Colors.Green;
     }
 
@@ -139,19 +158,37 @@ public partial class ItemsDisplayGeneric : Control
         if (!Visible) return;
         // if (!ReadyForDragDrop) return;
 
+        if (DragInfo.IsDragging && e.IsActionReleased("pickup_item"))
+        {
+            var position = GetGlobalMousePosition();
+            if (GetGlobalRect().HasPoint(position) && (DragInfo.MouseDownPosition - position).Length() > 32.0)
+            {
+                // this is checking that we released on this display, we are aleady dragging, and the mouse has moved at least 32 pixels from the down position, which likely is a different slot. So clicking without moving the mouse is a toggle, but click and drag still operates as expected
+                if (DragInfo.IsDragging && DragInfo.DragObject != null)
+                {
+                    Print.Info("Attempting Dragged Drop");
+                    TryDropItem(position);
+                }
+            }
+        }
+
         if (e.IsActionPressed("pickup_item"))
         {
-            // Print.Debug("Drag/Drop Triggered");
             var position = GetGlobalMousePosition();
             // TODO create a virtual cursor for gamepad support
+            DragInfo.MouseDownPosition = position;
 
             if (GetGlobalRect().HasPoint(position))
             {
                 if (DragInfo.IsDragging && DragInfo.DragObject != null)
+                {
+                    Print.Info("Attempting Toggled Drop");
                     TryDropItem(position);
+                }
                 else
+                {
                     TryStartDrag(position);
-                SafetyDelay();
+                }
             }
         }
 
@@ -173,6 +210,19 @@ public partial class ItemsDisplayGeneric : Control
                 var stack = new ItemStack(ItemRegistry.GetItem("base.item.diamond"), 1);
                 container.RemoveStack(stack);
             }
+            if (key.Keycode == Key.Kp8)
+            {
+                container.ResizeContainer(container.ContainerSize - InventoryPosition.One, out _);
+            }
+            if (key.Keycode == Key.Kp7)
+            {
+                container.ResizeContainer(container.ContainerSize + InventoryPosition.One, out _);
+            }
+            if (key.Keycode == Key.KpEnter)
+            {
+                Print.Debug($"Container Stock {Name}");
+                container.DebugItemContainerDump();
+            }
         }
     }
 
@@ -186,101 +236,89 @@ public partial class ItemsDisplayGeneric : Control
 
     public void TryStartDrag(Vector2 atPosition)
     {
-        // Print.Debug("TryStartDrag()");
-        if (!GetGlobalRect().HasPoint(atPosition))
-        {
-            Print.Debug($"Failed to interact with inventory '{Name}'. Point is not in rect {atPosition}");
-            return;
-        }
+        if (!GetGlobalRect().HasPoint(atPosition)) return;
+        ItemSlot? slot = TryFindSlotFor(atPosition);
+        if (slot is null) return;
 
-
-
-        //Print.Debug($"Trying to start drag on inventory: {Name}");
         var children = ItemIconsContainer.GetChildren();
         foreach (var child in children)
         {
             if (child is not ItemIcon icon) continue;
             if (!icon.GetGlobalRect().HasPoint(atPosition)) continue;
+
             // we have a hit
             DragInfo.DragObject = icon;
             DragInfo.OriginalPosition = icon.GlobalPosition;
-            bool FoundSlot = false;
-            var SlotsList = SlotsContainer.GetChildren();
-            foreach (var slotChild in SlotsList)
-            {
-                if (slotChild is not ItemSlot slot) continue;
-                if (!slot.GetGlobalRect().HasPoint(atPosition)) continue;
-
-                DragInfo.OriginalContainer = slot.ItemContainerOwner;
-                DragInfo.PositionInOriginalContainer = slot.ContainerSlotPosition;
-                DragInfo.MovingStack = slot.ItemContainerOwner.GetAt(slot.ContainerSlotPosition);
-
-                if (DragInfo.MovingStack == null || DragInfo.MovingStack.StackItem == null)
-                {
-                    Print.Warn($"failed to find item stack from slot: {slot.ContainerSlotPosition}");
-                }
-                else
-                {
-                    FoundSlot = true;
-                }
-                break;
-            }
-            if (FoundSlot)
-            {
-                DragInfo.DragObject.Modulate = Colors.Red;
-                DragInfo.DragObject.ZIndex = 128;
-                DragInfo.IsDragging = true;
-                // SlotOffsetTolerance = -(DragInfo.DragObject.Size * 0.45f); // slightly less than half
-                //                container.RemoveAt(DragInfo.PositionInOriginalContainer);
-                // Print.Debug("Starting drag");
-                break;
-            }
         }
+
+
+        DragInfo.OriginalContainer = slot.ItemContainerOwner;
+        DragInfo.PositionInOriginalContainer = slot.ContainerSlotPosition;
+        var stack = slot.ItemContainerOwner.GetAt(slot.ContainerSlotPosition, InventoryPosition.One);
+        if (stack is not null && stack.IsValidStack() && DragInfo.DragObject is not null)
+        {
+            DragInfo.MovingStack = stack;
+            DragInfo.DragObject.Modulate = Colors.Red;
+            DragInfo.DragObject.ZIndex = 128;
+            DragInfo.IsDragging = true;
+        }
+        else { Print.Warn($"failed to find item stack from slot: {slot.ContainerSlotPosition}"); }
     }
 
     private void TryDropItem(Vector2 position)
     {
-        // Print.Debug("TryDropItem()");
-        //if (!GetGlobalRect().HasPoint(position)) return;
+        // TODO : Somewhere from this function we are allowing item duplication!
+        if (!DragInfo.IsDragging) return;
         if (DragInfo.DragObject is null) return;
-        DragInfo.OriginalContainer.RemoveAt(DragInfo.PositionInOriginalContainer);
 
+
+        // place at appropriate position
+        DragInfo.DragObject.ZIndex = 0;
+        DragInfo.IsDragging = false;
+        DragInfo.DragObject = null;
+
+        //
+        ItemSlot? slotTarget = TryFindSlotFor(position);
+        if (slotTarget is not null)
+        {
+            if (slotTarget.ItemContainerOwner != DragInfo.OriginalContainer)
+            {
+                if (!slotTarget.ItemContainerOwner.CanPlaceAt(DragInfo.MovingStack, slotTarget.ContainerSlotPosition))
+                {
+                    // specifically don't allow swapping between containers to avoid some edge cases. Maybe I'll make this better someday
+                    DragInfo.OriginalContainer.DoMarkDirty();
+                    ReloadDisplay();
+                    return;
+                }
+                // TODO For some reason this isn't gelling quite well
+                // manual swap
+                // remove original drag
+                DragInfo.OriginalContainer.RemoveAt(DragInfo.PositionInOriginalContainer);
+                // Place in new container
+                slotTarget.ItemContainerOwner.PlaceAt(DragInfo.MovingStack, slotTarget.ContainerSlotPosition);
+                DragInfo.OriginalContainer.DoMarkDirty();
+            }
+            else
+            {
+                // internal swap
+                slotTarget.ItemContainerOwner.TrySwapSlots(DragInfo.PositionInOriginalContainer, slotTarget.ContainerSlotPosition);
+            }
+        }
+
+        ReloadDisplay();
+    }
+
+    private ItemSlot? TryFindSlotFor(Vector2 mouse_position)
+    {
         var children = SlotsContainer.GetChildren();
-        ItemSlot? slotTarget = null;
         foreach (var child in children)
         {
             if (child is not ItemSlot slot) continue;
-            if (!slot.GetGlobalRect().HasPoint(position)) continue;
+            if (!slot.GetGlobalRect().HasPoint(mouse_position)) continue;
             // we have a hit
-            var targetContainer = slot.ItemContainerOwner;
-            if (targetContainer.CanPlaceAt(DragInfo.MovingStack, slot.ContainerSlotPosition))
-            {
-                slotTarget = slot;
-            }
+            return slot;
         }
-        if (slotTarget is null)
-        {
-            // Return to original position
-            var success = DragInfo.OriginalContainer.PlaceAt(DragInfo.MovingStack, DragInfo.PositionInOriginalContainer);
-            if (!success)
-            {
-                var stack = DragInfo.MovingStack.Copy();
-                DragInfo.OriginalContainer.AddStack(ref stack); // add to any available slot when fail
-            }
-        }
-        else
-        {
-            slotTarget.ItemContainerOwner.PlaceAt(DragInfo.MovingStack, slotTarget.ContainerSlotPosition);
-            DragInfo.DragObject.ZIndex = 0;
-            if (DragInfo.OriginalContainer != slotTarget.ItemContainerOwner)
-            {
-                DragInfo.DragObject.QueueFree();
-            }
-            ReloadDisplay();
-        }
-        DragInfo.IsDragging = false;
-        DragInfo.DragObject = null;
-        // SlotOffsetTolerance = Vector2I.Zero; // slightly less than half
+        return null;
     }
 
     private void SaveInventory()

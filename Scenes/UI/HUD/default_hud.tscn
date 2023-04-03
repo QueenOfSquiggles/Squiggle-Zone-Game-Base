@@ -53,7 +53,7 @@ path_root_subtitle = NodePath("SubtitlePanel")
 path_root_alert = NodePath("AlertPanel")
 path_reticle = NodePath("Reticle")
 path_interaction_prompt = NodePath("InteractionPrompt")
-path_inventory_display = NodePath("InventoryDisplay")
+path_generic_gui_root = NodePath("GenericUIContainer")
 
 [node name="Reticle" type="TextureRect" parent="DefaultHUD"]
 texture_filter = 4
@@ -150,3 +150,12 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 text = "Lorem Ipsum"
 label_settings = SubResource("LabelSettings_37enn")
+
+[node name="GenericUIContainer" type="Control" parent="DefaultHUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1

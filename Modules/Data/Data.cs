@@ -161,7 +161,8 @@ public class DataPath
             path = CurrentPath + path;
             EnsureDirectoryPaths(path);
             using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
-            return file.GetAsText(true);
+            var text = file.GetAsText(true);
+            return text;
         }
         catch (Exception e)
         {

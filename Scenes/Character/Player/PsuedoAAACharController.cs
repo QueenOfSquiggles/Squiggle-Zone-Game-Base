@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using interaction;
 using queen.data;
 using queen.error;
 using queen.events;
@@ -27,6 +28,7 @@ public partial class PsuedoAAACharController : CharacterBody3D
     [Export] private NodePath PathCanStandCheck;
     [Export] private NodePath PathStepCheckTop;
     [Export] private NodePath PathStepCheckBottom;
+    [Export] private NodePath PathInteractRay;
 
     // References
     private VirtualCamera vcam;
@@ -35,6 +37,7 @@ public partial class PsuedoAAACharController : CharacterBody3D
     private RayCast3D CanStandCheck;
     private RayCast3D CanStepCheckTop;
     private RayCast3D CanStepCheckBottom;
+    private RayCast3D InteractionRay;
 
     // Values
     private Vector2 camera_look_vector = new();
@@ -46,6 +49,7 @@ public partial class PsuedoAAACharController : CharacterBody3D
     private float CanStepCheckTop_CastLength = 1.0f;
     private float CanStepCheckBottom_CastLength = 1.0f;
     private Vector2 InputVector = new();
+    private bool LastWasInteractable = false;
 
     public override void _Ready()
     {
@@ -55,6 +59,7 @@ public partial class PsuedoAAACharController : CharacterBody3D
         this.GetSafe(PathCanStandCheck, out CanStandCheck);
         this.GetSafe(PathStepCheckTop, out CanStepCheckTop);
         this.GetSafe(PathStepCheckBottom, out CanStepCheckBottom);
+        this.GetSafe(PathInteractRay, out InteractionRay);
 
         CanStepCheckTop.Position += new Vector3(0, StepHeight, 0);
         CanStepCheckBottom_CastLength = CanStepCheckBottom.TargetPosition.Length();
@@ -199,15 +204,30 @@ public partial class PsuedoAAACharController : CharacterBody3D
 
     private bool InputInteract(InputEvent e)
     {
-        return false; // TODO fixme
-        // if (!e.IsActionPressed("interact")) return false;
 
-        // raycast.ForceRaycastUpdate();
-        // if (raycast.GetCollider() is Node collider && collider is IInteractable inter && inter.IsActive())
-        // {
-        //     inter.Interact();
-        // }
-        // return true;
+        InteractionRay.ForceRaycastUpdate();
+
+        if (InteractionRay.GetCollider() is Node collider && collider is IInteractable inter && inter.IsActive())
+        {
+            if (!LastWasInteractable)
+            {
+                LastWasInteractable = true;
+                Events.GUI.TriggerAbleToInteract(inter.GetActiveName());
+            }
+
+            if (!e.IsActionPressed("interact")) return false;
+            else if (inter.Interact())
+            {
+                // TODO: do we want anything to happen on this end? Realistically the Interact object should handle SFX, VFX, etc...
+            }
+        }
+        else if (LastWasInteractable)
+        {
+            LastWasInteractable = false;
+            Events.GUI.TriggerUnableToInteract();
+        }
+
+        return true;
     }
 
     private bool InputCrouch(InputEvent e)

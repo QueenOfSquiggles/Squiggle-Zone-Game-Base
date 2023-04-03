@@ -15,7 +15,7 @@ public partial class DefaultHUD : Control
     [Export] private NodePath path_root_alert;
     [Export] private NodePath path_reticle;
     [Export] private NodePath path_interaction_prompt;
-    [Export] private NodePath path_inventory_display;
+    [Export] private NodePath path_generic_gui_root;
 
 
     private Label lbl_subtitle;
@@ -24,7 +24,7 @@ public partial class DefaultHUD : Control
     private Control root_alert;
     private TextureRect reticle;
     private Label interaction_prompt;
-    private Control inventory_display;
+    private Control generic_gui_root;
 
     private Color COLOUR_TRANSPARENT = Color.FromString("#FFFFFF00", Colors.White);
     private Color COLOUR_VISIBLE = Colors.White;
@@ -37,9 +37,8 @@ public partial class DefaultHUD : Control
         this.GetNode(path_root_alert, out root_alert);
         this.GetNode(path_reticle, out reticle);
         this.GetNode(path_interaction_prompt, out interaction_prompt);
-        this.GetNode(path_inventory_display, out inventory_display);
+        this.GetSafe(path_generic_gui_root, out generic_gui_root);
 
-        inventory_display.Visible = false;
         lbl_subtitle.Text = "";
         lbl_alert.Text = "";
 
@@ -55,7 +54,8 @@ public partial class DefaultHUD : Control
         Events.GUI.RequestAlert += ShowAlert;
         Events.GUI.MarkAbleToInteract += OnCanInteract;
         Events.GUI.MarkUnableToInteract += OnCannotInteract;
-        Events.GUI.RequestInventory += OnDisplayInventory;
+        Events.GUI.RequestGUI += OnRequestGenericGUI;
+        Events.GUI.RequestCloseGUI += OnRequestCloseGUI;
     }
 
     public override void _ExitTree()
@@ -64,7 +64,8 @@ public partial class DefaultHUD : Control
         Events.GUI.RequestAlert -= ShowAlert;
         Events.GUI.MarkAbleToInteract -= OnCanInteract;
         Events.GUI.MarkUnableToInteract -= OnCannotInteract;
-        Events.GUI.RequestInventory -= OnDisplayInventory;
+        Events.GUI.RequestGUI -= OnRequestGenericGUI;
+        Events.GUI.RequestCloseGUI -= OnRequestCloseGUI;
     }
 
     public void ShowSubtitle(string text)
@@ -107,11 +108,15 @@ public partial class DefaultHUD : Control
         prompt_tween.TweenProperty(interaction_prompt, "visible_ratio", 0.0f, 0.1f);
     }
 
-    private void OnDisplayInventory(bool IsVisible)
+    private void OnRequestGenericGUI(Control gui)
     {
-        inventory_display.Visible = IsVisible;
-        Input.MouseMode = IsVisible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
-        Input.WarpMouse(inventory_display.Size / 2);
+        generic_gui_root.RemoveAllChildren();
+        generic_gui_root.AddChild(gui);
+    }
+
+    private void OnRequestCloseGUI()
+    {
+        generic_gui_root.RemoveAllChildren();
     }
 
     public override void _Input(InputEvent e)
@@ -119,17 +124,6 @@ public partial class DefaultHUD : Control
         if (e is InputEventKey kp && kp.Keycode == Key.F1 && kp.IsPressed())
         {
             Visible = !Visible; // toggle visibility of HUD for cinematics or other useful things
-        }
-        if (e.IsActionPressed("open_inventory") && inventory_display.Visible)
-            Events.GUI.TriggerRequestInventory(false);
-    }
-
-    public override void _UnhandledInput(InputEvent e)
-    {
-        if (e.IsActionPressed("open_inventory"))
-        {
-            if (inventory_display.Visible) Events.GUI.TriggerRequestInventory(false);
-            this.HandleInput();
         }
     }
 

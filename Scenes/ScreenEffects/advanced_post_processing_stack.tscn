@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dygc1cexctfwy"]
+
+[ext_resource type="Shader" path="res://Scenes/ScreenEffects/ExampleAdvancedPostProcessLayer.gdshader" id="1_cwkrh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvsuk"]
+render_priority = 0
+shader = ExtResource("1_cwkrh")
+
+[sub_resource type="QuadMesh" id="QuadMesh_qgss8"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="AdvancedPostProcessingStack" type="Node3D"]
+
+[node name="EffectLayer" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_pvsuk")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_qgss8")

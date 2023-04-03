@@ -108,6 +108,7 @@ PathAnimationPlayer = NodePath("AnimationPlayer")
 PathCanStandCheck = NodePath("CanStandCheck")
 PathStepCheckTop = NodePath("StepRayTop")
 PathStepCheckBottom = NodePath("StepRayBottom")
+PathInteractRay = NodePath("CamRoot/CameraSway/VirtualCamera/InteractRay")
 
 [node name="LowerBody" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
@@ -144,12 +145,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 PushCamOnReady = true
 AllowVCamChildren = true
 
+[node name="InteractRay" type="RayCast3D" parent="CamRoot/CameraSway/VirtualCamera"]
+target_position = Vector3(0, 0, -2.5)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_lteou")
 }
 
 [node name="InventoryComponent" parent="." instance=ExtResource("4_y38he")]
+InventoryDefaultSize = Vector2i(3, 3)
 
 [node name="SetShaderGlobalPosition" parent="." instance=ExtResource("4_ja1gl")]
 uniform_name = "player_position"

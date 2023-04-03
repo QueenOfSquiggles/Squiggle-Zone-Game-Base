@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://jxv636fg1elf"]
+[gd_scene load_steps=6 format=3 uid="uid://jxv636fg1elf"]
 
 [ext_resource type="PackedScene" uid="uid://cpi11vcqc7gk3" path="res://Scenes/Utility/Environment/world_env_settings_compliant.tscn" id="1_303i3"]
-[ext_resource type="PackedScene" uid="uid://bbe1vlg08q5m4" path="res://Scenes/ScreenEffects/custom_post_processing_stack.tscn" id="1_ahthm"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/Menus/pause_menu_controller.tscn" id="2_2cy7m"]
 [ext_resource type="PackedScene" uid="uid://clvfklayqmfnw" path="res://Scenes/UI/HUD/default_hud.tscn" id="2_b2wle"]
 [ext_resource type="PackedScene" uid="uid://ctgxlwrddpdbx" path="res://Scenes/Utility/CameraUtilities/camera_brain.tscn" id="3_kk5cy"]
@@ -9,8 +8,6 @@
 
 [node name="WorldBase" type="Node3D"]
 editor_description = "Intended to be used as a base scene for any 3D scenes in the game. The default necessary nodes are in place for convenience"
-
-[node name="CustomPostProcessingStack" parent="." instance=ExtResource("1_ahthm")]
 
 [node name="DefaultHUD" parent="." instance=ExtResource("2_b2wle")]
 layer = 6

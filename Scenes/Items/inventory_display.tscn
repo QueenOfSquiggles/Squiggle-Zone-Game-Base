@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://f3qu1lke5rtx"]
+[gd_scene load_steps=3 format=3 uid="uid://f3qu1lke5rtx"]
 
+[ext_resource type="Script" path="res://Scenes/Items/InventoryDisplay.cs" id="1_r3axl"]
 [ext_resource type="PackedScene" uid="uid://c403a8lk7nhaj" path="res://Scenes/Items/items_display_generic.tscn" id="1_rp810"]
 
 [node name="InventoryDisplay" type="Control"]
@@ -9,26 +10,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_r3axl")
+PathPlayerInventoryDisplay = NodePath("PlayerInventory")
+PathSecondaryInventoryDisplay = NodePath("SecondaryStorage")
 
-[node name="SecondaryStorage" type="PanelContainer" parent="."]
+[node name="SecondaryStorage" parent="." instance=ExtResource("1_rp810")]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 4.0
+offset_right = 36.0
+offset_bottom = 0.0
 grow_vertical = 2
+PathSlotsContainer = NodePath("../SecondaryStorage/ItemsDisplayGeneric/ItemSlotsContainer")
+PathItemIconsContainer = NodePath("../SecondaryStorage/ItemsDisplayGeneric/ItemIcons")
 
-[node name="SecondaryStorage" parent="SecondaryStorage" instance=ExtResource("1_rp810")]
-layout_mode = 2
-
-[node name="PlayerStorage" type="PanelContainer" parent="."]
+[node name="PlayerInventory" parent="." instance=ExtResource("1_rp810")]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -4.0
+offset_left = -36.0
+offset_right = 0.0
+offset_bottom = 0.0
 grow_horizontal = 0
 grow_vertical = 2
-
-[node name="PlayerInventory" parent="PlayerStorage" instance=ExtResource("1_rp810")]
-layout_mode = 2

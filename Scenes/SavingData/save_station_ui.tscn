@@ -1,14 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://iotgpu7b6846"]
+[gd_scene load_steps=3 format=3 uid="uid://iotgpu7b6846"]
+
+[ext_resource type="Script" path="res://Scenes/SavingData/SaveStationGUI.cs" id="1_ed4vw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_q5y2q"]
 font_size = 24
 
 [node name="SaveStationUI" type="CenterContainer"]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ed4vw")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -31,13 +35,27 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "New Slot"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 360)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
 [node name="SaveSlotList" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
+
+[node name="BtnDefaultSlot" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/SaveSlotList"]
+layout_mode = 2
+text = "Default Slot"
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+dialog_text = "You are about to save over an existing save slot."

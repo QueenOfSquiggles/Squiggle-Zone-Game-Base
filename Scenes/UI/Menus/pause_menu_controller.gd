@@ -7,4 +7,3 @@ func _unhandled_input(event: InputEvent) -> void:
 		var node = pause_menu_scene.instantiate()
 		add_child(node)
 		get_viewport().set_input_as_handled()
-

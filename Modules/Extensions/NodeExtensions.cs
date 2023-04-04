@@ -51,7 +51,7 @@ public static class NodeExtensions
     /// <param name="node"></param>
     public static void HandleInput(this Node node)
     {
-        node.GetViewport().SetInputAsHandled();
+        node?.GetViewport()?.SetInputAsHandled();
     }
 
     /// <summary>

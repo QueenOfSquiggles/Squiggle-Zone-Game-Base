@@ -43,29 +43,6 @@ public partial class ItemsDisplayGeneric : Control
         this.GetSafe(PathSlotsContainer, out SlotsContainer);
         this.GetSafe(PathItemIconsContainer, out ItemIconsContainer);
         DragInfo.IsDragging = false;
-
-#if DEBUG
-        TestContainers();
-#endif
-    }
-
-    private void TestContainers()
-    {
-        Print.Warn("Warning. Testing item display should only ever happen when testing. Remove when done!!!");
-
-        ItemContainer ic = new();
-        ic.ResizeContainer(new(4, 5), out _);
-        AddItem(ref ic, "base.item.test", 1);
-        AddItem(ref ic, "base.item.diamond", 3);
-        AddItem(ref ic, "base.item.gold_nugget", 3);
-        SetContainer(ic);
-
-    }
-
-    private void AddItem(ref ItemContainer container, string ItemKey, int count)
-    {
-        ItemStack stack = new(ItemRegistry.GetItem(ItemKey), count);
-        container.AddStack(ref stack);
     }
 
 
@@ -79,10 +56,6 @@ public partial class ItemsDisplayGeneric : Control
 
     public void ReloadDisplay()
     {
-        // if (DragInfo.IsDragging) return; // ignore changes while dragging.
-        Print.Info("Reloading item display");
-
-
         SlotsContainer.RemoveAllChildren();
         ItemIconsContainer.RemoveAllChildren();
 
@@ -191,47 +164,6 @@ public partial class ItemsDisplayGeneric : Control
                 }
             }
         }
-
-
-
-        if (e is InputEventKey key && key.Pressed)
-        {
-            if (key.Keycode == Key.KpAdd)
-                AddItem(ref container, "base.item.gold_nugget", 1);
-            if (key.Keycode == Key.KpSubtract)
-                AddItem(ref container, "base.item.diamond", 1);
-            if (key.Keycode == Key.Kp0)
-            {
-                var stack = new ItemStack(ItemRegistry.GetItem("base.item.gold_nugget"), 1);
-                container.RemoveStack(stack);
-            }
-            if (key.Keycode == Key.Kp1)
-            {
-                var stack = new ItemStack(ItemRegistry.GetItem("base.item.diamond"), 1);
-                container.RemoveStack(stack);
-            }
-            if (key.Keycode == Key.Kp8)
-            {
-                container.ResizeContainer(container.ContainerSize - InventoryPosition.One, out _);
-            }
-            if (key.Keycode == Key.Kp7)
-            {
-                container.ResizeContainer(container.ContainerSize + InventoryPosition.One, out _);
-            }
-            if (key.Keycode == Key.KpEnter)
-            {
-                Print.Debug($"Container Stock {Name}");
-                container.DebugItemContainerDump();
-            }
-        }
-    }
-
-    private async void SafetyDelay()
-    {
-        // effectively a false mutex that protects from random double click
-        // ReadyForDragDrop = false;
-        await Task.Delay(200);
-        // ReadyForDragDrop = true;
     }
 
     public void TryStartDrag(Vector2 atPosition)
@@ -330,7 +262,7 @@ public partial class ItemsDisplayGeneric : Control
 
     private void LoadInventory()
     {
-        var stringData = Data.CurrentSaveSlot.LoadText($"{Name}_inventory.json");
+        var stringData = Data.CurrentSaveSlot.LoadText($"{Name}_inventory.json", false);
         var data = Json.ParseString(stringData).AsGodotDictionary();
         if (data is not null) container.LoadFromSaveData(data);
         CallDeferred(nameof(ReloadDisplay));

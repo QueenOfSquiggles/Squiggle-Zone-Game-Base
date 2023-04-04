@@ -78,7 +78,7 @@ public partial class InventoryComponent : Node
 
     private bool LoadInventory()
     {
-        var stringData = Data.CurrentSaveSlot.LoadText(PLAYER_INVENTORY_FILE_NAME);
+        var stringData = Data.CurrentSaveSlot.LoadText(PLAYER_INVENTORY_FILE_NAME, false);
         if (stringData is null) return false;
         var data = Json.ParseString(stringData).AsGodotDictionary();
         if (data is null) return false;

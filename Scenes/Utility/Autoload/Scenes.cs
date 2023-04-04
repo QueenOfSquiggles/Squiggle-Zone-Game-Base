@@ -9,6 +9,7 @@ public partial class Scenes : Node
     private static Scenes _instance;
 
     [Export] private NodePath path_anim;
+    [Export] private bool testing = false;
     private AnimationPlayer anim;
     public override void _Ready()
     {
@@ -26,7 +27,7 @@ public partial class Scenes : Node
             return;
         }
 
-        Print.Debug($"Starting load scene: {file_path}");
+        if (testing) Print.Debug($"Starting load scene: {file_path}");
         await FadeOut();
 
         if (ResourceLoader.LoadThreadedGet(file_path) is not PackedScene scene)
@@ -43,7 +44,7 @@ public partial class Scenes : Node
         if (scene == null) return;
         GetTree().ChangeSceneToPacked(scene);
         await FadeIn();
-        Print.Debug($"Finished loading scene: {scene.ResourcePath}");
+        if (testing) Print.Debug($"Finished loading scene: {scene.ResourcePath}");
     }
 
     private SignalAwaiter FadeOut()

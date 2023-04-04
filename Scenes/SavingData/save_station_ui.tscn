@@ -5,14 +5,23 @@
 [sub_resource type="LabelSettings" id="LabelSettings_q5y2q"]
 font_size = 24
 
-[node name="SaveStationUI" type="CenterContainer"]
+[node name="SaveStationUI" type="MarginContainer"]
 process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
 script = ExtResource("1_ed4vw")
+PathSaveSlotContainer = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/SaveSlotList")
+PathDeleteConfirmationDialog = NodePath("ConfirmDelete")
+PathRenameConfirmationDialog = NodePath("AcceptRename")
+PathLabelSlotInfo = NodePath("PanelContainer/MarginContainer/HBoxContainer/SlotOptions/VBoxContainer/SaveSlotInformation")
+PathRenameLineEdit = NodePath("AcceptRename/EnteredName")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -24,38 +33,98 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 32
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Save Game"
 label_settings = SubResource("LabelSettings_q5y2q")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="BtnNewSlot" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "New Slot"
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 360)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="SaveSlotList" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="SaveSlotList" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BtnDefaultSlot" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/SaveSlotList"]
+layout_mode = 2
+text = "Default"
+
+[node name="SlotOptions" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/SlotOptions"]
 layout_mode = 2
 
-[node name="BtnDefaultSlot" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/SaveSlotList"]
+[node name="SaveSlotInformation" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/SlotOptions/VBoxContainer"]
 layout_mode = 2
-text = "Default Slot"
+text = "Lorem ipsum dolor sit amet"
+autowrap_mode = 3
 
-[node name="AcceptDialog" type="AcceptDialog" parent="."]
-dialog_text = "You are about to save over an existing save slot."
+[node name="BtnSave" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/SlotOptions/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="BtnRename" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/SlotOptions/VBoxContainer"]
+layout_mode = 2
+text = "Rename"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/SlotOptions/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="BtnDelete" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/SlotOptions/VBoxContainer"]
+layout_mode = 2
+text = "Delete
+"
+
+[node name="ConfirmDelete" type="ConfirmationDialog" parent="."]
+size = Vector2i(512, 249)
+unresizable = true
+popup_window = true
+dialog_text = "You are about to delete a save slot. This data will likely not be able to be recovered one you do this. Are you sure you want to continue?"
+dialog_autowrap = true
+
+[node name="AcceptRename" type="ConfirmationDialog" parent="."]
+title = "Rename Slot"
+size = Vector2i(350, 172)
+unresizable = true
+
+[node name="EnteredName" type="LineEdit" parent="AcceptRename"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 342.0
+offset_bottom = 101.0
+placeholder_text = "Enter a name"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/BtnNewSlot" to="." method="CreateNewSaveSlot"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/SlotOptions/VBoxContainer/BtnSave" to="." method="SaveDataInSlot"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/SlotOptions/VBoxContainer/BtnRename" to="." method="PromptRenameSlot"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/SlotOptions/VBoxContainer/BtnDelete" to="." method="PromptDeleteSlot"]
+[connection signal="confirmed" from="ConfirmDelete" to="." method="OnAcceptDelete"]
+[connection signal="confirmed" from="AcceptRename" to="." method="OnAcceptRename"]

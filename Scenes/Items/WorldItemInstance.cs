@@ -1,6 +1,3 @@
-#if TOOLS
-
-using System;
 using Godot;
 using interaction;
 using queen.error;
@@ -8,7 +5,6 @@ using queen.events;
 using queen.extension;
 using queen.items;
 
-[Tool]
 public partial class WorldItemInstance : StaticBody3D, IInteractable
 {
 
@@ -62,4 +58,3 @@ public partial class WorldItemInstance : StaticBody3D, IInteractable
 
 
 }
-#endif

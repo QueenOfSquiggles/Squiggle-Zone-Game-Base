@@ -1,15 +1,11 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b7jxwoqo8j7yh"]
 
 [ext_resource type="Shader" path="res://Scenes/ScreenEffects/Presets/retro_pbr_effect_stack.gdshader" id="1_xieaw"]
-[ext_resource type="Texture2D" uid="uid://2s8h31ul05y0" path="res://Scenes/ScreenEffects/Presets/blue_noise_textures/1024_1024/LDR_RGBA_0.png" id="2_ikoag"]
+[ext_resource type="Texture2D" uid="uid://cov12sjwcr715" path="res://Scenes/ScreenEffects/Presets/blue_noise_textures/bluenoise_128_128.png" id="2_l7tbd"]
 
 [resource]
-render_priority = 0
 shader = ExtResource("1_xieaw")
-shader_parameter/world_uv_scale = 0.014
-shader_parameter/posterize_levels = 8.0
-shader_parameter/dither_bias = 0.2
-shader_parameter/noise_scroll_a = Vector3(0.02, -0.01, 0.003)
-shader_parameter/noise_scroll_b = Vector3(-0.001, 0.02, -0.01)
-shader_parameter/screen_blue_noise_a = ExtResource("2_ikoag")
-shader_parameter/screen_blue_noise_b = ExtResource("2_ikoag")
+shader_parameter/colour_depth = 8.0
+shader_parameter/dither_uv_scale = 0.2
+shader_parameter/dither_range = 1.0
+shader_parameter/dither_texture = ExtResource("2_l7tbd")

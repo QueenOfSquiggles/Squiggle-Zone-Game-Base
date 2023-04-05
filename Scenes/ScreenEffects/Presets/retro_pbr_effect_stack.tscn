@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://tu6uke46uv7f"]
+
+[ext_resource type="PackedScene" uid="uid://dygc1cexctfwy" path="res://Scenes/ScreenEffects/advanced_post_processing_stack.tscn" id="1_04b1n"]
+[ext_resource type="Material" uid="uid://b7jxwoqo8j7yh" path="res://Scenes/ScreenEffects/Presets/retro_pbr_effect_material.tres" id="2_1r7va"]
+
+[node name="RetroPBR_EffectStack" instance=ExtResource("1_04b1n")]
+material_override = ExtResource("2_1r7va")

@@ -23,8 +23,7 @@ void fragment()
 	vec4 world = CAMERA_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
 	vec3 world_position = world.xyz / world.w;
 
-	vec4 screen_col = texture(SCREEN_COLOUR, SCREEN_UV);
-	ALBEDO = vec3(1.0 - (linear_depth / 8.0));
+	ALBEDO = vec3(world_position);
 	if (linear_depth >= 2048.0) // bad because at 2048 meters effect cuts out
 	{
 		discard;

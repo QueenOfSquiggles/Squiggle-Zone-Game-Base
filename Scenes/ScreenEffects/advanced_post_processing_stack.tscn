@@ -10,9 +10,7 @@ shader = ExtResource("1_cwkrh")
 flip_faces = true
 size = Vector2(2, 2)
 
-[node name="AdvancedPostProcessingStack" type="Node3D"]
-
-[node name="EffectLayer" type="MeshInstance3D" parent="."]
+[node name="AdvancedPostProcessing" type="MeshInstance3D"]
 material_override = SubResource("ShaderMaterial_pvsuk")
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_qgss8")

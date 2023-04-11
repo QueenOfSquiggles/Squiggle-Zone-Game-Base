@@ -22,6 +22,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_y6pcj")
+PathSliderMouseSensitive = NodePath("VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/MouseSensitivity/HSlider")
+PathSliderGamepadSensitive = NodePath("VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/GamepadSensitivity/HSlider")
 
 [node name="ListeningPopup" type="Popup" parent="MainPanel"]
 disable_3d = true
@@ -97,6 +99,18 @@ min_value = 50.0
 max_value = 500.0
 step_value = 1.0
 
+[node name="Lbl" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/MouseSensitivity" index="0"]
+text = "Mouse Sensitivity"
+
+[node name="HSlider" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/MouseSensitivity" index="1"]
+min_value = 50.0
+max_value = 500.0
+step = 1.0
+value = 100.0
+
+[node name="ValueLbl" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/MouseSensitivity" index="2"]
+text = "100"
+
 [node name="GamepadSensitivity" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity" instance=ExtResource("2_midyy")]
 layout_mode = 2
 text = "Gamepad Sensitivity"
@@ -104,6 +118,18 @@ slider_value = 500.0
 min_value = 50.0
 max_value = 1000.0
 step_value = 10.0
+
+[node name="Lbl" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/GamepadSensitivity" index="0"]
+text = "Gamepad Sensitivity"
+
+[node name="HSlider" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/GamepadSensitivity" index="1"]
+min_value = 50.0
+max_value = 1000.0
+step = 10.0
+value = 500.0
+
+[node name="ValueLbl" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/GamepadSensitivity" index="2"]
+text = "500"
 
 [node name="Spacing" type="Control" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
@@ -212,3 +238,6 @@ focus_target = NodePath("../MainPanel/VBoxContainer/PanelContainer/MarginContain
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_GamepadMoveBack" to="MainPanel" method="ListenForAction"]
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_GamepadMoveLeft" to="MainPanel" method="ListenForAction"]
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_GamepadMoveRight" to="MainPanel" method="ListenForAction"]
+
+[editable path="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/MouseSensitivity"]
+[editable path="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/GamepadSensitivity"]

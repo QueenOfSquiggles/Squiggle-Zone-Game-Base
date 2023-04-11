@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhf50bgh7bmeg"]
+[gd_scene load_steps=3 format=3 uid="uid://didgialydwgta"]
 
 [ext_resource type="PackedScene" uid="uid://bnue0qdwktvsi" path="res://Scenes/ScreenEffects/post_process_effect_layer.tscn" id="1_4hlx1"]
 [ext_resource type="Material" uid="uid://b7jxwoqo8j7yh" path="res://Scenes/ScreenEffects/Presets/retro_pbr_effect_material.tres" id="2_wx7ll"]
@@ -6,6 +6,6 @@
 [node name="RetroPBR_PostProcess" instance=ExtResource("1_4hlx1")]
 
 [node name="ColorRect" parent="." index="0"]
-texture_filter = 2
+texture_filter = 1
 texture_repeat = 2
 material = ExtResource("2_wx7ll")

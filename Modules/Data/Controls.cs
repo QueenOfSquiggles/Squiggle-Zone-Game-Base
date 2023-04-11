@@ -14,7 +14,7 @@ public class Controls
     //      Defaults assigned as well
     //
 
-    public float MouseLookSensivity = 100.0f;
+    public float MouseLookSensivity = 400.0f;
     public float ControllerLookSensitivity = 500.0f;
 
     public Dictionary<string, int[]> mappings_overloads = new();

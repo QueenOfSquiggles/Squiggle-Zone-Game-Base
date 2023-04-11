@@ -181,6 +181,7 @@ public class DataPath
         try
         {
             var json_text = LoadText(path, print_errors);
+            if (json_text is null) return null;
             if (json_text.EndsWith("}}")) json_text = json_text.Replace("}}", "}");
             var data = JsonSerializer.Deserialize<T>(json_text, JsonSettings);
             return data;

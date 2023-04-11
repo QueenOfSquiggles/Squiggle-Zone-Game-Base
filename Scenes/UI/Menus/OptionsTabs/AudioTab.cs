@@ -1,7 +1,8 @@
+using System;
 using Godot;
 using queen.data;
+using queen.events;
 using queen.extension;
-using System;
 
 public partial class AudioTab : PanelContainer
 {
@@ -30,7 +31,16 @@ public partial class AudioTab : PanelContainer
         slider_sfx.Value = AudioBuses.Instance.VolumeSFX;
         slider_creature.Value = AudioBuses.Instance.VolumeCreature;
         slider_drones.Value = AudioBuses.Instance.VolumeDrones;
+
+        Events.Data.SerializeAll += ApplyChanges;
     }
+
+    public override void _ExitTree()
+    {
+        Events.Data.SerializeAll -= ApplyChanges;
+    }
+
+
 
     public void ApplyChanges()
     {

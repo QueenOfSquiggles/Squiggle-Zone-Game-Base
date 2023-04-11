@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://bwohee6c633j6"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/pause_menu_controller.gd" id="1_sc7k3"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/Menus/pause_menu.tscn" id="2_3vv6g"]
+[ext_resource type="PackedScene" uid="uid://cjwd6sqv483bg" path="res://Scenes/UI/Menus/pause_menu.tscn" id="2_3vv6g"]
 
 [node name="PauseMenuController" type="Node"]
 script = ExtResource("1_sc7k3")

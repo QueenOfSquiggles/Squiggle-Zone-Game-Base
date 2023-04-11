@@ -1,7 +1,8 @@
+using System;
 using Godot;
 using queen.data;
+using queen.events;
 using queen.extension;
-using System;
 
 public partial class GraphicsTab : PanelContainer
 {
@@ -52,6 +53,13 @@ public partial class GraphicsTab : PanelContainer
         slider_brightness.Value = Graphics.Instance.Brightness;
         slider_contrast.Value = Graphics.Instance.Contrast;
         slider_saturation.Value = Graphics.Instance.Saturation;
+
+        Events.Data.SerializeAll += ApplyGraphicsSettings;
+    }
+
+    public override void _ExitTree()
+    {
+        Events.Data.SerializeAll -= ApplyGraphicsSettings;
     }
 
     public void ApplyGraphicsSettings()

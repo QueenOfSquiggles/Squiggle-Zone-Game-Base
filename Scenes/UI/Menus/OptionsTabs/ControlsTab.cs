@@ -1,22 +1,41 @@
+using System;
+using System.Threading.Tasks;
 using Godot;
 using queen.data;
 using queen.error;
+using queen.events;
 using queen.extension;
-using System;
-using System.Threading.Tasks;
 
 public partial class ControlsTab : PanelContainer
 {
+
+    [Export] private NodePath PathSliderMouseSensitive;
+    [Export] private NodePath PathSliderGamepadSensitive;
 
     private bool Listening = false;
     private string CurrentActionTarget = "";
     private Popup popup_listening;
 
+    private Slider SliderMouse;
+    private Slider SliderGamepad;
+
     public override void _Ready()
     {
         this.GetNode("ListeningPopup", out popup_listening);
+        this.GetSafe(PathSliderMouseSensitive, out SliderMouse);
+        this.GetSafe(PathSliderGamepadSensitive, out SliderGamepad);
         popup_listening.Exclusive = true;
         popup_listening.WindowInput += _Input;
+
+        SliderMouse.Value = Controls.Instance.MouseLookSensivity;
+        SliderGamepad.Value = Controls.Instance.ControllerLookSensitivity;
+
+        Events.Data.SerializeAll += ApplyChanges;
+    }
+
+    public override void _ExitTree()
+    {
+        Events.Data.SerializeAll -= ApplyChanges;
     }
 
     public async void ListenForAction(string action_name)
@@ -31,7 +50,7 @@ public partial class ControlsTab : PanelContainer
     {
         if (!Listening) return;
         if (CurrentActionTarget.Length == 0) return;
-        
+
         bool is_valid = false;
 
         // OMFG I'm loving pattern matching!!!
@@ -57,6 +76,8 @@ public partial class ControlsTab : PanelContainer
 
     public void ApplyChanges()
     {
+        Controls.Instance.MouseLookSensivity = (float)SliderMouse.Value;
+        Controls.Instance.ControllerLookSensitivity = (float)SliderGamepad.Value;
         Controls.SaveSettings();
     }
 

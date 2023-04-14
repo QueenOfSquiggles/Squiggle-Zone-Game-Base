@@ -1,7 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://ceeiivirtbxx6"]
+[gd_scene load_steps=17 format=3 uid="uid://ceeiivirtbxx6"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/GraphicsTab.cs" id="1_lbres"]
-[ext_resource type="PackedScene" uid="uid://k232n2d5u1u4" path="res://Scenes/UI/Menus/OptionsTabs/slider_combo.tscn" id="2_h61vd"]
+[ext_resource type="PackedScene" uid="uid://sgndh4ywb4st" path="res://Scenes/UI/Menus/OptionsTabs/slider_combo.tscn" id="2_h61vd"]
+[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_effects.tscn" id="2_u0rvq"]
+[ext_resource type="PackedScene" path="res://Scenes/Utility/UI_Tools/request_focus_on_parent.tscn" id="4_6nv34"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_li7xm"]
 albedo_color = Color(0, 0.576471, 0.72549, 1)
@@ -94,6 +96,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Apply Graphics Settings"
 
+[node name="UIEffects" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer2/BtnApplySettings" instance=ExtResource("2_u0rvq")]
+
 [node name="HBoxContainer" type="HBoxContainer" parent="GraphicsTab/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -150,11 +154,15 @@ popup/item_2/id = 3
 popup/item_3/text = "Full Exclusive"
 popup/item_3/id = 4
 
+[node name="UIEffects" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OptionFullscreenMode" instance=ExtResource("2_u0rvq")]
+
 [node name="CheckBloom" type="CheckBox" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "The glowing of illuminated objects. 
 Fairly low impact on performance"
 text = "Bloom"
+
+[node name="UIEffects_5" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer/CheckBloom" instance=ExtResource("2_u0rvq")]
 
 [node name="CheckSSAO" type="CheckBox" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -162,17 +170,25 @@ tooltip_text = "The glowing of illuminated objects.
 Fairly low impact on performance"
 text = "Screen-Space Ambient Occlusion"
 
+[node name="UIEffects_4" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer/CheckSSAO" instance=ExtResource("2_u0rvq")]
+
 [node name="CheckSSR" type="CheckBox" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Screen-Space Reflections"
+
+[node name="UIEffects_3" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer/CheckSSR" instance=ExtResource("2_u0rvq")]
 
 [node name="CheckSSIL" type="CheckBox" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Screen-Space Indirect Lighting"
 
+[node name="UIEffects_2" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer/CheckSSIL" instance=ExtResource("2_u0rvq")]
+
 [node name="CheckSDFGI" type="CheckBox" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "SDF Global Illumination"
+
+[node name="UIEffects" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer/CheckSDFGI" instance=ExtResource("2_u0rvq")]
 
 [node name="SlideExposure" parent="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_h61vd")]
 layout_mode = 2
@@ -285,6 +301,10 @@ mesh = SubResource("TorusMesh_ryoah")
 transform = Transform3D(0.687972, 1.19653, 3.50662, -0.874471, 3.51824, -1.02892, -3.60047, -0.625868, 0.919942, -6.72783, 0.984059, 1.27368)
 material_override = SubResource("StandardMaterial3D_scu24")
 mesh = SubResource("QuadMesh_jq6ow")
+
+[node name="RequestFocusOnParent" parent="." instance=ExtResource("4_6nv34")]
+layout_mode = 2
+focus_target = NodePath("../GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer2/BtnApplySettings")
 
 [connection signal="pressed" from="GraphicsTab/MarginContainer/VBoxContainer/HBoxContainer2/BtnApplySettings" to="GraphicsTab" method="ApplyGraphicsSettings"]
 

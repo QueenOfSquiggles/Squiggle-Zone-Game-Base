@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2wm73rnqv8pq"]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/CreditsScene.cs" id="2_0eafv"]
 [ext_resource type="PackedScene" path="res://Scenes/Utility/UI_Tools/request_focus_on_parent.tscn" id="4_5aol3"]
-[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_sounds.tscn" id="4_7sq8l"]
+[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_effects.tscn" id="4_7sq8l"]
 
 [node name="CreditsScene" type="Control"]
 layout_mode = 3
@@ -132,6 +132,27 @@ text = "Link"
 uri = "https://raylibtech.itch.io/rfxgen"
 
 [node name="UISounds" parent="CreditsPanel/PanelContainer/VBoxContainer/GridContainer/LinkButton9" instance=ExtResource("4_7sq8l")]
+
+[node name="Category9_2" type="Label" parent="CreditsPanel/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Some Retro Assets"
+
+[node name="VSeparator22_2" type="VSeparator" parent="CreditsPanel/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Name9_2" type="Label" parent="CreditsPanel/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Classic64 (craigsnedeker)"
+
+[node name="VSeparator23_2" type="VSeparator" parent="CreditsPanel/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="LinkButton9_2" type="LinkButton" parent="CreditsPanel/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Link"
+uri = "https://craigsnedeker.itch.io/classic64-asset-library"
+
+[node name="UISounds" parent="CreditsPanel/PanelContainer/VBoxContainer/GridContainer/LinkButton9_2" instance=ExtResource("4_7sq8l")]
 
 [node name="Category8" type="Label" parent="CreditsPanel/PanelContainer/VBoxContainer/GridContainer"]
 layout_mode = 2

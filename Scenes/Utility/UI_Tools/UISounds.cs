@@ -7,6 +7,7 @@ using queen.extension;
 
 public partial class UISounds : Node
 {
+    [Export] private float PopUIScale = 1.1f;
 
     [Export] private NodePath path_select_sfx;
     [Export] private NodePath path_click_sfx;
@@ -14,6 +15,7 @@ public partial class UISounds : Node
     private AudioStreamPlayer sfx_select;
     private AudioStreamPlayer sfx_click;
     private static string VoiceID = "";
+    private Tween? LastTween = null;
 
     public override void _Ready()
     {
@@ -25,6 +27,7 @@ public partial class UISounds : Node
         if (Debugging.Assert(parent != null, "UISounds node must be child of a Control node!"))
         {
             ConnectSignalsDelayed(parent, 50);
+            parent.SetAnchorsPreset(Control.LayoutPreset.Center); // anchor center for uniform scaling
         }
     }
 
@@ -56,7 +59,10 @@ public partial class UISounds : Node
         if (Access.Instance.ReadVisibleTextAloud && GetParent().Get("text").VariantType != Variant.Type.Nil)
             DoTTS(GetParent().Get("text").AsString());
         sfx_select.Play();
+        AnimatePop();
+
     }
+
     private void OnClick() => sfx_click.Play();
 
     private async void DoTTS(string msg)
@@ -64,6 +70,25 @@ public partial class UISounds : Node
         if (VoiceID == "") return;
         DisplayServer.TtsStop();
         DisplayServer.TtsSpeak(msg, VoiceID);
+    }
+
+    private void AnimatePop()
+    {
+        if (LastTween is not null)
+        {
+            // prevents duplicate scaling where the tweens will stack to create an infinitely large Control
+            LastTween.CustomStep(5.0f); // Forces a run to the end of the tween
+            LastTween.Kill();
+        }
+
+        var parent = GetParent<Control>();
+        if (parent is null) return;
+        var start_size = parent.Size;
+        var tween = GetTree().CreateTween().SetDefaultStyle();
+        tween.TweenProperty(parent, "size", start_size * PopUIScale, 0.1);
+        tween.TweenProperty(parent, "size", start_size, 0.05);
+        LastTween = tween;
+
     }
 
     private void GetTTSVoiceID()

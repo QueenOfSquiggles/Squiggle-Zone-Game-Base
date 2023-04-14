@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Godot;
+using queen.data;
 using queen.error;
 using queen.events;
 using queen.extension;
@@ -8,6 +9,10 @@ using queen.extension;
 public partial class DefaultHUD : Control
 {
 
+    [ExportGroup("Reticle Settings", "Reticle")]
+    [Export] private float TransitionTime = 0.2f;
+
+    [ExportGroup("Paths")]
     [Export] private NodePath path_label_subtitle;
     [Export] private NodePath path_label_alert;
 
@@ -46,7 +51,7 @@ public partial class DefaultHUD : Control
         root_subtitle.Modulate = COLOUR_TRANSPARENT;
         root_alert.Modulate = COLOUR_TRANSPARENT;
 
-        reticle.Scale = Vector2.Zero;
+        reticle.Scale = Vector2.One * Access.Instance.ReticleHiddenScale;
         interaction_prompt.Text = "";
 
 
@@ -82,7 +87,7 @@ public partial class DefaultHUD : Control
 
     private void HandleAnimation(Control control, bool isVisible)
     {
-        var tween = GetTree().CreateTween();
+        var tween = GetTree().CreateTween().SetDefaultStyle();
         var colour = isVisible ? COLOUR_VISIBLE : COLOUR_TRANSPARENT;
         tween.TweenProperty(control, "modulate", colour, 0.2f);
     }
@@ -90,21 +95,21 @@ public partial class DefaultHUD : Control
     private void OnCanInteract(string text)
     {
         prompt_tween?.Kill();
-        prompt_tween = GetTree().CreateTween();
+        prompt_tween = GetTree().CreateTween().SetDefaultStyle();
 
         interaction_prompt.VisibleRatio = 0.0f;
         interaction_prompt.Text = text;
 
-        prompt_tween.TweenProperty(reticle, "scale", Vector2.One, 0.3f);
+        prompt_tween.TweenProperty(reticle, "scale", Vector2.One * Access.Instance.ReticleShownScale, 0.3f);
         prompt_tween.TweenProperty(interaction_prompt, "visible_ratio", 1.0f, 0.3f);
     }
 
     private void OnCannotInteract()
     {
         prompt_tween?.Kill();
-        prompt_tween = GetTree().CreateTween();
+        prompt_tween = GetTree().CreateTween().SetDefaultStyle();
 
-        prompt_tween.TweenProperty(reticle, "scale", Vector2.Zero, 0.3f);
+        prompt_tween.TweenProperty(reticle, "scale", Vector2.One * Access.Instance.ReticleHiddenScale, 0.3f);
         prompt_tween.TweenProperty(interaction_prompt, "visible_ratio", 0.0f, 0.1f);
     }
 

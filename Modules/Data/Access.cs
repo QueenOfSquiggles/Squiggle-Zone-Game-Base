@@ -14,6 +14,10 @@ public class Access
     private const string FONT_PATH_NOTO_SANS = "res://Assets/Fonts/NotoSans-Regular.ttf";
     private const string FONT_PATH_OPEN_DYSLEXIE = "res://Assets/Fonts/OpenDyslexic-Regular.otf";
 
+    public const float RETICLE_SHOW = 0.7f;
+    public const float RETICLE_HIDE_VISIBLE = 0.2f;
+    public const float RETICLE_HIDE_INVISIBLE = 0.0f;
+
     //
     //  Meaningful information
     //      Defaults assigned as well
@@ -24,6 +28,10 @@ public class Access
     public int FontOption = FONT_GOTHIC;
     public float EngineTimeScale = 1.0f;
     public bool ReadVisibleTextAloud = false;
+    public float GUI_Scale = 1.0f;
+    public float ReticleShownScale = RETICLE_SHOW; // currently useless. Maybe I'll change this in the future?
+    public float ReticleHiddenScale = RETICLE_HIDE_INVISIBLE;
+    public bool AlwaysShowReticle = false;
 
 
 
@@ -71,7 +79,7 @@ public class Access
         // audio limiter
         var effect = AudioServer.GetBusEffect(0, 0) as AudioEffectLimiter;
         Debugging.Assert(effect != null, "Access failed to get the Limiter effect on the Master audio bus.  Make sure the indices are correct!");
-        effect.CeilingDb = Instance.AudioDecibelLimit;
+        if (effect is not null) effect.CeilingDb = Instance.AudioDecibelLimit;
 
         // font management
         string path = "";
@@ -91,7 +99,11 @@ public class Access
         if (font == null) Print.Error($"Failed to load font option from file: {path}");
         else ThemeDB.GetProjectTheme().DefaultFont = font;
 
+        ThemeDB.FallbackBaseScale = Instance.GUI_Scale;
+
         // Time scale
         Engine.TimeScale = Instance.EngineTimeScale;
+
+        Instance.ReticleHiddenScale = Instance.AlwaysShowReticle ? RETICLE_HIDE_VISIBLE : RETICLE_HIDE_INVISIBLE;
     }
 }

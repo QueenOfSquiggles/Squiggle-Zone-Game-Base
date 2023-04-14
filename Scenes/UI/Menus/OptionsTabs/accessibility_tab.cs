@@ -15,6 +15,8 @@ public partial class accessibility_tab : PanelContainer
     [Export] private NodePath path_slider_max_volume;
     [Export] private NodePath path_slider_engine_time_scale;
     [Export] private NodePath path_option_font;
+    [Export] private NodePath path_gui_scale;
+    [Export] private NodePath path_check_always_show_reticle;
 
     private CheckBox checkbox_no_flashing_lights;
     private HSlider slider_rumble_strength;
@@ -23,14 +25,17 @@ public partial class accessibility_tab : PanelContainer
     private HSlider slider_screen_shake_duration;
     private HSlider slider_max_volume;
     private HSlider slider_time_scale;
+    private Slider slider_gui_scale;
     private OptionButton option_font;
+    private CheckBox check_always_show_reticle;
 
-    private bool FontHasChanged = false;
+    private bool RequiresReload = false;
 
     public override void _Ready()
     {
         this.GetNode(path_checkbox_no_flashing_lights, out checkbox_no_flashing_lights);
         this.GetNode(path_option_font, out option_font);
+        this.GetNode(path_check_always_show_reticle, out check_always_show_reticle);
         // The Slider Combo needs to be 'cracked' to access the actual slider node. Not preferable...
         // TODO maybe find a better way to access this node? 
         slider_rumble_strength = GetNode<Control>(path_slider_rumble_strength).GetNode("HSlider") as HSlider;
@@ -39,6 +44,7 @@ public partial class accessibility_tab : PanelContainer
         slider_screen_shake_duration = GetNode<Control>(path_slider_screen_shake_duration).GetNode("HSlider") as HSlider;
         slider_max_volume = GetNode<Control>(path_slider_max_volume).GetNode("HSlider") as HSlider;
         slider_time_scale = GetNode<Control>(path_slider_engine_time_scale).GetNode("HSlider") as HSlider;
+        slider_gui_scale = GetNode<Control>(path_gui_scale).GetNode("HSlider") as HSlider;
 
         checkbox_no_flashing_lights.SetPressedNoSignal(Access.Instance.PreventFlashingLights);
         slider_rumble_strength.Value = Effects.Instance.RumbleStrength;
@@ -48,9 +54,12 @@ public partial class accessibility_tab : PanelContainer
         slider_max_volume.Value = Access.Instance.AudioDecibelLimit;
         slider_time_scale.Value = Access.Instance.EngineTimeScale;
         option_font.Selected = Access.Instance.FontOption;
+        slider_gui_scale.Value = Access.Instance.GUI_Scale;
+        check_always_show_reticle.ButtonPressed = Access.Instance.AlwaysShowReticle;
 
         checkbox_no_flashing_lights.Toggled += OnNoFlashingLightsChanged;
         option_font.ItemSelected += OnFontSelected;
+        check_always_show_reticle.Toggled += OnAlwaysShowReticleToggled;
 
         slider_rumble_strength.ValueChanged += SetRumbleStrength;
         slider_rumble_duration.ValueChanged += SetMaxRumbleDuration;
@@ -58,10 +67,12 @@ public partial class accessibility_tab : PanelContainer
         slider_screen_shake_duration.ValueChanged += SetMaxScreenShakeDuration;
         slider_max_volume.ValueChanged += SetMaxAudio;
         slider_time_scale.ValueChanged += SetEngineTimeScale;
+        slider_gui_scale.ValueChanged += SetGUIScale;
 
         Events.Data.SerializeAll += ApplyChanges;
 
     }
+
 
     public override void _ExitTree()
     {
@@ -83,19 +94,30 @@ public partial class accessibility_tab : PanelContainer
     private void SetEngineTimeScale(double value)
         => Access.Instance.EngineTimeScale = (float)value;
 
+    private void SetGUIScale(double value)
+    {
+        if (Access.Instance.GUI_Scale != (float)value)
+            RequiresReload = true;
+        Access.Instance.GUI_Scale = (float)value;
+    }
+
     private void OnFontSelected(long index)
     {
         var target = option_font.GetItemId((int)index);
         if (target == Access.Instance.FontOption) return;
 
         Access.Instance.FontOption = target;
-        FontHasChanged = true;
+        RequiresReload = true;
     }
+
+    private void OnAlwaysShowReticleToggled(bool buttonPressed)
+        => Access.Instance.AlwaysShowReticle = buttonPressed;
+
 
     public void ApplyChanges()
     {
         Access.SaveSettings();
         Effects.SaveSettings();
-        if (FontHasChanged) GetTree().ReloadCurrentScene();
+        if (RequiresReload) GetTree().ReloadCurrentScene(); // no need to set variable. reload resets everything
     }
 }

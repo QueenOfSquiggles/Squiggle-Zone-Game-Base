@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1y264llxb32g"]
+[gd_scene load_steps=7 format=3 uid="uid://5lm2kfqmwx7b"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/accessibility_tab.cs" id="1_qvlnx"]
-[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_sounds.tscn" id="2_dfu5a"]
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/CheckToggleDescriptions.gd" id="2_kk8x0"]
+[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_effects.tscn" id="2_n5o3d"]
 [ext_resource type="PackedScene" path="res://Scenes/Utility/UI_Tools/request_focus_on_parent.tscn" id="2_ukvq2"]
-[ext_resource type="PackedScene" uid="uid://k232n2d5u1u4" path="res://Scenes/UI/Menus/OptionsTabs/slider_combo.tscn" id="2_wr3cm"]
+[ext_resource type="PackedScene" uid="uid://sgndh4ywb4st" path="res://Scenes/UI/Menus/OptionsTabs/slider_combo.tscn" id="2_wr3cm"]
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/clear_scroll.gd" id="3_m8o3s"]
 
 [node name="CenterContainer" type="MarginContainer"]
@@ -31,6 +31,8 @@ path_slider_screen_shake_duration = NodePath("VBoxContainer/ScrollContainer/Marg
 path_slider_max_volume = NodePath("VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/AudioLimit/SliderCombo")
 path_slider_engine_time_scale = NodePath("VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/EngineTimeScale/Stength")
 path_option_font = NodePath("VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FontStyle2/FontStyle")
+path_gui_scale = NodePath("VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/UIScaling/SliderCombo")
+path_check_always_show_reticle = NodePath("VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/AlwaysShowReticle/CheckBox")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Accessibility"]
 layout_mode = 2
@@ -52,11 +54,7 @@ alignment = 1
 layout_mode = 2
 text = "Apply Changes"
 
-[node name="UISounds" parent="Accessibility/VBoxContainer/HBoxContainer/BtnApplyChanges" instance=ExtResource("2_dfu5a")]
-
-[node name="Control" type="Control" parent="Accessibility/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
+[node name="UIEffects" parent="Accessibility/VBoxContainer/HBoxContainer/BtnApplyChanges" instance=ExtResource("2_n5o3d")]
 
 [node name="CheckToggleDescriptions" type="CheckButton" parent="Accessibility/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -64,16 +62,14 @@ text = "Show Descriptions"
 alignment = 2
 script = ExtResource("2_kk8x0")
 
-[node name="UISounds" parent="Accessibility/VBoxContainer/HBoxContainer/CheckToggleDescriptions" instance=ExtResource("2_dfu5a")]
-
-[node name="HSeparator" type="HSeparator" parent="Accessibility/VBoxContainer"]
-layout_mode = 2
+[node name="UIEffects" parent="Accessibility/VBoxContainer/HBoxContainer/CheckToggleDescriptions" instance=ExtResource("2_n5o3d")]
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Accessibility/VBoxContainer"]
 custom_minimum_size = Vector2(0, 0.08)
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
+scroll_vertical = 100
 horizontal_scroll_mode = 0
 script = ExtResource("3_m8o3s")
 
@@ -109,12 +105,7 @@ popup/item_1/id = 1
 popup/item_2/text = "OpenDyslexie (may help with dyslexia)"
 popup/item_2/id = 2
 
-[node name="UISounds" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FontStyle2/FontStyle" instance=ExtResource("2_dfu5a")]
-
-[node name="Label4" type="Label" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FontStyle2" groups=["access_description"]]
-layout_mode = 2
-text = "Different fonts could help make text easier to read. The default font is slightly stylized, so a simpler font may be easier on your eyes."
-autowrap_mode = 3
+[node name="UIEffects" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FontStyle2/FontStyle" instance=ExtResource("2_n5o3d")]
 
 [node name="Spacing" type="Control" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
@@ -132,12 +123,7 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Less Flashing Lights"
 
-[node name="UISounds" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FlashingLights/CheckBox_NoFlashingLights" instance=ExtResource("2_dfu5a")]
-
-[node name="Label2" type="Label" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FlashingLights" groups=["access_description"]]
-layout_mode = 2
-text = "* currently this has no effect"
-autowrap_mode = 3
+[node name="UIEffects" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/FlashingLights/CheckBox_NoFlashingLights" instance=ExtResource("2_n5o3d")]
 
 [node name="HSeparator2" type="HSeparator" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -145,6 +131,25 @@ layout_mode = 2
 [node name="Spacing2" type="Control" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+
+[node name="UIScaling" type="VBoxContainer" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/UIScaling"]
+layout_mode = 2
+text = "GUI Scaling (Currently has no effect)"
+horizontal_alignment = 1
+
+[node name="SliderCombo" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/UIScaling" instance=ExtResource("2_wr3cm")]
+layout_mode = 2
+text = "UI Scale"
+min_value = 0.5
+max_value = 8.0
+
+[node name="Label2" type="Label" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/UIScaling" groups=["access_description"]]
+layout_mode = 2
+text = "Applies a global scaling to user interfaces. This can make it easier to read UI on various screen sizes. The structure is made for the screen I have which is 1920x1080. This effect is global and may have some unintended repurcussions. Start small at first to avoid complications. "
+autowrap_mode = 3
 
 [node name="AudioLimit" type="VBoxContainer" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -235,6 +240,25 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
+[node name="AlwaysShowReticle" type="VBoxContainer" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/AlwaysShowReticle"]
+layout_mode = 2
+text = "Always Show Reticle (Crosshairs)"
+horizontal_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/AlwaysShowReticle"]
+layout_mode = 2
+text = "Always Show Reticle"
+
+[node name="UIEffects" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/AlwaysShowReticle/CheckBox" instance=ExtResource("2_n5o3d")]
+
+[node name="Label2" type="Label" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/AlwaysShowReticle" groups=["access_description"]]
+layout_mode = 2
+text = "Enabling this check box will make it so the reticle is always visible. This can help with reducing motion sickness for some individuals. "
+autowrap_mode = 3
+
 [node name="EngineTimeScale" type="VBoxContainer" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -269,10 +293,10 @@ autowrap_mode = 3
 
 [node name="LinkButton" type="LinkButton" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "[Contact Me (this is a button)]"
-uri = "https://tech.lgbt/@queenofsquiggles"
+text = "Submit a request on the GitHub Respository (Requires a free GitHub account)"
+uri = "https://github.com/QueenOfSquiggles/Squiggle-Zone-Game-Base/issues/new"
 
-[node name="UISounds" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/LinkButton" instance=ExtResource("2_dfu5a")]
+[node name="UIEffects" parent="Accessibility/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/LinkButton" instance=ExtResource("2_n5o3d")]
 
 [node name="RequestFocusOnParent" parent="." instance=ExtResource("2_ukvq2")]
 layout_mode = 2

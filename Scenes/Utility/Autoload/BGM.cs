@@ -15,7 +15,7 @@ public partial class BGM : Node
 
     private AudioStreamPlayer bus_a;
     private AudioStreamPlayer bus_b;
-	private bool bus_a_active = false;
+    private bool bus_a_active = false;
 
     private static BGM Instance = null;
 
@@ -23,25 +23,25 @@ public partial class BGM : Node
     private const float DB_OFF = -79.0f;
 
     public override void _Ready()
-	{
+    {
         this.GetNode(path_bus_a, out bus_a);
         this.GetNode(path_bus_b, out bus_b);
         this.EnsureSingleton(ref Instance);
     }
 
-/// <summary>
-/// Loads a new stream to be used as background music. The music does persist across scenes because this scene does not unload.
-/// Crossfa 
-/// </summary>
-/// <param name="stream">The audio stream to play as bgm. Ideally this should be a loop. This can be null to stop all music</param>
-/// <param name="duration">The time it takes to crossfade between the current song and the next song. Defaults to 1 second</param>
-    public static void QueueSong(AudioStream stream, float duration = 1.0f, bool continue_duplicate = true) 
+    /// <summary>
+    /// Loads a new stream to be used as background music. The music does persist across scenes because this scene does not unload.
+    /// Crossfa 
+    /// </summary>
+    /// <param name="stream">The audio stream to play as bgm. Ideally this should be a loop. This can be null to stop all music</param>
+    /// <param name="duration">The time it takes to crossfade between the current song and the next song. Defaults to 1 second</param>
+    public static void QueueSong(AudioStream stream, float duration = 1.0f, bool continue_duplicate = true)
     {
         Instance.InternalQueueSong(stream, duration, continue_duplicate);
     }
 
     private void InternalQueueSong(AudioStream stream, float duration, bool continue_duplicate)
-	{
+    {
         if (continue_duplicate)
         {
             bool skip = false;
@@ -53,23 +53,25 @@ public partial class BGM : Node
             }
         }
         if (bus_a_active)
-        { 
+        {
             SwapSongs(stream, bus_b, bus_a, duration);
             bus_a_active = false;
-        } else {
+        }
+        else
+        {
             SwapSongs(stream, bus_a, bus_b, duration);
             bus_a_active = true;
         }
-	}
+    }
 
-	private void SwapSongs(AudioStream stream, AudioStreamPlayer begin, AudioStreamPlayer end, float duration)
-	{
+    private void SwapSongs(AudioStream stream, AudioStreamPlayer begin, AudioStreamPlayer end, float duration)
+    {
         begin.Stream = stream;
-        var tween = GetTree().CreateTween();
+        var tween = GetTree().CreateTween().SetDefaultStyle();
         tween.SetParallel(); // all tweens now run in parallel
         tween.TweenProperty(begin, "volume_db", DB_ON, duration);
         tween.TweenProperty(end, "volume_db", DB_OFF, duration);
-		if (begin.Stream != null) begin.Play();
+        if (begin.Stream != null) begin.Play();
 
     }
 

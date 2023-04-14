@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ce7uvb5ib5rr6"]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/MainMenu.cs" id="1_ef7d4"]
 [ext_resource type="Script" path="res://addons/dynamic-web-content/elements/dynamic_image_button.gd" id="2_somet"]
 [ext_resource type="PackedScene" path="res://Scenes/Utility/UI_Tools/request_focus_on_parent.tscn" id="3_k7orp"]
-[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_sounds.tscn" id="4_geber"]
+[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_effects.tscn" id="4_geber"]
 [ext_resource type="PackedScene" path="res://Scenes/Utility/ControlsHelp/load_controls_mappings.tscn" id="6_unbtx"]
 [ext_resource type="Script" path="res://Scenes/UI/Menus/VersioningLabel.cs" id="7_1dicm"]
 [ext_resource type="Script" path="res://Scenes/Audio/SceneBGMLoader.cs" id="8_4ubeu"]

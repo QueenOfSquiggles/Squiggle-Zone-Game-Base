@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dygyf3xkshvcm"]
+[gd_scene load_steps=6 format=3 uid="uid://btd2j8upuoh1b"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsTabs/ControlsTab.cs" id="1_y6pcj"]
-[ext_resource type="PackedScene" uid="uid://k232n2d5u1u4" path="res://Scenes/UI/Menus/OptionsTabs/slider_combo.tscn" id="2_midyy"]
+[ext_resource type="PackedScene" uid="uid://sgndh4ywb4st" path="res://Scenes/UI/Menus/OptionsTabs/slider_combo.tscn" id="2_midyy"]
 [ext_resource type="PackedScene" path="res://Scenes/Utility/UI_Tools/request_focus_on_parent.tscn" id="2_t32jc"]
-[ext_resource type="PackedScene" uid="uid://b8ikh528xlx2a" path="res://Scenes/UI/Menus/OptionsTabs/action_mapping_slot.tscn" id="3_hxwhr"]
-[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_sounds.tscn" id="3_k08te"]
+[ext_resource type="PackedScene" uid="uid://t2bcoypqjyrt" path="res://Scenes/UI/Menus/OptionsTabs/action_mapping_slot.tscn" id="3_hxwhr"]
+[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_effects.tscn" id="3_k08te"]
 
 [node name="ControlsTab" type="MarginContainer"]
 offset_right = 1152.0
@@ -137,6 +137,7 @@ layout_mode = 2
 
 [node name="Mappings" type="VBoxContainer" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="Label" type="Label" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings"]
 layout_mode = 2
@@ -182,6 +183,22 @@ TargetAction = "interact"
 layout_mode = 2
 TargetAction = "jump"
 
+[node name="Action_Sprint" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings" instance=ExtResource("3_hxwhr")]
+layout_mode = 2
+TargetAction = "sprint"
+
+[node name="Action_Crouch" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings" instance=ExtResource("3_hxwhr")]
+layout_mode = 2
+TargetAction = "crouch"
+
+[node name="Action_OpenInventory" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings" instance=ExtResource("3_hxwhr")]
+layout_mode = 2
+TargetAction = "open_inventory"
+
+[node name="Action_PickupItem" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings" instance=ExtResource("3_hxwhr")]
+layout_mode = 2
+TargetAction = "pickup_item"
+
 [node name="Action_GamepadLookUp" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings" instance=ExtResource("3_hxwhr")]
 layout_mode = 2
 TargetAction = "gamepad_look_up"
@@ -214,6 +231,14 @@ TargetAction = "gamepad_move_left"
 layout_mode = 2
 TargetAction = "gamepad_move_right"
 
+[node name="Action_UiCycleLeft" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings" instance=ExtResource("3_hxwhr")]
+layout_mode = 2
+TargetAction = "ui_cycle_left"
+
+[node name="Action_UiCycleRight" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings" instance=ExtResource("3_hxwhr")]
+layout_mode = 2
+TargetAction = "ui_cycle_right"
+
 [node name="Spacing2" type="Control" parent="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
@@ -230,6 +255,10 @@ focus_target = NodePath("../MainPanel/VBoxContainer/PanelContainer/MarginContain
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_MoveRight" to="MainPanel" method="ListenForAction"]
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_Interact" to="MainPanel" method="ListenForAction"]
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_Jump" to="MainPanel" method="ListenForAction"]
+[connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_Sprint" to="MainPanel" method="ListenForAction"]
+[connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_Crouch" to="MainPanel" method="ListenForAction"]
+[connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_OpenInventory" to="MainPanel" method="ListenForAction"]
+[connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_PickupItem" to="MainPanel" method="ListenForAction"]
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_GamepadLookUp" to="MainPanel" method="ListenForAction"]
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_GamepadLookDown" to="MainPanel" method="ListenForAction"]
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_GamepadLookLeft" to="MainPanel" method="ListenForAction"]
@@ -238,6 +267,8 @@ focus_target = NodePath("../MainPanel/VBoxContainer/PanelContainer/MarginContain
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_GamepadMoveBack" to="MainPanel" method="ListenForAction"]
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_GamepadMoveLeft" to="MainPanel" method="ListenForAction"]
 [connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_GamepadMoveRight" to="MainPanel" method="ListenForAction"]
+[connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_UiCycleLeft" to="MainPanel" method="ListenForAction"]
+[connection signal="ListenForAction" from="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Mappings/Action_UiCycleRight" to="MainPanel" method="ListenForAction"]
 
 [editable path="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/MouseSensitivity"]
 [editable path="MainPanel/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Sensitivity/GamepadSensitivity"]

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw5oemfleara3"]
+
+[ext_resource type="PackedScene" uid="uid://cpi11vcqc7gk3" path="res://Scenes/Utility/Environment/world_env_settings_compliant.tscn" id="1_54dqo"]
+[ext_resource type="Script" path="res://Scenes/Sky/skybox_system.gd" id="1_eo4j3"]
+
+[node name="SkyboxSystem" type="Node3D"]
+script = ExtResource("1_eo4j3")
+current_time = 600
+
+[node name="WorldEnv_SettingsCompliant" parent="." instance=ExtResource("1_54dqo")]
+
+[node name="LightsChunk" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="Sun" type="DirectionalLight3D" parent="LightsChunk"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_blend_splits = true
+
+[node name="Moon" type="DirectionalLight3D" parent="LightsChunk"]
+visible = false
+shadow_enabled = true
+directional_shadow_blend_splits = true

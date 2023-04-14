@@ -38,6 +38,11 @@ ModLoadingStep="*res://Scenes/Modification/mod_loading_step.tscn"
 ItemRegistry="*res://Modules/Items/ItemRegistry.cs"
 ConstanceMousePosShaderUpdate="*res://Scenes/ShaderSystems/constance_mouse_pos_shader_update.tscn"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [dotnet]
 
 project/assembly_name="SquiggleZone Game Base"
@@ -56,6 +61,7 @@ enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg", "res://
 
 theme/custom="res://Assets/Theme/default_theme.tres"
 theme/custom_font="res://Assets/Fonts/DelaGothicOne-Regular.ttf"
+theme/default_font_multichannel_signed_distance_field=true
 
 [input]
 
@@ -148,11 +154,13 @@ gamepad_move_forward={
 ui_cycle_left={
 "deadzone": 0.5,
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":9,"pressure":0.0,"pressed":true,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194323,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 ui_cycle_right={
 "deadzone": 0.5,
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":10,"pressure":0.0,"pressed":true,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194324,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 sprint={

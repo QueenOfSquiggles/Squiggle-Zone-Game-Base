@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://qaoatrq0ufkr"]
+[gd_scene load_steps=9 format=3 uid="uid://qaoatrq0ufkr"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Menus/OptionsMenu.cs" id="1_hipj7"]
 [ext_resource type="PackedScene" uid="uid://dbfdlcj7agxhj" path="res://Scenes/UI/Menus/OptionsTabs/audio_tab.tscn" id="2_x8b24"]
-[ext_resource type="PackedScene" uid="uid://c1y264llxb32g" path="res://Scenes/UI/Menus/OptionsTabs/accessibility_tab.tscn" id="3_si5nr"]
+[ext_resource type="PackedScene" uid="uid://5lm2kfqmwx7b" path="res://Scenes/UI/Menus/OptionsTabs/accessibility_tab.tscn" id="3_si5nr"]
 [ext_resource type="Script" path="res://Scenes/UI/Menus/TabContainerGamepadSupport.cs" id="4_uas64"]
 [ext_resource type="PackedScene" uid="uid://ceeiivirtbxx6" path="res://Scenes/UI/Menus/OptionsTabs/graphics_tab.tscn" id="5_uxrhy"]
 [ext_resource type="PackedScene" path="res://Scenes/Utility/UI_Tools/request_focus_on_parent.tscn" id="7_ucu0u"]
-[ext_resource type="PackedScene" uid="uid://dygyf3xkshvcm" path="res://Scenes/UI/Menus/OptionsTabs/controls_tab.tscn" id="8_8g037"]
+[ext_resource type="PackedScene" uid="uid://ci8q8yf6jrc8n" path="res://Scenes/Utility/UI_Tools/ui_effects.tscn" id="7_wovvf"]
+[ext_resource type="PackedScene" uid="uid://btd2j8upuoh1b" path="res://Scenes/UI/Menus/OptionsTabs/controls_tab.tscn" id="8_8g037"]
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -68,6 +69,8 @@ layout_mode = 2
 [node name="MenuButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Return to Main Menu"
+
+[node name="UIEffects" parent="VBoxContainer/MenuButton" instance=ExtResource("7_wovvf")]
 
 [node name="RequestFocusOnParent" parent="." instance=ExtResource("7_ucu0u")]
 offset_top = 595.0

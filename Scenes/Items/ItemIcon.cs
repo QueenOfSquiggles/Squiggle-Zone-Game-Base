@@ -37,7 +37,7 @@ public partial class ItemIcon : TextureRect
 
     private void TweenSelectOverlayColourTo(Color color)
     {
-        var tween = GetTree().CreateTween();
+        var tween = GetTree().CreateTween().SetDefaultStyle();
         tween.TweenProperty(SelectOverlay, "self_modulate", color, SelectOverlayTweenTime);
     }
 }

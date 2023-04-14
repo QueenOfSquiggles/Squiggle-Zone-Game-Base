@@ -7,7 +7,8 @@ a boilerplate game base for making 3D first person horror games in Godot 4.
 - Vulkan supporting Graphics Card
 
 ## Licensing
-
+The code, assets, and such within this repository are all under the MIT license unless otherwise specified.
+There do exist several third party assets in this repo. For each pack the license is contained in a license file within the folder of the assets. I make no claim to have created these assets, they are solely the creation of their listed creators. Many such third party assets are used for testing purposes primarily and should be purged when creating a game using this game base. 
 
 ## Main Features
 *I may have forgotten some lol*

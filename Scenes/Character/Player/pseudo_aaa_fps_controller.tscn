@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://buiwria0scnlv"]
 
-[ext_resource type="PackedScene" uid="uid://xiabcgjmvnuf" path="res://Scenes/World/GroundMaterial/ground_material_poller.tscn" id="1_3sd8l"]
 [ext_resource type="Script" path="res://Scenes/Character/Player/PsuedoAAACharController.cs" id="1_av74f"]
 [ext_resource type="PackedScene" path="res://Scenes/Utility/CameraUtilities/virtual_camera.tscn" id="2_yeh30"]
 [ext_resource type="PackedScene" uid="uid://db4g3dbnfr7m5" path="res://Scenes/ShaderSystems/set_shader_global_position.tscn" id="4_ja1gl"]
 [ext_resource type="PackedScene" uid="uid://oibipfp1t7ca" path="res://Scenes/Items/inventory_component.tscn" id="4_y38he"]
+[ext_resource type="PackedScene" uid="uid://dg7138iwmapsx" path="res://Scenes/Character/Components/footstep_sounds_component.tscn" id="6_63xay"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_elj5e"]
 height = 0.8
@@ -103,7 +103,6 @@ script = ExtResource("1_av74f")
 mouse_sensitivity = 0.003
 StepStrength = 5.0
 PathVCam = NodePath("CamRoot/CameraSway/VirtualCamera")
-PathGroundMaterialPoll = NodePath("GroundMaterialPoller")
 PathAnimationPlayer = NodePath("AnimationPlayer")
 PathCanStandCheck = NodePath("CanStandCheck")
 PathStepCheckTop = NodePath("StepRayTop")
@@ -122,8 +121,6 @@ shape = SubResource("CapsuleShape3D_su5j5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 target_position = Vector3(0, 0.9, 0)
 debug_shape_custom_color = Color(1, 0.34902, 0, 1)
-
-[node name="GroundMaterialPoller" parent="." instance=ExtResource("1_3sd8l")]
 
 [node name="StepRayTop" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22997, 0)
@@ -153,8 +150,10 @@ libraries = {
 "": SubResource("AnimationLibrary_lteou")
 }
 
-[node name="InventoryComponent" parent="." instance=ExtResource("4_y38he")]
-InventoryDefaultSize = Vector2i(3, 3)
-
 [node name="SetShaderGlobalPosition" parent="." instance=ExtResource("4_ja1gl")]
 uniform_name = "player_position"
+
+[node name="FootstepSoundsComponent" parent="." instance=ExtResource("6_63xay")]
+
+[node name="InventoryComponent" parent="." instance=ExtResource("4_y38he")]
+InventoryDefaultSize = Vector2i(3, 3)

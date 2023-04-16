@@ -1,0 +1,23 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=7 format=3 uid="uid://00nsf5a8m4l5"]
+
+[ext_resource type="AudioStream" uid="uid://dttjcuq2g5l8s" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Wood/wood_footstep_small_echo-01.ogg" id="1_24ivf"]
+[ext_resource type="AudioStream" uid="uid://b711oskveh2rk" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Wood/wood_footstep_small_echo-02.ogg" id="2_es7h4"]
+[ext_resource type="AudioStream" uid="uid://ddsem7panecn5" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Wood/wood_footstep_small_echo-03.ogg" id="3_xr0bi"]
+[ext_resource type="AudioStream" uid="uid://d23cyqceid2wa" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Wood/wood_footstep_small_echo-04.ogg" id="4_g0c7m"]
+[ext_resource type="AudioStream" uid="uid://da7mwvsid2hcn" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Wood/wood_footstep_small_echo-05.ogg" id="5_wrk4s"]
+[ext_resource type="AudioStream" uid="uid://dsjf5oup8fg4s" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Wood/wood_footstep_small_echo-06.ogg" id="6_vtk8g"]
+
+[resource]
+streams_count = 6
+stream_0/stream = ExtResource("1_24ivf")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_es7h4")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_xr0bi")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_g0c7m")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("5_wrk4s")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("6_vtk8g")
+stream_5/weight = 1.0

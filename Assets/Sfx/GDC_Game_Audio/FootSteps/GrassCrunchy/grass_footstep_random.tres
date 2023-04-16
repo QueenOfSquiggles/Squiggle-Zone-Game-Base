@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://bkdhbpovel7b6"]
+
+[ext_resource type="AudioStream" uid="uid://imipcvfkke4o" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/GrassCrunchy/PM_SDGS_14 Footstep Step Dry Grass Shrubs Pine Needles Meadow .wav" id="1_dwk50"]
+[ext_resource type="AudioStream" uid="uid://bkdk1otpqkpj7" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/GrassCrunchy/PM_SDGS_113 Footstep Step Dry Grass Shrubs Pine Needles Meadow .wav" id="2_holy3"]
+[ext_resource type="AudioStream" uid="uid://cnsydpyfop1h" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/GrassCrunchy/PM_SDGS_186 Footstep Step Dry Grass Shrubs Pine Needles Meadow .wav" id="3_7u7se"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_dwk50")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_holy3")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_7u7se")
+stream_2/weight = 1.0

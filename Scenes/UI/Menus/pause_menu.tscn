@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://ded172dwi4pqg"]
 
 [ext_resource type="PackedScene" path="res://Scenes/Utility/UI_Tools/request_focus_on_parent.tscn" id="2_4gb37"]
 [ext_resource type="Script" path="res://Scenes/UI/Menus/PauseMenu.cs" id="2_u13u6"]

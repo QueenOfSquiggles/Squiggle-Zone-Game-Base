@@ -1,0 +1,17 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=5 format=3 uid="uid://ccgiqj0pbd34p"]
+
+[ext_resource type="AudioStream" uid="uid://cwvdhvf1qyoiv" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Metal/metal_footstep_single_-01.ogg" id="1_f12my"]
+[ext_resource type="AudioStream" uid="uid://cna25kqwvx07j" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Metal/metal_footstep_single_-02.ogg" id="2_vfhuk"]
+[ext_resource type="AudioStream" uid="uid://dumcbpaq8uso3" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Metal/metal_footstep_single_-03.ogg" id="3_81eh0"]
+[ext_resource type="AudioStream" uid="uid://bus2o8bbrjsb7" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Metal/metal_footstep_single_-04.ogg" id="4_fhxeg"]
+
+[resource]
+streams_count = 4
+stream_0/stream = ExtResource("1_f12my")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_vfhuk")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_81eh0")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_fhxeg")
+stream_3/weight = 1.0

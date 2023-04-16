@@ -23,7 +23,6 @@ public partial class PsuedoAAACharController : CharacterBody3D
 
     [ExportGroup("Node Paths")]
     [Export] private NodePath PathVCam;
-    [Export] private NodePath PathGroundMaterialPoll;
     [Export] private NodePath PathAnimationPlayer;
     [Export] private NodePath PathCanStandCheck;
     [Export] private NodePath PathStepCheckTop;
@@ -32,7 +31,6 @@ public partial class PsuedoAAACharController : CharacterBody3D
 
     // References
     private VirtualCamera vcam;
-    private GroundMaterialPoller groundMaterialPoller;
     private AnimationPlayer anim;
     private RayCast3D CanStandCheck;
     private RayCast3D CanStepCheckTop;
@@ -54,7 +52,6 @@ public partial class PsuedoAAACharController : CharacterBody3D
     public override void _Ready()
     {
         this.GetSafe(PathVCam, out vcam);
-        this.GetSafe(PathGroundMaterialPoll, out groundMaterialPoller);
         this.GetSafe(PathAnimationPlayer, out anim);
         this.GetSafe(PathCanStandCheck, out CanStandCheck);
         this.GetSafe(PathStepCheckTop, out CanStepCheckTop);

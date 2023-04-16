@@ -1,0 +1,23 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=7 format=3 uid="uid://d0w28mcjwvlmk"]
+
+[ext_resource type="AudioStream" uid="uid://caooe3x6vpoet" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Snow/snow_footstep_single-01.ogg" id="1_tapuy"]
+[ext_resource type="AudioStream" uid="uid://bcn4igbwlejm1" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Snow/snow_footstep_single-02.ogg" id="2_ccsq5"]
+[ext_resource type="AudioStream" uid="uid://7b2bng5hax57" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Snow/snow_footstep_single-03.ogg" id="3_5u8wa"]
+[ext_resource type="AudioStream" uid="uid://cf366db2jonfs" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Snow/snow_footstep_single-04.ogg" id="4_is50r"]
+[ext_resource type="AudioStream" uid="uid://dd5lvihi13e0e" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Snow/snow_footstep_single-05.ogg" id="5_pvvlt"]
+[ext_resource type="AudioStream" uid="uid://82h6erdxuaqk" path="res://Assets/Sfx/GDC_Game_Audio/FootSteps/Snow/snow_footstep_single-06.ogg" id="6_nedk0"]
+
+[resource]
+streams_count = 6
+stream_0/stream = ExtResource("1_tapuy")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_ccsq5")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_5u8wa")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_is50r")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("5_pvvlt")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("6_nedk0")
+stream_5/weight = 1.0

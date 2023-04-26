@@ -6,6 +6,7 @@
 
 [node name="UIEffects" type="Node"]
 script = ExtResource("1_er1d8")
+PopUIScale = 1.01
 path_select_sfx = NodePath("Select")
 path_click_sfx = NodePath("Click")
 

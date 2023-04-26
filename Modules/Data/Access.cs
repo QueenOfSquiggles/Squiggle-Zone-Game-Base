@@ -14,8 +14,8 @@ public class Access
     private const string FONT_PATH_NOTO_SANS = "res://Assets/Fonts/NotoSans-Regular.ttf";
     private const string FONT_PATH_OPEN_DYSLEXIE = "res://Assets/Fonts/OpenDyslexic-Regular.otf";
 
-    public const float RETICLE_SHOW = 0.7f;
-    public const float RETICLE_HIDE_VISIBLE = 0.2f;
+    public const float RETICLE_SHOW = 0.4f;
+    public const float RETICLE_HIDE_VISIBLE = 0.1f;
     public const float RETICLE_HIDE_INVISIBLE = 0.0f;
 
     //

@@ -9,8 +9,9 @@ using queen.extension;
 public partial class DefaultHUD : Control
 {
 
-    [ExportGroup("Reticle Settings", "Reticle")]
+    [ExportGroup("Reticle Settings")]
     [Export] private float TransitionTime = 0.2f;
+
 
     [ExportGroup("Paths")]
     [Export] private NodePath path_label_subtitle;
@@ -96,7 +97,7 @@ public partial class DefaultHUD : Control
     {
         prompt_tween?.Kill();
         prompt_tween = GetTree().CreateTween().SetDefaultStyle();
-
+        prompt_tween.SetTrans(Tween.TransitionType.Bounce);
         interaction_prompt.VisibleRatio = 0.0f;
         interaction_prompt.Text = text;
 
@@ -108,6 +109,7 @@ public partial class DefaultHUD : Control
     {
         prompt_tween?.Kill();
         prompt_tween = GetTree().CreateTween().SetDefaultStyle();
+        prompt_tween.SetTrans(Tween.TransitionType.Bounce);
 
         prompt_tween.TweenProperty(reticle, "scale", Vector2.One * Access.Instance.ReticleHiddenScale, 0.3f);
         prompt_tween.TweenProperty(interaction_prompt, "visible_ratio", 0.0f, 0.1f);

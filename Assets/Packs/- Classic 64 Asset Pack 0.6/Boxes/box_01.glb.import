@@ -28,5 +28,12 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Box_Industry_Food": {
+"use_external/enabled": true,
+"use_external/path": "res://Assets/Packs/- Classic 64 Asset Pack 0.6/Boxes/Materials/MaterialBox1.tres"
+}
+}
+}
 gltf/embedded_image_handling=1

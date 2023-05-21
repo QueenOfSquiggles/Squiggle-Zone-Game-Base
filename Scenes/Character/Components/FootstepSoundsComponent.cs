@@ -102,11 +102,11 @@ public partial class FootstepSoundsComponent : Node3D
     }
 
 
-    private void SetMaterialSound(GroundMaterial ground_material)
+    private void SetMaterialSound(GroundMaterial? ground_material)
     {
-        if (StepSound is null) return;
         var double_play = StepSound.Playing;
-        StepSound.Stream = ground_material.MaterialAudio;
+
+        StepSound.Stream = ground_material?.MaterialAudio;
         if (double_play) TryPlayStepSound();
     }
 

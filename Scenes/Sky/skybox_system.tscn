@@ -5,20 +5,22 @@
 
 [node name="SkyboxSystem" type="Node3D"]
 script = ExtResource("1_eo4j3")
-current_time = 251
+current_time = 269
 
 [node name="WorldEnv_SettingsCompliant" parent="." instance=ExtResource("1_54dqo")]
 
 [node name="LightsChunk" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.791757, -0.610836, 0, 0.610836, 0.791757, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.762104, -0.647455, 0, 0.647455, 0.762104, 0, 0, 0)
 
 [node name="Sun" type="DirectionalLight3D" parent="LightsChunk"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 shadow_enabled = true
 directional_shadow_blend_splits = true
+directional_shadow_max_distance = 500.0
 
 [node name="Moon" type="DirectionalLight3D" parent="LightsChunk"]
 visible = false
 light_color = Color(0.560784, 0.937255, 1, 1)
 shadow_enabled = true
 directional_shadow_blend_splits = true
+directional_shadow_max_distance = 500.0

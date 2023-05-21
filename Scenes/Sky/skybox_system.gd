@@ -10,6 +10,12 @@ This system requires that a variety of values are assigned as a consequence of t
 @export var current_time :int = 600 : set=_set_current_time
 @export var midnight_wrapping :int = 2400
 
+@export_category("Colours")
+@export var sun_colour = Color.WHITE
+@export var moon_colour = Color.DODGER_BLUE;
+@export var sun_brightness = 1.5
+@export var moon_brightness = 1.1
+
 @export_category("Debugging Settings")
 @export_group("Daylight Cycle")
 @export var test_daylight_cycle := false
@@ -39,10 +45,15 @@ func _set_time_of_day_artifacts() -> void:
 	if is_day:
 		sun.visible = true
 		moon.visible = false
+		RenderingServer.global_shader_parameter_set("sun_angle", light_angle.rotation)
+		RenderingServer.global_shader_parameter_set("sun_colour", sun_colour)
+		RenderingServer.global_shader_parameter_set("sun_brightness", sun_brightness)
 	else:
 		sun.visible = false
 		moon.visible = true
-		
+		RenderingServer.global_shader_parameter_set("sun_angle", -light_angle.rotation)
+		RenderingServer.global_shader_parameter_set("sun_colour", moon_colour)
+		RenderingServer.global_shader_parameter_set("sun_brightness", moon_brightness)
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint() and not has_editor_init:

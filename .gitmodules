@@ -1,0 +1,7 @@
+[submodule "cyclopsLevelBuilder"]
+	path = cyclopsLevelBuilder
+	url = https://github.com/blackears/cyclopsLevelBuilder.git
+	branch = master
+[submodule "cyclops"]
+	path = cyclops
+	url = https://github.com/blackears/cyclopsLevelBuilder.git

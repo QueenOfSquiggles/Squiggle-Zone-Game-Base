@@ -28,6 +28,7 @@ public partial class PsuedoAAACharController : CharacterBody3D
     [Export] private NodePath PathStepCheckTop;
     [Export] private NodePath PathStepCheckBottom;
     [Export] private NodePath PathInteractRay;
+    [Export] private NodePath PathFlashlightLight;
 
     // References
     private VirtualCamera vcam;
@@ -36,6 +37,8 @@ public partial class PsuedoAAACharController : CharacterBody3D
     private RayCast3D CanStepCheckTop;
     private RayCast3D CanStepCheckBottom;
     private RayCast3D InteractionRay;
+    private Light3D Flashlight;
+
 
     // Values
     private Vector2 camera_look_vector = new();
@@ -57,6 +60,7 @@ public partial class PsuedoAAACharController : CharacterBody3D
         this.GetSafe(PathStepCheckTop, out CanStepCheckTop);
         this.GetSafe(PathStepCheckBottom, out CanStepCheckBottom);
         this.GetSafe(PathInteractRay, out InteractionRay);
+        this.GetSafe(PathFlashlightLight, out Flashlight);
 
         CanStepCheckTop.Position += new Vector3(0, StepHeight, 0);
         CanStepCheckBottom_CastLength = CanStepCheckBottom.TargetPosition.Length();
@@ -186,6 +190,7 @@ public partial class PsuedoAAACharController : CharacterBody3D
             handled |= InputInteract(e);
             handled |= InputCrouch(e);
             handled |= InputOpenInventory(e);
+            handled |= InputToggleFlashlight(e);
             // TODO add in other controls here!
 
         }
@@ -245,6 +250,13 @@ public partial class PsuedoAAACharController : CharacterBody3D
         InventoryToggle = !InventoryToggle;
         Events.GUI.TriggerRequestInventory(InventoryToggle);
         Velocity = Vector3.Zero;
+        return true;
+    }
+
+    private bool InputToggleFlashlight(InputEvent e)
+    {
+        if (!e.IsActionPressed("toggle_flashlight")) return false;
+        Flashlight.EditorOnly = !Flashlight.EditorOnly;
         return true;
     }
 

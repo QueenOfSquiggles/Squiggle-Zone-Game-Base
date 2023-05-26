@@ -108,6 +108,7 @@ PathCanStandCheck = NodePath("CanStandCheck")
 PathStepCheckTop = NodePath("StepRayTop")
 PathStepCheckBottom = NodePath("StepRayBottom")
 PathInteractRay = NodePath("CamRoot/CameraSway/VirtualCamera/InteractRay")
+PathFlashlightLight = NodePath("CamRoot/CameraSway/VirtualCamera/Flashlight")
 
 [node name="LowerBody" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
@@ -144,6 +145,16 @@ AllowVCamChildren = true
 
 [node name="InteractRay" type="RayCast3D" parent="CamRoot/CameraSway/VirtualCamera"]
 target_position = Vector3(0, 0, -2.5)
+
+[node name="Flashlight" type="SpotLight3D" parent="CamRoot/CameraSway/VirtualCamera"]
+editor_description = "Note: we are using 'editor_only' as a toggle in-game. Probably not best practice but if it works it works"
+light_bake_mode = 0
+shadow_enabled = true
+editor_only = true
+spot_range = 20.0
+spot_attenuation = 0.0371628
+spot_angle = 25.0
+spot_angle_attenuation = 1.6245
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

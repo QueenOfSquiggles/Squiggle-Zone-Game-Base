@@ -1,7 +1,7 @@
 ; Engine configuration file.
 ; It's best edited using the editor UI and not directly,
 ; since the parameters that go here are not all obvious.
-;
+; 
 ; Format:
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
@@ -27,7 +27,8 @@ config/name="SquiggleZone Game Base"
 run/main_scene="res://Scenes/UI/LaunchSequence/launch_sequence.tscn"
 config/features=PackedStringArray("4.0", "C#", "Forward Plus")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
+config/description=""
 
 [autoload]
 
@@ -37,6 +38,7 @@ Scenes="*res://Scenes/Utility/Autoload/scenes.tscn"
 ModLoadingStep="*res://Scenes/Modification/mod_loading_step.tscn"
 ItemRegistry="*res://Modules/Items/ItemRegistry.cs"
 ConstanceMousePosShaderUpdate="*res://Scenes/ShaderSystems/constance_mouse_pos_shader_update.tscn"
+CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 
 [display]
 
@@ -55,7 +57,7 @@ naming/default_signal_callback_name="_on_{signal_name}"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg", "res://addons/MonoCustomResourceRegistry/plugin.cfg")
+enabled=PackedStringArray("res://addons/dynamic-web-content/plugin.cfg", "res://addons/MonoCustomResourceRegistry/plugin.cfg", "res://addons/cyclops_level_builder/plugin.cfg")
 
 [gui]
 
@@ -185,6 +187,11 @@ pickup_item={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"double_click":false,"script":null)
 ]
 }
+toggle_flashlight={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":70,"key_label":0,"unicode":102,"echo":false,"script":null)
+]
+}
 
 [physics]
 
@@ -204,3 +211,16 @@ mouse_position={
 "type": "vec2",
 "value": Vector2(128, 128)
 }
+sun_angle={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}
+sun_colour={
+"type": "color",
+"value": Color(1, 1, 1, 1)
+}
+sun_brightness={
+"type": "float",
+"value": 1.0
+}
+

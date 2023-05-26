@@ -1,7 +1,7 @@
 // Credits - Gyrth @ Godot Shaders
 // License: CC0
 // https://godotshaders.com/shader/panoramic-textured-sky-with-clouds/
-// Modified to use full colour, not greyscale
+// Incredibly Modified
 
 shader_type sky;
 
@@ -21,7 +21,9 @@ uniform float sky_contribution : hint_range(0.0, 1.0, 0.1) = 0.5;
 
 uniform vec4 sky_colour : source_color = vec4(0.0, 0.0, 1.0, 1.0);
 uniform vec4 cloud_tint : source_color = vec4(1.0);
-
+global uniform vec3 sun_angle = vec3(0.0, -1.0, 0.0);
+global uniform vec4 sun_colour = vec4(1.0);
+global uniform float sun_brightness = 1.0;
 
 const mat2 m = mat2(vec2( 1.6, 1.2), vec2(-1.2, 1.6));
 
@@ -136,7 +138,14 @@ void sky() {
 		
 		vec3 result = mix(sky_colour.rgb, clamp(sky_tint * sky_colour.rgb + cloudcolour * cloud_tint.rgb, 0.0, 1.0), clamp(f + c, 0.0, 1.0) * horizon_fall_off);
 		
-		// Convert the color to black and white.
-		COLOR = result; // vec3((result.r + result.g + result.b) / 3.0);
+		COLOR = result; 
 	}
+	
+	// TODO: How to make this actually position the light at the desited position?
+	// Also improve the sun disc size from a constant factor.
+	/* feature removed temporarily because it was impossible to see through because
+		float looking_at_sun = (dot(normalize(EYEDIR), normalize(sun_angle)) * 0.5) + 0.5;
+		looking_at_sun = pow(looking_at_sun, 100);
+		COLOR = mix(COLOR, sun_colour.rgb * sun_brightness, looking_at_sun);
+	*/
 }

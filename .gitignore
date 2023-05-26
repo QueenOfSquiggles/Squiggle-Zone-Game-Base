@@ -14,3 +14,4 @@ export/**
 **/obj/**
 *.cache
 .vs/
+*.old.*
